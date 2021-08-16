@@ -6,7 +6,7 @@
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 15:47:37 by pyg               #+#    #+#             */
-/*   Updated: 2021/08/16 15:55:57 by pyg              ###   ########.fr       */
+/*   Updated: 2021/08/16 16:04:44 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@
 # include <string.h>
 # include "../libft/libft.h"
 
-typedef struct	s_ms
+typedef struct s_ms
 {
 	int	i;
 }				t_ms;
-
 
 /*
 ** MAIN_C
