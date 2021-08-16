@@ -1,4 +1,7 @@
-SRCNAME 	=		srcs/main.c
+SRCNAME 	=	srcs/main.c					\
+				srcs/readline.c				\
+				srcs/launch.c				\
+				srcs/builtins.c
 
 SRCS 		= ${SRCNAME}
 
