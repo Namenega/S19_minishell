@@ -1,0 +1,376 @@
+READLINE
+
+<char *readline(const char *prompt)>
+
+read a line from the terminal and return it.
+the line returned is allocated with malloc().
+the caller must free it when finished.
+the line returned has the final newline removed so only the text of the line remains.
+
+readline returns the text of the line read.
+		a blank line returns an empty string.
+		returns NULL if EOF is encountered and the line is empty.
+		if EOF is read with a non-empty line, it is treated as a newline.
+
+
+
+RL_ON_NEW_LINE
+
+<int rl_on_new_line(void)>
+
+RL = readline.
+Tell the update functions that we have moved onto a new (empty) line.
+Usually after outputting a new line.
+
+
+
+RL_REPLACE_LINE
+
+<void rl_replace_line(const char *text, int clear_undo)>
+
+Replace the contents of rl_line_buffer with text.
+The point and mark are preserved, if possible.
+If clear_undo is non-zero, the undo list associated with the current line is cleared.
+
+
+
+RL_REDISPLAY
+
+<void rl_redisplay(void)>
+
+Change what's displayed on the screen to reflect the current contents of rl_line_buffer
+
+
+
+ADD_HISTORY
+
+<void add_history(const char *string)>
+
+Place string at the end of the history list.
+The associated data field is set to NULL.
+
+
+
+FORK
+
+<pid_t fork(void)>
+
+Creates a new process by duplicating the calling process.
+The new process is the child process & the calling process is the parent process.
+They run in a separated memory space.
+
+The child process is returned in the parent process, and 0 is returned in the chil.
+On failure, -1 is returned in the parent, no child is created and errno is set to indicate the error.
+
+
+
+WAIT
+
+<pid_t wait(int *status)>
+
+L'appel systeme wait() suspend l'executiondu processus appelant
+Jusqu'a ce qu'un de ses fils se termine.
+
+Succes : returns le pid du fils.
+Failure : returns -1
+
+
+
+WAITPID
+
+<pid_t waitpid(pid_t pid, int *status, int options)>
+
+L'appel systeme waitpid() suspend l'execution du processus appelant jusqu'a ce que le fils spécifié par son pid ait change d'etat.
+continuer a check le man pour les options (WIFEXITED, WUNTRACED, ...)
+
+Success : returns le pid du fils dont l'etat a changé.
+Failure : returns -1.
+
+
+
+WAIT3
+
+<pid_t wait3(int *status, int options, struct rusage *rusage)>
+
+Similaire à waitpid().
+Si rusage n'est pas NULL, la struct sur laquelle il pointe esera remplie d'info de comptabilité.
+
+Returns la meme chose que waitpid().
+
+
+
+WAIT4
+
+<pid_t wait4(pid_t pid, int *status, int options, struct rusage *rusage)>
+
+Similaire à waitpid() mais peut etre utilisé pour selectionner un/des fils spécifique à attendre.
+
+Returns la meme chose que waitpid().
+
+
+
+SIGNAL
+
+#include <signal.h>
+typedef void (*sighandler_t)(int)
+<sighandler_t signal(int signum, sighandler_t handler)>
+
+Installe le gestionnaire handler pour le signal signum.
+Handler peut SIG_IGN, SIG_DFL ou l'adresse d'une fonction definie par le programmeur.
+SIG_IGN - le signal est ignoré
+SIG_DFL - l'action par defaut associé à ce signal est entreprise
+SIGINT - ctrl+c
+SIGSTP - ctrl+z
+SIGCHLD
+SIGABRT
+SIGSEGV
+
+Succes : returns la valeur precedente du gestionnaire de signaux
+Failure : returns SIG_ERR.
+
+
+
+KILL
+
+#include <sys/types.h>
+#include <signal.h>
+<int kill(pid_t pid, int sig)>
+
+L'appel systeme kill() peut etre utilisé pour envoyer n'importe quel signal à n'importe quel process.
+pid > 0 : signal sig est envoyé au processus dont l'identifiant est indiqué par pid.
+pid = 0 : signal sig est envoyé à tous les processus appartenant au meme groupe que le processus appelant.
+pid = -1 : signal sig est envoyé à tous les processsus pour lesquels le processus appelant à la permission d'envoyer des signaux
+pid < -1 : signal sig est envoyé à tous les processus du groupe dont l'identifiant est -pid
+sig = 0 : aucun signal n'est envoyé mais les conditions d'erreur sont vérifiées
+
+Succes : returns 0
+Failure : returns -1 et errno contient le code d'erreur.
+
+
+
+GETCWD
+
+<char *getcwd(char *buf, size_t size)>
+
+Copie le chemin d'accès absolu du repertoire de travail courant dans la chaine pointée par buf, qui est de longueur size.
+
+Succes : returns buf (contenu de buf indéfini en cas d'erreur)
+Failure : returns NULL + errno avec cas d'erreur.
+
+
+
+CHDIR
+
+<int chdir(const char *path)>
+
+Remplace le repertoire de travail courant du processus appelant par celui indiqué dans le chemin path.
+
+Succes : returns 0
+Failure : returns -1
+
+
+
+STAT
+
+#include <sys/types.h>
+#include <sys/stat.h>
+<int stat (const char *path, struct stat *buf)>
+
+Renvoie des informations à propos d'un fichier. Aucune permission n'est necessaire sur le fichier lui meme.
+Recupere l'état du fichier pointé par path et remplit le tampon buf.
+
+Succes : returns 0
+Failure : returns -1
+
+
+
+
+LSTAT
+
+<int lstat (const char *path, struct stat *buf)>
+
+Renvoie des informations à propos d'un fichier. Aucune permission n'est necessaire sur le fichier lui meme.
+Identique à stat() sauf que le fichier ouvert est pointé par le descripteur fd, obtenu avec open.
+
+Succes : returns 0
+Failure : returns -1
+
+
+
+FSTAT
+
+<int lstat (const char *path, struct stat *buf)>
+
+Renvoie des informations à propos d'un fichier. Aucune permission n'est necessaire sur le fichier lui meme.
+Identique à stat() sauf que si le path est symbolique, il donne l'état du lien lui meme plutot que celui du fichier visé.
+
+Succes : returns 0
+Failure : returns -1
+
+
+
+UNLINK
+
+<int unlink(const char *pathname)>
+
+Deletes a name from the file system.
+/!\ Can delete a file + fere memory.
+
+Succes : returns 0
+Failure : returns -1
+
+
+
+EXECVE
+
+<int execve(const char *file, char const *argv[])>
+
+Execute le programme correspondat au fichier. Cleui-ci doit être un executable binaire ou un script. (/bin/ls).
+
+Succes : returns nothing
+Failure : returns -1
+
+
+
+DUP
+
+<int dup(int oldfd)>
+
+Crée une copie du descripteur de fichier oldfd.
+Utilise le plus petit numero inutilisé pour le nouveau descripteur.
+
+
+
+DUP2
+
+<int dup2(int oldfd, int newfd)>
+
+Crée une copie du descripteur de fichier oldfd.
+Transforme newfd en une copie de oldfd, fermant auparavant newfd si besoin est.
+/!\ si oldfd n'est pas valide, l'appel echoue et newfd n'est pas fermé.
+/!\ si oldfd est valide et newfd a la meme valeur que oldfd, dup2 ne fait rien et return newfd.
+
+Succes : returns newfd
+Failure : returns -1
+
+
+
+PIPE
+
+<int pipe(int pipefd[2])>
+
+Crée un tube, un canal unidirectionnel de données qui peut etre utilisépour la communication entre deux processus.
+pipefd[] est utilisé pour renvoyer deux descripteurs de fichier faisant reference aux extremités du tube.
+pipefd[0] = extrémité de lecture.
+pipefd[0] = extrémité d'écriture.
+
+Succes : returns 0
+Failure : returns -1
+
+
+
+STRERROR
+
+#include <string.h>
+
+<char *strerror(int errnum)>
+
+Renvoie une chaine décrivant le code d'erreur passé en argument errnum. 
+
+Succes : returns le message correspondant à errnum
+Failure : "Unkown error nnn" si le errnum n'existe pas.
+
+
+
+ERRNO
+
+#include <errno.h>
+
+
+
+ISATTY
+
+<int isatty(int desc)>
+
+Verifie si un descripteur se rapporte à un terminal.
+Returns 1 si desc est un descripteur de fichier ouvert connecté à un terminal.
+Returns 0 autrement.
+
+
+
+TTYNAME
+
+<char *ttyname(int fd)>
+
+Renvoie un pointeur sur le chemin d'acces terminé par une octet nul du périphérique terminal ouvert associé au descripteur de fichier fd.
+Ou NULL en cas d'erreur.
+
+
+
+TTYSLOT
+
+<int ttyslot(void)>
+
+Renvoie la position de l'entrée du terminal en cours dans un fichier.
+
+Succes : renvoie le numero d'entrée
+Failure : renvoie 0 ou -1 (dépend des systemes)
+
+
+
+IOCTL
+
+#include <sys/ioctl.h>
+<int ioctl(int d, int requete, ...)>
+
+Modifie le comportement des périphériques sous-jacents des fichiers spéciaux.
+d doit etre un descripteur de fichiers ouverts.
+'requete' est le code de la requete dependant du periphérique.
+le troisieme argument est un pointeur non-typé
+
+Success : returns 0
+Failure : returns -1
+
+
+
+GETENV
+
+<char *getenv(const char *name)>
+
+Recherche dans la liste des variables d'environnement une variable nommée name
+et renvoie un pointeur sur la chaine 'value' correspondante.
+
+Success : returns un pointeur sur la valeur correspondante
+Failure : returns NULL si pas de correspondance.
+
+
+
+TCSETATTR
+
+#include <termios.h>
+<int tcsetattr(int fd, int optional_actions, const struct termios *termios_p)>
+
+
+
+TCGETATTR
+
+#include <termios.h>
+<int tcsetattr(int fd, const struct termios *termios_p)>
+
+
+
+TGETENT
+
+TGETFLAG
+
+TGETNUM
+
+TGETSTR
+
+TGOTO
+
+TPUTS
+
+
+
+

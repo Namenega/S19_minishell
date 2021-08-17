@@ -1,7 +1,5 @@
-SRCNAME 	=	srcs/main.c					\
-				srcs/readline.c				\
-				srcs/launch.c				\
-				srcs/builtins.c
+SRCNAME 	=	./main.c	\
+				./echo.c
 
 SRCS 		= ${SRCNAME}
 
@@ -11,7 +9,7 @@ NAME		= minishell
 
 CC 			= gcc -g #-fsanitize=address
 RM 			= rm -f
-CFLAGS 		= -Wall -Wextra -Werror -I -I./includes/libft \
+CFLAGS 		= -Wall -Wextra -Werror -I -I../includes/libft \
 				-I /Users/$(USER)/.brew/opt/readline/include
 
 CGREEN		= \033[38;2;0;153;0m
@@ -28,9 +26,9 @@ ${NAME}:	${OBJS}
 		@echo
 		@echo "$(CYELLOW)Compilation of Libft$(CEND)"
 		@echo "$(CGREY)"
-		make -C ./includes/libft
+		make -C ../includes/libft
 		@echo
-		${CC} -o ${NAME} ${OBJS} -L./includes/libft -lft -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
+		${CC} -o ${NAME} ${OBJS} -L../includes/libft -lft -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
 		@echo "$(CEND)"
 		@echo "$(CGREEN)Compilation done !$(CEND)"
 		@echo
@@ -41,7 +39,7 @@ clean:
 		@echo
 		@echo "$(CYELLOW)Deleting .o files$(CEND)"
 		@echo "$(CGREY)"
-		make -C ./includes/libft clean
+		make -C ../includes/libft clean
 		${RM} ${OBJS}
 		@echo "$(CEND)"
 		@echo "$(CGREEN)Deleting done !$(CEND)"
@@ -51,7 +49,7 @@ clean:
 fclean:		clean
 		@echo "$(CYELLOW)Deleting .o files, libft.a and minishell$(CEND)"
 		@echo "$(CGREY)"
-		${RM} ${NAME} ./includes/libft/libft.a
+		${RM} ${NAME} ../includes/libft/libft.a
 		@echo "$(CEND)"
 		@echo "$(CGREEN)Deleting done !$(CEND)"
 		@echo

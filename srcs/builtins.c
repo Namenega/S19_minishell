@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:08:42 by pyg               #+#    #+#             */
-/*   Updated: 2021/08/16 17:31:04 by pyg              ###   ########.fr       */
+/*   Updated: 2021/08/17 13:40:27 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int ms_help(char **args)
 
 	i = 0;
 	(void)args;
-	printf("Namenega & Tderwedu's LSH\n");
+	printf("Namenega & Tderwedu's Minishell\n");
 	printf("Type program names and arguments, and hit enter.\n");
 	printf("The following are built in:\n");
 
