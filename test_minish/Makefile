@@ -1,5 +1,6 @@
 SRCNAME 	=	./main.c	\
-				./echo.c
+				./echo.c	\
+				./tok_recon.c
 
 SRCS 		= ${SRCNAME}
 

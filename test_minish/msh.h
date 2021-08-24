@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:37:45 by namenega          #+#    #+#             */
-/*   Updated: 2021/08/17 15:37:57 by namenega         ###   ########.fr       */
+/*   Updated: 2021/08/24 12:12:42 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,38 @@ typedef struct s_ms
 	int	i;
 }				t_ms;
 
+
+typedef struct s_token
+{
+	int		tokno;
+	char	**tokens;
+	char	*dless;
+	char	*dgreat;
+	char	great;
+	char	less;
+}				t_token;
+
 /*
 ** MAIN_C
 */
 
 int		main(int ac, char **av, char **envp);
 void	ms_loop(void);
-char	**ms_splitline(char *line);
-void	cmd(char *line);
+// char	**ms_splitline(char *line);
+// void	cmd(char *line);
 
 
-void	echo(char *line);
+// void	echo(char *line);
+
+void	tok_recon(char *line);
+void	init_t_tok(t_token *tok);
+
+
+
+
+
+
+
 // /*
 // ** READLINE_C
 // */
