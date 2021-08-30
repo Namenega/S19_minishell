@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 13:44:49 by namenega          #+#    #+#             */
-/*   Updated: 2021/08/24 12:37:12 by pyg              ###   ########.fr       */
+/*   Updated: 2021/08/30 15:31:49 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ms_loop(void)
 	status = 1;
 	while (status)
 	{
-		line = readline("our_shell> ");
+		line = readline("splinter_shell> ");
 		if (line && *line)
 			add_history(line);
 		// tokens = ms_splitline(line);
