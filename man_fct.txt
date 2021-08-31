@@ -225,7 +225,7 @@ EXECVE
 
 <int execve(const char *file, char const *argv[])>
 
-Execute le programme correspondat au fichier. Cleui-ci doit être un executable binaire ou un script. (/bin/ls).
+Execute le programme correspondant au fichier. Cleui-ci doit être un executable binaire ou un script. (/bin/ls).
 
 Succes : returns nothing
 Failure : returns -1
@@ -324,7 +324,7 @@ IOCTL
 <int ioctl(int d, int requete, ...)>
 
 Modifie le comportement des périphériques sous-jacents des fichiers spéciaux.
-d doit etre un descripteur de fichiers ouverts.
+'d' doit etre un descripteur de fichiers ouverts.
 'requete' est le code de la requete dependant du periphérique.
 le troisieme argument est un pointeur non-typé
 
@@ -373,4 +373,5 @@ TPUTS
 
 
 
-
+//testing
+bonjour "ca va " $OUI | et >> toi << ?
