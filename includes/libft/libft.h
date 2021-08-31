@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 13:18:32 by namenega          #+#    #+#             */
-/*   Updated: 2021/08/31 15:36:51 by namenega         ###   ########.fr       */
+/*   Updated: 2021/08/31 18:48:02 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ char			**ft_split(char const *s, char c);
 void			ft_free_split(char **tab);
 char			*ft_strchr(const char *s, int c);
 int				ft_strcmp(const char *s1, const char *s2);
+char			*ft_strcpy(char *dest, char *src);
 char			*ft_strdup(const char *s);
 char			*ft_strjoin(char const *s1, char const *s2);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);

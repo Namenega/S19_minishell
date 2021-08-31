@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 11:51:59 by pyg               #+#    #+#             */
-/*   Updated: 2021/08/31 15:15:28 by namenega         ###   ########.fr       */
+/*   Updated: 2021/08/31 18:36:34 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 void	init_t_tok(t_token *tok)
 {
 	tok->tokno = 0;
+	tok->i = 0;
 	tok->tokens = NULL;
 	tok->dless = NULL;
 	tok->dgreat = NULL;
@@ -27,106 +28,97 @@ void	init_t_tok(t_token *tok)
 
 void	tok_recon(char *line)
 {
-	t_token	tok;
-	int		i;
+	t_token		tok;
+	int			i;
 
 	i = 0;
 	init_t_tok(&tok);
 	line = ft_strtrim(line, " \t\r\f\v");
-	while (line && line[i])
+	while (line && line[tok.i])
 	{
-		while (line[i] && line[i] == ' ')
-			i++;
-		if (line[i] && line[i] == '|') //
+		if (line[tok.i] && is_word(line[tok.i]) == 0)
 		{
-			printf("%c", line[i]);
-			tok.tokno++;
-			i++;
-		}
-		else if (line[i] && line[i] == '<')
-		{
-			if (line[i + 1] && line[i + 1] == '<')
+			while (line[tok.i] && line[tok.i] == ' ')
+				tok.i++;
+			is_pipe(line, &tok);
+			//is_less(line, &tok)
+			if (line[tok.i] && line[tok.i] == '<')
 			{
-				printf("%c", line[i]);
-				printf("%c", line[i]);
+				if (line[tok.i + 1] && line[tok.i + 1] == '<')
+				{
+					printf("%c", line[tok.i]);
+					printf("%c", line[tok.i]);
+					tok.tokno++;
+					tok.i += 2;
+				}
+				else
+				{
+					printf("%c", line[tok.i]);
+					tok.tokno++;
+					tok.i++;
+				}
+			}
+			if (line[tok.i] && line[tok.i] == '>')
+			{
+				if (line[tok.i + 1] && line[tok.i + 1] == '>')
+				{
+					printf("%c", line[tok.i]);
+					printf("%c", line[tok.i]);
+					tok.tokno++;
+					tok.i += 2;
+				}
+				else
+				{
+					printf("%c", line[tok.i]);
+					tok.tokno++;
+					tok.i++;
+				}
+			}
+			if (line[tok.i] && line[tok.i] == '$')
+			{
+				//dollar()
+				printf("%c", line[tok.i]);
+				tok.i++;
+				while (line[tok.i] && line[tok.i] != ' ')
+				{
+					printf("%c", line[tok.i]);
+					tok.i++;
+				}
 				tok.tokno++;
-				i += 2;
 			}
-			else
+			if (line[tok.i] && line[tok.i] == '"') //dquote
 			{
-				printf("%c", line[i]);
+				printf("%c", line[tok.i]);
+				tok.i++;
+				while (line[tok.i] && line[tok.i] != '"')
+				{
+					printf("%c", line[tok.i]);
+					tok.i++;
+				}
 				tok.tokno++;
-				i++;
+				printf("%c", line[tok.i]);
+				tok.i++;
 			}
-		}
-		else if (line[i] && line[i] == '>')
-		{
-			if (line[i + 1] && line[i + 1] == '>')
+			if (line[tok.i] && line[tok.i] == '\'') //squote
 			{
-				printf("%c", line[i]);
-				printf("%c", line[i]);
+				printf("%c", line[tok.i]);
+				tok.i++;
+				while (line[tok.i] && line[tok.i] != '\'')
+				{
+					printf("%c", line[tok.i]);
+					tok.i++;
+				}
+				printf("%c", line[tok.i]);
 				tok.tokno++;
-				i += 2;
-			}
-			else
-			{
-				printf("%c", line[i]);
-				tok.tokno++;
-				i++;
+				tok.i++;
 			}
 		}
-		else if (line[i] && line[i] == '$')
-		{
-			//dollar()
-			printf("%c", line[i]);
-			i++;
-			while (line[i] && line[i] != ' ')
-			{
-				printf("%c", line[i]);
-				i++;
-			}
-			tok.tokno++;
-		}
-		else if (line[i] && line[i] == '"') //dquote
-		{
-			printf("%c", line[i]);
-			i++;
-			while (line[i] && line[i] != '"')
-			{
-				printf("%c", line[i]);
-				i++;
-			}
-			tok.tokno++;
-			printf("%c", line[i]);
-			i++;
-		}
-		else if (line[i] && line[i] == '\'') //squote
-		{
-			printf("%c", line[i]);
-			i++;
-			while (line[i] && line[i] != '\'')
-			{
-				printf("%c", line[i]);
-				i++;
-			}
-			printf("%c", line[i]);
-			tok.tokno++;
-			i++;
-		}
-		// else if (line[i] && line[i] == '&')
-		// {
-		// 	printf("%c", line[i]);
-		// 	tok.tokno++;
-		// 	i++;
-		// }
 		else //other shit
 		{
-			while (line[i] && /*(line[i] != '|' && line[i] != '&' && line[i] != '$'
-				&& line[i] != '>' && line[i] != '<' && line[i] != '"'
-				&& line[i] != ' ')*/is_word(line[i]) == 1)
+			while (line[tok.i] && is_word(line[tok.i]) == 1)
 			{
-				printf("%c", line[i]);
-				i++;
+				printf("%c", line[tok.i]);
+				tok.i++;
 			}
 			tok.tokno++;
 		}

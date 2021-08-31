@@ -21,6 +21,7 @@ SRCNAME	=	ft_atoi.c			\
 			ft_split.c			\
 			ft_strchr.c			\
 			ft_strcmp.c			\
+			ft_strcpy.c			\
 			ft_strdup.c			\
 			ft_strjoin.c		\
 			ft_strlcat.c		\

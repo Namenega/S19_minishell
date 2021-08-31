@@ -1,35 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_lst.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/06 13:50:23 by namenega          #+#    #+#             */
-/*   Updated: 2021/08/31 18:47:32 by namenega         ###   ########.fr       */
+/*   Created: 2021/08/31 16:54:00 by namenega          #+#    #+#             */
+/*   Updated: 2021/08/31 18:05:13 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "msh.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+t_lsttok	*ft_lsttok_new(void *content, int type)
 {
-	size_t	i;
+	t_lsttok	*new;
 
-	i = 0;
-	if (!src || !dst)
-		return (0);
-	if (size == 0)
-		return (ft_strlen(src));
-	while (src[i] != '\0' && i < size - 1)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (ft_strlen(src));
+	new = malloc(sizeof(t_lsttok));
+	if (!new)
+		return (NULL);
+	new->content = content;
+	new->tok_type = type;
+	new->next = NULL;
+	return (new);
 }
 
-/*
-** copie src ds dest et return len str
-*/
+void	ft_lsttok_add_back(t_lsttok **alst, t_lsttok *new)
+{
+	if (!*alst)
+	{
+		*alst = new;
+		return ;
+	}
+	while ((*alst)->next)
+	{
+		alst = &((*alst)->next);
+	}
+	(*alst)->next = new;
+}

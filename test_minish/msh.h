@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:37:45 by namenega          #+#    #+#             */
-/*   Updated: 2021/08/31 15:27:54 by namenega         ###   ########.fr       */
+/*   Updated: 2021/08/31 18:58:32 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,66 +34,54 @@
 # define WORD 15
 # define IO_NUMBER 16
 
-typedef struct s_ms
+typedef struct s_lsttok
 {
-	int	i;
-}				t_ms;
+	void				*content;
+	int					tok_type;
+	struct	s_lsttok	*next;
+}				t_lsttok;
 
 
 typedef struct s_token
 {
-	int		tokno;
-	char	**tokens;
-	char	*dless;
-	char	*dgreat;
-	char	great;
-	char	less;
+	int			tokno;
+	int			i;
+	char		**tokens;
+	char		*dless;
+	char		*dgreat;
+	char		great;
+	char		less;
+	t_lsttok	*lsttok;
 }				t_token;
 
 /*
 ** MAIN_C
 */
 
-int		main(int ac, char **av, char **envp);
-void	ms_loop(void);
-// char	**ms_splitline(char *line);
-// void	cmd(char *line);
+int			main(int ac, char **av, char **envp);
+void		ms_loop(void);
 
+/*
+** TOK_RECON_C
+*/
 
-// void	echo(char *line);
+void		tok_recon(char *line);
+void		init_t_tok(t_token *tok);
 
-void	tok_recon(char *line);
-void	init_t_tok(t_token *tok);
+/*
+** UTILS_0_C
+*/
 
-int		is_word(char c);
+int			is_word(char c);
+void		is_pipe(char *line, t_token *tok);
+void		is_less(char *line, t_token *tok);
 
+/*
+** FT_LST_C
+*/
 
+t_lsttok	*ft_lsttok_new(void *content, int type);
+void		ft_lsttok_add_back(t_lsttok **alst, t_lsttok *new);
 
-
-
-// /*
-// ** READLINE_C
-// */
-
-// char	*ms_readline(void);
-// char	**ms_splitline(char *line);
-
-
-// /*
-// ** LAUNCH_C
-// */
-
-// int		ms_execute(char **args);
-// int		ms_launch(char **args);
-
-
-// /*
-// ** LAUNCH_C
-// */
-
-// int ms_num_builtins();
-// int	ms_cd(char **args);
-// int ms_help(char **args);
-// int	ms_exit(char **args);
 
 #endif

@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/06 13:50:23 by namenega          #+#    #+#             */
-/*   Updated: 2021/08/31 18:47:32 by namenega         ###   ########.fr       */
+/*   Created: 2021/08/31 18:38:23 by namenega          #+#    #+#             */
+/*   Updated: 2021/08/31 18:47:48 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+char	*ft_strcpy(char *dest, char *src)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	if (!src || !dst)
-		return (0);
-	if (size == 0)
-		return (ft_strlen(src));
-	while (src[i] != '\0' && i < size - 1)
+	if (!src || !dest)
+		return (NULL);
+	while(src[i] && dest[i])
 	{
-		dst[i] = src[i];
+		dest[i] = src[i];
 		i++;
 	}
-	dst[i] = '\0';
-	return (ft_strlen(src));
+	dest[i] = '\0';
+	return (dest);
 }
-
-/*
-** copie src ds dest et return len str
-*/

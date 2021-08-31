@@ -1,7 +1,8 @@
 SRCNAME 	=	./main.c	\
 				./echo.c	\
 				./tok_recon.c	\
-				./utils_0.c
+				./utils_0.c		\
+				./ft_lst.c
 
 SRCS 		= ${SRCNAME}
 
