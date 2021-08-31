@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 11:51:59 by pyg               #+#    #+#             */
-/*   Updated: 2021/08/30 20:36:22 by namenega         ###   ########.fr       */
+/*   Updated: 2021/08/31 15:15:28 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,9 @@ void	tok_recon(char *line)
 		// }
 		else //other shit
 		{
-			while (line[i] && (line[i] != '|' && line[i] != '&' && line[i] != '$'
+			while (line[i] && /*(line[i] != '|' && line[i] != '&' && line[i] != '$'
 				&& line[i] != '>' && line[i] != '<' && line[i] != '"'
-				&& line[i] != ' ')/*is_word(line[i]) == 1*/)
+				&& line[i] != ' ')*/is_word(line[i]) == 1)
 			{
 				printf("%c", line[i]);
 				i++;
@@ -133,3 +133,8 @@ void	tok_recon(char *line)
 		printf("[%d]\n", tok.tokno);//!printf
 	}
 }
+
+//liste chaine avec 2var
+// 1 : contenu de l'input
+// 2 : type de token (word, dgreat, etc)
+//3 : ->next
