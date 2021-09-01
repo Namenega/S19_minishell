@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 11:51:59 by pyg               #+#    #+#             */
-/*   Updated: 2021/09/01 16:32:00 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/01 17:06:52 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,17 @@ void	tok_recon(char *line)
 			is_pipe(line, &tok);
 			is_less(line, &tok);
 			is_more(line, &tok);
-			// is_dollar(line, &tok);
 			is_dquote(line, &tok);
 			is_squote(line, &tok);
 		}
-		else //other shit
-		{
+		else
 			is_word(line, &tok);
-			// while (line[tok.i] && isnt_special(line[tok.i]) == 1 && line[tok.i] != ' ')
-			// {
-			// 	// printf("%c", line[tok.i]);
-			// 	tok.i++;
-			// }
-			// tok.tokno++;
-		}
-		printf("[%d]\n", tok.tokno);//!printf
+		printf("[%d]\n", tok.tokno); //* used to print the nb of tokens
 	}
-	while (tok.lsttok/* && tok.lsttok->next*/)
+	while (tok.lsttok/* && tok.lsttok->next*/) //* used to print the list
 	{
 		printf("\ncontent = [%s]\n", tok.lsttok->content);
 		printf("type = [%d]\n", tok.lsttok->tok_type);
-		// if (tok.lsttok->next)
 		tok.lsttok = tok.lsttok->next;
 	}
 }
