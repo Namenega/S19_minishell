@@ -6,11 +6,22 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:54:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/08/31 18:05:13 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/01 13:44:11 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
+
+void	lst_new_addback(char *s, int type, t_token *tok)
+{
+	t_lsttok	*tmp;
+
+	tmp = ft_lsttok_new(s, type);
+	if (!tmp)
+		return ;
+	ft_lsttok_add_back(&tok->lsttok, tmp);
+}
+
 
 t_lsttok	*ft_lsttok_new(void *content, int type)
 {

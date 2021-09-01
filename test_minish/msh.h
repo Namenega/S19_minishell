@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:37:45 by namenega          #+#    #+#             */
-/*   Updated: 2021/08/31 18:58:32 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/01 16:11:54 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define DLESS 14
 # define WORD 15
 # define IO_NUMBER 16
+# define DOLLAR 17
 
 typedef struct s_lsttok
 {
@@ -72,9 +73,14 @@ void		init_t_tok(t_token *tok);
 ** UTILS_0_C
 */
 
-int			is_word(char c);
+int			isnt_special(char c);
 void		is_pipe(char *line, t_token *tok);
 void		is_less(char *line, t_token *tok);
+void		is_more(char *line, t_token *tok);
+void		is_dollar(char *line, t_token *tok);
+void		is_dquote(char *line, t_token *tok);
+void		is_squote(char *line, t_token *tok);
+void		is_word(char *line, t_token *tok);
 
 /*
 ** FT_LST_C
@@ -82,6 +88,7 @@ void		is_less(char *line, t_token *tok);
 
 t_lsttok	*ft_lsttok_new(void *content, int type);
 void		ft_lsttok_add_back(t_lsttok **alst, t_lsttok *new);
+void		lst_new_addback(char *s, int type, t_token *tok);
 
 
 #endif
