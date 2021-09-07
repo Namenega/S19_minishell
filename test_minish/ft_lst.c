@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:54:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/01 13:44:11 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/07 16:09:09 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,19 @@ void	ft_lsttok_add_back(t_lsttok **alst, t_lsttok *new)
 		alst = &((*alst)->next);
 	}
 	(*alst)->next = new;
+}
+
+void	ft_lsttok_clear(t_lsttok **lst, void (*del)(void *))
+{
+	t_lsttok *next;
+
+	if (lst)
+		while (*lst)
+		{
+			next = (*lst)->next;
+			if (del)
+				del((*lst)->content);
+			free(*lst);
+			*lst = next;
+		}
 }

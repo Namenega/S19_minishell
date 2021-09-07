@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 15:36:01 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/01 17:05:47 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/03 16:34:39 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,25 +117,32 @@ void	is_dquote(char *line, t_token *tok)
 	int		i;
 
 	i = 0;
-	if (line[tok->i] && line[tok->i] == '"')
+	if (line[tok->i] && line[tok->i] == '\"')
 	{
 		tok->i++;
-		while (line[tok->i + i] && line[tok->i + i] != '"')
+		while (line[tok->i + i] && line[tok->i + i] != '\"')
 			i++;
 		s = malloc(sizeof(char) * (i + 3));
 		if (!s)
 			return ;
+		s[0] = '"';
 		i = 1;
-		while (line[tok->i + i - 1] && line[tok->i + i - 1] != '"')
+		while (line[tok->i] && line[tok->i] != '"')
 		{
-			s[i] = line[tok->i + i - 1];
+			s[i] = line[tok->i];
+			tok->i++;
 			i++;
 		}
-		s[0] = '"';
-		s[i] = '"';
-		s[i + 1] = '\0';
-		while (line[tok->i] && line[tok->i] != '"')
-			tok->i++;
+		if (line[tok->i] == '\"')
+		{
+			s[i] = '\"';
+			s[i + 1] = '\0';
+		}
+		else
+		{
+			s[i] = '\0';
+			s[i + 1] = '\0';
+		}
 		tok->tokno++;
 		tok->i++;
 		lst_new_addback(s, WORD, tok);
@@ -168,7 +175,7 @@ void		is_squote(char *line, t_token *tok)
 		while (line[tok->i] && line[tok->i] != '\'')
 			tok->i++;
 		tok->tokno++;
-		tok->i++; //!Comment if '\'' needed
+		tok->i++;
 		lst_new_addback(s, WORD, tok);
 	}
 }

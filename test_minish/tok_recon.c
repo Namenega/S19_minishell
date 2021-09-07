@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 11:51:59 by pyg               #+#    #+#             */
-/*   Updated: 2021/09/01 17:06:52 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/07 16:00:11 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,16 @@ void	init_t_tok(t_token *tok)
 	// return (tok);
 }
 
-void	tok_recon(char *line)
+// t_token	tok_recon(char *line)
+t_lsttok	*tok_recon(char *line)
 {
 	t_token		tok;
 	int			i;
 
 	i = 0;
 	init_t_tok(&tok);
-	line = ft_strtrim(line, " \t\r\f\v");
+	if (line)
+		line = ft_strtrim(line, " \t\r\f\v");
 	while (line && line[tok.i])
 	{
 		while (line[tok.i] && line[tok.i] == ' ')
@@ -50,12 +52,15 @@ void	tok_recon(char *line)
 			is_word(line, &tok);
 		printf("[%d]\n", tok.tokno); //* used to print the nb of tokens
 	}
+
 	while (tok.lsttok/* && tok.lsttok->next*/) //* used to print the list
 	{
 		printf("\ncontent = [%s]\n", tok.lsttok->content);
 		printf("type = [%d]\n", tok.lsttok->tok_type);
 		tok.lsttok = tok.lsttok->next;
 	}
+
+	return (tok.lsttok);
 }
 
 //liste chaine avec 2var

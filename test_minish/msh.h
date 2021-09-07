@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:37:45 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/01 16:11:54 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/07 16:00:24 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void		ms_loop(void);
 ** TOK_RECON_C
 */
 
-void		tok_recon(char *line);
+t_lsttok		*tok_recon(char *line);
 void		init_t_tok(t_token *tok);
 
 /*
@@ -89,6 +89,7 @@ void		is_word(char *line, t_token *tok);
 t_lsttok	*ft_lsttok_new(void *content, int type);
 void		ft_lsttok_add_back(t_lsttok **alst, t_lsttok *new);
 void		lst_new_addback(char *s, int type, t_token *tok);
+void		ft_lsttok_clear(t_lsttok **lst, void (*del)(void *));
 
 
 #endif
