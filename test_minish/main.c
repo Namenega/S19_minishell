@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 13:44:49 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/14 16:10:57 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/14 18:14:00 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	ms_loop(void)
 		if (line)
 			tok.lsttok = tok_recon(line);
 		tmp = tok.lsttok;
-
 		//	cmd(line);
 		// status = ms_execute(tokens);
 		free(line);
