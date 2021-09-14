@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 11:51:59 by pyg               #+#    #+#             */
-/*   Updated: 2021/09/14 15:50:42 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/14 16:10:05 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_t_tok(t_token *tok)
 {
 	tok->tokno = 0;
 	tok->i = 0;
+	tok->lsttok = NULL;
 }
 
 t_lsttok	*tok_recon(char *line)
@@ -27,8 +28,6 @@ t_lsttok	*tok_recon(char *line)
 
 	i = 0;
 	init_t_tok(&tok);
-	if (line)
-		line = ft_strtrim(line, " \t\r\f\v");
 	while (line && line[tok.i])
 	{
 		while (line[tok.i] && line[tok.i] == ' ')
@@ -43,17 +42,7 @@ t_lsttok	*tok_recon(char *line)
 		}
 		else
 			is_word(line, &tok);
-		// printf("[%d]\n", tok.tokno); //* used to print the nb of tokens
-		system("leaks minishell");
-		printf("\n");
+		// printf("[%d]\n", tok.tokno); //! used to print the nb of tokens
 	}
-
-	// while (tok.lsttok/* && tok.lsttok->next*/) //* used to print the list - segfault if nothing
-	// {
-	// 	printf("\ncontent = [%s]\n", tok.lsttok->content);
-	// 	printf("type = [%d]\n", tok.lsttok->tok_type);
-	// 	tok.lsttok = tok.lsttok->next;
-	// }
-
 	return (tok.lsttok);
 }
