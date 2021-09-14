@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:37:45 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/07 16:00:24 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/14 15:28:51 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,6 @@ typedef struct s_token
 {
 	int			tokno;
 	int			i;
-	char		**tokens;
-	char		*dless;
-	char		*dgreat;
-	char		great;
-	char		less;
 	t_lsttok	*lsttok;
 }				t_token;
 

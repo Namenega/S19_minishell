@@ -10,7 +10,7 @@ OBJS 		= ${SRCS:.c=.o}
 
 NAME		= minishell
 
-CC 			= gcc -g #-fsanitize=address
+CC 			= gcc -g3 #-fsanitize=address
 RM 			= rm -f
 CFLAGS 		= -Wall -Wextra -Werror -I -I../includes/libft \
 				-I /Users/$(USER)/.brew/opt/readline/include

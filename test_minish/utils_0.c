@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 15:36:01 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/03 16:34:39 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/14 15:33:55 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	is_pipe(char *line, t_token *tok)
 		tok->tokno++;
 		tok->i++;
 		lst_new_addback(s, PIPE, tok);
+		free(s);
 	}
 }
 
@@ -55,6 +56,7 @@ void	is_less(char *line, t_token *tok)
 			tok->i++;
 			lst_new_addback(s, LESS, tok);
 		}
+		free(s);
 	}
 }
 
@@ -80,9 +82,12 @@ void	is_more(char *line, t_token *tok)
 			tok->i++;
 			lst_new_addback(s, GREAT, tok);
 		}
+		free(s);
 	}
 }
 
+
+//!Uncomment this if '$' needed
 // void	is_dollar(char *line, t_token *tok)
 // {
 // 	char	*s;
@@ -91,7 +96,7 @@ void	is_more(char *line, t_token *tok)
 // 	i = 0;
 // 	if (line[tok->i] && line[tok->i] == '$')
 // 	{
-// 		tok->i++; //!Comment this if '$' needed
+// 		tok->i++;
 // 		while (line[tok->i + i] && line[tok->i + i] != ' ')
 // 			i++;
 // 		s = malloc(sizeof(char) * i + 1);
@@ -114,69 +119,78 @@ void	is_more(char *line, t_token *tok)
 void	is_dquote(char *line, t_token *tok)
 {
 	char	*s;
-	int		i;
+	int		index;
 
-	i = 0;
+	index = 0;
 	if (line[tok->i] && line[tok->i] == '\"')
 	{
 		tok->i++;
-		while (line[tok->i + i] && line[tok->i + i] != '\"')
-			i++;
-		s = malloc(sizeof(char) * (i + 3));
+		while (line[tok->i + index] && line[tok->i + index] != '\"')
+			index++;
+		if (line[tok->i + index] == '\"')
+			s = malloc(sizeof(char) * (index + 3));
+		else
+			s = malloc(sizeof(char) * (index + 2));
 		if (!s)
 			return ;
-		s[0] = '"';
-		i = 1;
-		while (line[tok->i] && line[tok->i] != '"')
+		s[0] = '\"';
+		index = 1;
+		while (line[tok->i] && line[tok->i] != '\"')
 		{
-			s[i] = line[tok->i];
+			s[index] = line[tok->i];
 			tok->i++;
-			i++;
+			index++;
 		}
 		if (line[tok->i] == '\"')
 		{
-			s[i] = '\"';
-			s[i + 1] = '\0';
+			s[index] = '\"';
+			s[index + 1] = '\0';
+			tok->i++;
 		}
 		else
-		{
-			s[i] = '\0';
-			s[i + 1] = '\0';
-		}
+			s[index] = '\0';
 		tok->tokno++;
-		tok->i++;
 		lst_new_addback(s, WORD, tok);
+		free(s);
 	}
 }
 
 void		is_squote(char *line, t_token *tok)
 {
 	char	*s;
-	int		i;
+	int		index;
 
-	i = 0;
+	index = 0;
 	if (line[tok->i] && line[tok->i] == '\'')
 	{
 		tok->i++;
-		while (line[tok->i + i] && line[tok->i + i] != '\'')
-			i++;
-		s = malloc(sizeof(char) * (i + 1));
+		while (line[tok->i + index] && line[tok->i + index] != '\'')
+			index++;
+		if (line[tok->i + index] == '\'')
+			s = malloc(sizeof(char) * (index + 3));
+		else
+			s = malloc(sizeof(char) * (index + 2));
 		if (!s)
 			return ;
-		i = 1;
-		while (line[tok->i + i - 1] && line[tok->i + i - 1] != '\'')
-		{
-			s[i] = line[tok->i + i - 1];
-			i++;
-		}
 		s[0] = '\'';
-		s[i] = '\'';
-		s[i + 1] = '\0';
+		index = 1;
 		while (line[tok->i] && line[tok->i] != '\'')
+		{
+			s[index] = line[tok->i];
 			tok->i++;
+			index++;
+		}
+		if (line[tok->i] == '\'')
+		{
+			s[index] = '\'';
+			s[index + 1] = '\0';
+			tok->i++;
+		}
+		else
+			s[index] = '\0';
 		tok->tokno++;
-		tok->i++;
 		lst_new_addback(s, WORD, tok);
+		free(s);
 	}
 }
 
@@ -202,4 +216,5 @@ void	is_word(char *line, t_token *tok)
 		tok->i++;
 	tok->tokno++;
 	lst_new_addback(s, WORD, tok);
+	free(s);
 }

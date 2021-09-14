@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 13:44:49 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/07 16:32:27 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/14 15:51:25 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@
 
 void	ms_loop(void)
 {
-	char	*line;
-	int		status;
-	t_token	tok;
+	char		*line;
+	int			status;
+	t_token		tok;
 	t_lsttok	*tmp;
 
 	status = 1;
@@ -45,21 +45,27 @@ void	ms_loop(void)
 		// tokens = ms_splitline(line);
 		if (line)
 			tok.lsttok = tok_recon(line);
+		// while (tok.lsttok/* && tok.lsttok->next*/) //* used to print the list - segfault if nothing
+		// {
+		// 	printf("\ncontent = [%s]\n", tok.lsttok->content);
+		// 	printf("type = [%d]\n", tok.lsttok->tok_type);
+		// 	tok.lsttok = tok.lsttok->next;
+		// }
 		tmp = tok.lsttok;
 		//	cmd(line);
 		// status = ms_execute(tokens);
 		free(line);
-		// free(tok.lsttok);
-		while (tok.lsttok)
+		while (tok.lsttok) //* free lsttok
 		{
 			tmp = tok.lsttok;
 			tok.lsttok = tok.lsttok->next;
 			free(tmp);
 		}
-		//! Need to free lsttok
 		
+		system("leaks minishell");
 		// free(tokens);
 		// status = 0;
+		exit(0);
 	}
 }
 
@@ -72,7 +78,5 @@ int	main(int ac, char **av, char **envp)
 		ms_loop();
 	else
 		printf("Error: Run ./minishell without any other argument\n");
-	// system("leaks minishell");
-	// exit(0);
 	return (0);
 }
