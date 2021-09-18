@@ -53,7 +53,7 @@ t_lsttok	*tok_recon(char *line)
 		printf("[%d]\n", tok.tokno); //! used to print the nb of tokens
 		while (tok.lsttok/* && tok.lsttok->next*/)
 		{
-			printf("content = [%s]\n", tok.lsttok->content);
+			printf("content = [%s]\n", (char*)tok.lsttok->content);
 			printf("type = [%d]\n\n", tok.lsttok->tok_type);
 			tok.lsttok = tok.lsttok->next;
 		}

@@ -14,7 +14,7 @@
 
 int	isnt_special(char c)
 {
-	if (c == '|' || c == '&'/* || c == '$'*/ || c == '>' || c == '<' || c == '"' || c == '\'')
+	if (c == '|' || c == '&'/* || c == '$'*/ || c == '>' || c == '<' || c == '\"' || c == '\'')
 		return (0);
 	else
 		return (1);
@@ -36,53 +36,65 @@ void	is_pipe(char *line, t_token *tok)
 
 void	is_less(char *line, t_token *tok)
 {
-	int			i;
 	char		*s;
 
-	i = 0;
 	if (line[tok->i] && line[tok->i] == '<')
 	{
-		if (line[tok->i + 1] && line[tok->i + 1] == '<')
+		if (line[tok->i + 2] && line[tok->i + 2] == '<') //duplicate changes in is_more() fct
+		{
+			ft_putstr_fd("Error : too many '<'\n", 1);
+			//free_list & exit()
+			exit(0);
+		}
+		else if (line[tok->i + 1] && line[tok->i + 1] == '<')
 		{
 			s = ft_strdup("<<");
-			tok->tokno++;
+			//tok->tokno++;
 			tok->i += 2;
 			lst_new_addback(s, DLESS, tok);
+			free(s);
 		}
 		else
 		{
 			s = ft_strdup("<");
-			tok->tokno++;
+			//tok->tokno++;
 			tok->i++;
 			lst_new_addback(s, LESS, tok);
+			free(s);
 		}
-		free(s);
+		tok->tokno++;
 	}
 }
 
 void	is_more(char *line, t_token *tok)
 {
-	int			i;
 	char		*s;
 
-	i = 0;
 	if (line[tok->i] && line[tok->i] == '>')
 	{
-		if (line[tok->i + 1] && line[tok->i + 1] == '>')
+		if (line[tok->i + 2] && line[tok->i + 2] == '>')
+		{
+			ft_putstr_fd("Error : too many '>'\n", 1);
+			//free_list & exit()
+			exit(0);
+		}
+		else if (line[tok->i + 1] && line[tok->i + 1] == '>')
 		{
 			s = ft_strdup(">>");
-			tok->tokno++;
+			//tok->tokno++;
 			tok->i += 2;
 			lst_new_addback(s, DGREAT, tok);
+			free(s);
 		}
 		else
 		{
 			s = ft_strdup(">");
-			tok->tokno++;
+			//tok->tokno++;
 			tok->i++;
 			lst_new_addback(s, GREAT, tok);
+			free(s);
 		}
-		free(s);
+		tok->tokno++;
 	}
 }
 
