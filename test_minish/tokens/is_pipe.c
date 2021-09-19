@@ -1,17 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   is_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/17 15:33:47 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/19 19:06:49 by pyg              ###   ########.fr       */
+/*   Created: 2021/09/19 18:50:56 by pyg               #+#    #+#             */
+/*   Updated: 2021/09/19 18:53:16 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh.h"
+#include "../msh.h"
 
-//! echo + nothing = display a \n
-//! echo + $wrong_thing = display a \n
+void	is_pipe(char *line, t_token *tok)
+{
+	char		*s;
 
+	if (line[tok->pos] && line[tok->pos] == '|')
+	{
+		s = ft_strdup("|");
+		tok->tokno++;
+		tok->pos++;
+		lst_new_addback(s, PIPE, tok);
+	}
+}

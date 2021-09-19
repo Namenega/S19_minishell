@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:37:45 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/14 17:27:56 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/19 19:02:16 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_token
 {
 	int			tokno;
 	int			i;
+	int			pos;
 	t_lsttok	*lsttok;
 }				t_token;
 
@@ -61,7 +62,7 @@ void		ms_loop(void);
 ** TOK_RECON_C
 */
 
-t_lsttok		*tok_recon(char *line);
+t_lsttok	*tok_recon(char *line);
 void		init_t_tok(t_token *tok);
 
 /*
@@ -69,12 +70,16 @@ void		init_t_tok(t_token *tok);
 */
 
 int			isnt_special(char c);
+void		free_token_list(t_token *tok);
+
+/*
+** TOKENS/IS_X_C
+*/
+
 void		is_pipe(char *line, t_token *tok);
 void		is_less(char *line, t_token *tok);
 void		is_more(char *line, t_token *tok);
-void		is_dollar(char *line, t_token *tok);
-void		is_dquote(char *line, t_token *tok);
-void		is_squote(char *line, t_token *tok);
+void		is_quote(char *line, t_token *tok, char c);
 void		is_word(char *line, t_token *tok);
 
 /*
