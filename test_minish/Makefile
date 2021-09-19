@@ -1,5 +1,5 @@
 SRCNAME 	=	./main.c				\
-				./echo.c				\
+				./ft_echo.c				\
 				./utils/utils_0.c		\
 				./utils/ft_lst.c		\
 				./tokens/tok_recon.c	\

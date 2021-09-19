@@ -6,7 +6,7 @@
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:37:45 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/19 19:02:16 by pyg              ###   ########.fr       */
+/*   Updated: 2021/09/19 19:28:42 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,10 @@ void		ft_lsttok_add_back(t_lsttok **alst, t_lsttok *new);
 void		lst_new_addback(char *s, int type, t_token *tok);
 void		ft_lsttok_clear(t_lsttok **lst, void (*del)(void *));
 
+/*
+** FT_LST_C
+*/
+
+void		ft_echo(t_token *tok);
 
 #endif

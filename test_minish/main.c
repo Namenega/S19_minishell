@@ -6,16 +6,22 @@
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 13:44:49 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/19 19:10:12 by pyg              ###   ########.fr       */
+/*   Updated: 2021/09/19 20:05:21 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-// void	cmd(char *line)
-// {
-// 	echo(line);
-// }
+void	cmd(t_token *tok)
+{
+	while (tok->lsttok)
+	{
+		if (!ft_strncmp((char*)tok->lsttok->content, "echo", 5))	
+			ft_echo(tok);
+		else
+			tok->lsttok = tok->lsttok->next;
+	}
+}
 
 void	ms_loop(void)
 {
@@ -31,7 +37,7 @@ void	ms_loop(void)
 			add_history(line);
 		if (line)
 			tok.lsttok = tok_recon(line);
-		// cmd(line);
+		cmd(&tok);
 		// status = ms_execute(tokens);
 		free(line);
 		free_token_list(&tok);
