@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:37:45 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/20 16:12:28 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/20 17:01:21 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MSH_H
 
 # include <unistd.h>
+# include <limits.h>
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <stdio.h>
@@ -95,7 +96,7 @@ void		lst_new_addback(char *s, int type, t_token *tok);
 void		ft_lsttok_clear(t_lsttok **lst, void (*del)(void *));
 
 /*
-** FT_LST_C
+** FT_ECHO_C
 */
 
 void		ft_echo(t_token *tok);
