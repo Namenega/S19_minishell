@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 13:44:49 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/19 20:05:21 by pyg              ###   ########.fr       */
+/*   Updated: 2021/09/20 12:22:47 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,25 @@
 
 void	cmd(t_token *tok)
 {
+	//t_token	*cmd;
+
+	//init_t_tok(cmd);
+	//cmd->lsttok = tok->lsttok;
+	// while (cmd->lsttok)
+	// {
+	// 	if (!ft_strncmp((char*)cmd->lsttok->content, "echo", 4))	
+	// 		ft_echo(cmd);
+	// 	else
+	// 		cmd->lsttok = cmd->lsttok->next;
+	// }
+	// printf("[%s]\n", (char *)tok->lsttok->content);
 	while (tok->lsttok)
 	{
+		// write(1, "a\n", 2);
 		if (!ft_strncmp((char*)tok->lsttok->content, "echo", 5))	
 			ft_echo(tok);
-		else
-			tok->lsttok = tok->lsttok->next;
+		// else
+		tok->lsttok = tok->lsttok->next;
 	}
 }
 
@@ -37,6 +50,12 @@ void	ms_loop(void)
 			add_history(line);
 		if (line)
 			tok.lsttok = tok_recon(line);
+		// while (tok.lsttok/* && tok.lsttok->next*/)
+		// {
+		// 	printf("\ncontent = [%s]\n", tok.lsttok->content);
+		// 	printf("type = [%d]\n", tok.lsttok->tok_type);
+		// 	tok.lsttok = tok.lsttok->next;
+		// }
 		cmd(&tok);
 		// status = ms_execute(tokens);
 		free(line);
@@ -61,9 +80,3 @@ int	main(int ac, char **av, char **envp)
 
 //* print list fct
 // printf("[%d]\n", tok.tokno); //! used to print the nb of tokens
-// while (tok.lsttok/* && tok.lsttok->next*/)
-// {
-// 	printf("\ncontent = [%s]\n", tok.lsttok->content);
-// 	printf("type = [%d]\n", tok.lsttok->tok_type);
-// 	tok.lsttok = tok.lsttok->next;
-// }

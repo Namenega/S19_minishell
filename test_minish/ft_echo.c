@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:33:47 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/19 20:05:54 by pyg              ###   ########.fr       */
+/*   Updated: 2021/09/20 11:55:33 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 void	ft_echo(t_token *tok)
 {
 	(void)tok;
-	printf("echo test\n");
-	tok->lsttok = tok->lsttok->next;
+	ft_putstr_fd("echo test", 1);
+	write(1, "\n", 1);
+	// tok->lsttok = tok->lsttok->next;
 	// if (tok->lsttok->next)
 	// {
 	// 	tok->lsttok = tok->lsttok->next;

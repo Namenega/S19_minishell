@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lst.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:54:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/19 19:13:18 by pyg              ###   ########.fr       */
+/*   Updated: 2021/09/20 12:43:32 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	lst_new_addback(char *s, int type, t_token *tok)
 	if (!tmp)
 		return ;
 	ft_lsttok_add_back(&tok->lsttok, tmp);
-	free(s);
+	// free(s);
 }
 
 
