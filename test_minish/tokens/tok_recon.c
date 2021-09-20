@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_recon.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 11:51:59 by pyg               #+#    #+#             */
-/*   Updated: 2021/09/20 15:34:09 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/20 16:19:09 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ t_lsttok	*tok_recon(char *line)
 			is_word(line, &tok);
 	}
 	is_io_number(&tok);
-	while (tok.lsttok/* && tok.lsttok->next*/)
-	{
-		printf("\ncontent = [%s]\n", tok.lsttok->content);
-		printf("type = [%d]\n", tok.lsttok->tok_type);
-		tok.lsttok = tok.lsttok->next;
-	}
+	// while (tok.lsttok/* && tok.lsttok->next*/)
+	// {
+	// 	printf("\ncontent = [%s]\n", tok.lsttok->content);
+	// 	printf("type = [%d]\n", tok.lsttok->tok_type);
+	// 	tok.lsttok = tok.lsttok->next;
+	// }
 	return (tok.lsttok);
 }

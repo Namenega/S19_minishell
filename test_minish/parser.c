@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:03:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/20 15:08:08 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/20 16:21:11 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	cst_delete_tree(t_cst *tree)
 	free(tree);
 }
 
-t_cst*	parse_new_node(t_parser *vars, int type, t_tok *node)
+t_cst*	parse_new_node(t_parser *vars, int type, t_lsttok *node)
 {
 	t_cst	*new;
 
@@ -86,7 +86,7 @@ t_cst*	parse_new_node(t_parser *vars, int type, t_tok *node)
 	new->type = type;
 	if (node)
 	{
-		new->lexeme = ft_strdup(node->lexeme);
+		new->lexeme = ft_strdup(node->content);
 		vars->node = vars->node->next;
 	}
 	else
@@ -108,10 +108,10 @@ t_cst*	parse_io_file(t_parser *vars)
 		error_parser(vars);
 	if (!vars->node)
 		return NULL;
-	if ((vars->node->type - GREAT) <= DGREAT)
+	if ((vars->node->tok_type - GREAT) <= DGREAT)
 	{
 		io_file = parse_new_node(vars, CST_IO_FILE, vars->node);
-		if (!vars->node || vars->node->type != WORD)
+		if (!vars->node || vars->node->tok_type != WORD)
 		{
 			cst_delete_tree(io_file);
 			return NULL;
@@ -134,10 +134,10 @@ t_cst*	parse_io_here(t_parser *vars)
 		error_parser(vars);
 	if (!vars->node)
 		return NULL;
-	if (vars->node->type == DLESS)
+	if (vars->node->tok_type == DLESS)
 	{
 		io_here = parse_new_node(vars, CST_IO_HERE, vars->node);
-		if (!vars->node || vars->node->type != WORD)
+		if (!vars->node || vars->node->tok_type != WORD)
 		{
 			cst_delete_tree(io_here);
 			return NULL;
@@ -151,7 +151,7 @@ t_cst*	parse_io_here(t_parser *vars)
 
 t_cst*	parse_io_redir(t_parser *vars)
 {
-	t_tok	*token;
+	t_lsttok	*token;
 	t_cst	*io_redir;
 
 	// printf(" =====> \033[33m parse_io_redir : START \033[0m\n"); // RM
@@ -161,11 +161,11 @@ t_cst*	parse_io_redir(t_parser *vars)
 	io_redir = parse_new_node(vars, CST_IO_REDIR, NULL);
 	io_redir->left = NULL;
 	vars->tmp = io_redir;
-	if (vars->node->type == IO_NUMBER)
+	if (vars->node->tok_type == IO_NUMBER)
 		io_redir->left = parse_new_node(vars, CST_IO_NBR, vars->node);
-	if (vars->node->type == GREAT || vars->node->type == LESS || vars->node->type == DGREAT)
+	if (vars->node->tok_type == GREAT || vars->node->tok_type == LESS || vars->node->tok_type == DGREAT)
 		io_redir->right = parse_io_file(vars);
-	else if (vars->node->type == DLESS)
+	else if (vars->node->tok_type == DLESS)
 		io_redir->right = parse_io_here(vars);
 	vars->tmp = NULL;
 	if (!io_redir->right)
@@ -188,7 +188,7 @@ t_cst*	parse_cmd_list(t_parser *vars)
 	if (!vars->node)
 		return NULL;
 	// lexer_print_one(vars->node);// RM
-	if (vars->node->type == WORD)
+	if (vars->node->tok_type == WORD)
 		node = parse_new_node(vars, CST_WORD, vars->node);
 	else
 		node = parse_io_redir(vars);
@@ -212,7 +212,7 @@ t_cst*	parse_pipe_seq(t_parser *vars)
 	if (!cmd_list || !vars->node)
 		return cmd_list;
 	// printf(" =====> \033[33m parse_pipe_seq : MIDDLE \033[0m\n"); // RM
-	if (vars->node->type != PIPE)
+	if (vars->node->tok_type != PIPE)
 	{
 		cst_delete_tree(cmd_list);
 		return NULL;
@@ -230,7 +230,7 @@ t_cst*	parse_pipe_seq(t_parser *vars)
 	return pipe_seq;
 }
 
-t_cst*	msh_parser(t_tok *tokens)
+t_cst*	msh_parser(t_lsttok *tokens)
 {
 	t_cst		*cst;
 	t_parser	vars;
@@ -240,9 +240,9 @@ t_cst*	msh_parser(t_tok *tokens)
 	vars = (t_parser){tokens, tokens, NULL};
 	cst = parse_pipe_seq(&vars);
 	if (!cst || vars.node)
-    {
-		printf("Syntax Error near: %s\n", vars.node->lexeme);
+	{
+		printf("Syntax Error near: %s\n", vars.node->content);
 		return NULL;
-    }
+	}
 	return cst;
 }

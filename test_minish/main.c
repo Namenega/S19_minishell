@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 13:44:49 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/20 15:05:25 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/20 16:20:58 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
+#include "parser.h"
 
 void	cmd(t_token *tok)
 {
@@ -28,6 +29,7 @@ void	ms_loop(void)
 	char		*line;
 	int			status;
 	t_token		tok;
+	t_cst		*cst;
 
 	status = 1;
 	while (status)
@@ -37,9 +39,13 @@ void	ms_loop(void)
 			add_history(line);
 		if (line)
 			tok.lsttok = tok_recon(line);
-		cmd(&tok);
+		// cmd(&tok);
 		// status = ms_execute(tokens);
 		free(line);
+		cst = msh_parser(tok.lsttok);
+		if (!cst)						//WRONG !!! Error : need to clean then exit
+			return ;
+		cst_print_tree(cst);
 		free_token_list(&tok);
 		// system("leaks minishell");
 		// exit(0);

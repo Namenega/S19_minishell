@@ -1,4 +1,5 @@
 SRCNAME 	=	./main.c				\
+				./parser.c				\
 				./ft_echo.c				\
 				./utils/utils_0.c		\
 				./utils/ft_lst.c		\
