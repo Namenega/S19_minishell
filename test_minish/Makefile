@@ -6,6 +6,7 @@ SRCNAME 	=	./main.c				\
 				./tokens/is_pipe.c		\
 				./tokens/is_more_less.c	\
 				./tokens/is_quote.c		\
+				./tokens/is_io_number.c	\
 				./tokens/is_word.c
 
 SRCS 		= ${SRCNAME}

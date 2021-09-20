@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:33:47 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/20 11:55:33 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/20 14:46:59 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,49 @@
 
 void	ft_echo(t_token *tok)
 {
-	(void)tok;
-	ft_putstr_fd("echo test", 1);
-	write(1, "\n", 1);
-	// tok->lsttok = tok->lsttok->next;
-	// if (tok->lsttok->next)
-	// {
-	// 	tok->lsttok = tok->lsttok->next;
-	// 	while (tok->lsttok && tok->lsttok->tok_type == WORD)
-	// 	{
-	// 		ft_putstr_fd((char *)tok->lsttok->content, 1);
-	// 		tok->lsttok = tok->lsttok->next;
-	// 	}
-	// }
+	char *s;
+
+	s = (char*)tok->lsttok->content;
+	if (tok->lsttok->next)
+	{
+		tok->lsttok = tok->lsttok->next;
+		if (s && s[0] == '\"')
+		{
+			s++;
+			while (s && *s && *s != '\"')
+			{
+				write(1, s, 1);
+				s++;
+			}
+		}
+		else if (s && s[0] == '\'')
+		{
+			s++;
+			while (s && *s && *s != '\'')
+			{
+				write(1, s, 1);
+				s++;
+			}
+		}
+		else
+		{
+			while (tok->lsttok && tok->lsttok->tok_type == WORD)
+			{
+				// if (tok->lsttok->content[0] == '\"')
+				// {
+
+				// }
+				ft_putstr_fd((char *)tok->lsttok->content, 1);
+				write(1, " ", 1);
+				tok->lsttok = tok->lsttok->next;
+			}
+		}
+		write(1, "\n", 1);
+	}
+	else
+	{
+		write(1, "\n", 1);
+		tok->lsttok = tok->lsttok->next;
+	}
+	
 }

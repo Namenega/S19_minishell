@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:37:45 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/20 12:14:58 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/20 15:32:54 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void		is_less(char *line, t_token *tok);
 void		is_more(char *line, t_token *tok);
 void		is_quote(char *line, t_token *tok, char c);
 void		is_word(char *line, t_token *tok);
+void		is_io_number(t_token *tok);
 
 /*
 ** FT_LST_C
