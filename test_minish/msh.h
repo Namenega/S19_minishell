@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:37:45 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/20 17:01:21 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/21 15:55:01 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ typedef struct s_lsttok
 
 typedef struct s_token
 {
-	int			tokno;
-	int			i;
-	int			pos;
-	t_lsttok	*lsttok;
+	int			tokno;		//*number of token
+	int			i;			//*index
+	int			pos;		//*position in line[]
+	char		*tmp;
+	t_lsttok	*lsttok;	//*chained list of token
 }				t_token;
 
 typedef t_lsttok t_tok;
@@ -62,13 +63,6 @@ int			main(int ac, char **av, char **envp);
 void		ms_loop(void);
 
 /*
-** TOK_RECON_C
-*/
-
-t_lsttok	*tok_recon(char *line);
-void		init_t_tok(t_token *tok);
-
-/*
 ** UTILS_0_C
 */
 
@@ -76,15 +70,20 @@ int			isnt_special(char c);
 void		free_token_list(t_token *tok);
 
 /*
-** TOKENS/IS_X_C
+** TOKENS/TOK_RECON_C
+** TOKENS/IS_QUOTE_C
+** TOKENS/IS_IO_C
+** TOKENS/IS_PIPE_C
 */
 
-void		is_pipe(char *line, t_token *tok);
-void		is_less(char *line, t_token *tok);
-void		is_more(char *line, t_token *tok);
-void		is_quote(char *line, t_token *tok, char c);
-void		is_word(char *line, t_token *tok);
-void		is_io_number(t_token *tok);
+t_lsttok	*tok_recon(char *line);
+void		init_t_tok(t_token *tok, char *line);
+void		new_tok(t_token *tok, int type);
+void		is_space(t_token *tok);
+void		is_quote(t_token *tok);
+void		is_io(t_token *tok);
+int			check_io(t_token *tok);
+void		is_pipe(t_token *tok);
 
 /*
 ** FT_LST_C

@@ -1,55 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_io_number.c                                     :+:      :+:    :+:   */
+/*   is_io.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 15:03:31 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/20 17:17:25 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/21 15:39:57 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../msh.h"
 
-static int	is_openmax_range(char *s)
+int	check_io(t_token *tok)
 {
 	int	i;
-	int	io_num;
 
-	i = 0;
-	io_num = 0;
-	while (s[i])
+	i = tok->i;
+	while (i < tok->i)
 	{
-		if (ft_isdigit(s[i]) == 0)
+		if (!ft_isdigit(tok->tmp[i]))
 			return (0);
-		i++;
+		tok->i++;
 	}
-	io_num = ft_atoi(s);
-	if (io_num >= 0 && io_num < OPEN_MAX)
-		return (1);
-	return (0);
+	return (1);
 }
 
-void	is_io_number(t_token *tok)
+void	is_io(t_token *tok)
 {
-	char		*s;
-	int			t;
-	t_lsttok	*tmp;
+	char	type;
 
-	t = 0;
-	s = NULL;
-	tmp = tok->lsttok;
-	while (tmp)
+	if (check_io(tok))
+		new_tok(tok, IO_NUMBER);
+	else
+		new_tok(tok, WORD);
+	if (tok->tmp[tok->pos] == '<')
+		type = LESS;
+	else
+		type = GREAT;
+	if (tok->tmp[tok->pos + 1] == tok->tmp[tok->pos])
 	{
-		s = (char*)tmp->content;
-		if (tmp->next)
-			t = tmp->next->tok_type;
-		if (is_openmax_range(s) == 1)
-		{
-			if (tmp->next && (t == 11 || t == 12 || t == 13 || t == 14))
-				tmp->tok_type = 16;
-		}
-		tmp = tmp->next;
+		type += 2;
+		tok->pos++;
 	}
+	tok->pos++;
+	new_tok(tok, type);
 }
