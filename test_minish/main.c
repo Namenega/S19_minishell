@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 13:44:49 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/21 15:51:30 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/23 13:18:17 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ms_loop(void)
 	char		*line;
 	int			status;
 	t_token		tok;
-	t_cst		*cst;
+	// t_cst		*cst;
 
 	status = 1;
 	while (status)
@@ -39,13 +39,13 @@ void	ms_loop(void)
 			add_history(line);
 		if (line)
 			tok.lsttok = tok_recon(line);
-		// cmd(&tok);
+		cmd(&tok);
 		// status = ms_execute(tokens);
 		free(line);
-		cst = msh_parser(tok.lsttok);
-		if (!cst)						//WRONG !!! Error : need to clean then exit
-			return ;
-		cst_print_tree(cst);
+		// cst = msh_parser(tok.lsttok);
+		// if (!cst)						//WRONG !!! Error : need to clean then exit
+		// 	return ;
+		// cst_print_tree(cst);
 		free_token_list(&tok);
 		// system("leaks minishell");
 		// exit(0);

@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:33:47 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/20 14:46:59 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/23 13:52:51 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,53 @@
 
 //! echo + nothing = display a \n
 //! echo + $wrong_thing = display a \n
+//! echo $ = $
+//! echo $'t' = t
+//! echo $"t" = t
+
+void	skip_quote(char *s, int c, int d)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i] != '\0')
+	{
+		if (s[0] == c)
+		{
+			if (s[i] == c)
+				i++;
+		}
+		else if (s[0] == d)
+		{
+			if (s[i] == d)
+				i++;
+		}
+		write(1, &s[i], 1);
+		// if (s[i + 1])
+		i++;
+	}
+}
 
 void	ft_echo(t_token *tok)
 {
-	char *s;
-
-	s = (char*)tok->lsttok->content;
-	if (tok->lsttok->next)
+	if (tok->lsttok->next && tok->lsttok->next->tok_type == WORD)
 	{
 		tok->lsttok = tok->lsttok->next;
-		if (s && s[0] == '\"')
+		while (tok->lsttok && tok->lsttok->tok_type == WORD)
 		{
-			s++;
-			while (s && *s && *s != '\"')
-			{
-				write(1, s, 1);
-				s++;
-			}
-		}
-		else if (s && s[0] == '\'')
-		{
-			s++;
-			while (s && *s && *s != '\'')
-			{
-				write(1, s, 1);
-				s++;
-			}
-		}
-		else
-		{
-			while (tok->lsttok && tok->lsttok->tok_type == WORD)
-			{
-				// if (tok->lsttok->content[0] == '\"')
-				// {
-
-				// }
-				ft_putstr_fd((char *)tok->lsttok->content, 1);
+			skip_quote((char *)tok->lsttok->content, '\"', '\'');
+			if (tok->lsttok->next && tok->lsttok->next->tok_type == WORD)
 				write(1, " ", 1);
-				tok->lsttok = tok->lsttok->next;
-			}
+			tok->lsttok = tok->lsttok->next;
 		}
 		write(1, "\n", 1);
 	}
-	else
+	else if (tok->lsttok->next && tok->lsttok->next->tok_type != WORD)
 	{
-		write(1, "\n", 1);
 		tok->lsttok = tok->lsttok->next;
 	}
-	
+	else if (!tok->lsttok->next)
+		write(1, "\n", 1);
 }
