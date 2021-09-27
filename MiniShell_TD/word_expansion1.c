@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_expansion1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 11:32:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/24 16:12:38 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 10:43:23 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	we_word_expansion(t_msh *msh)
 {
 	t_we	we;
+
 	if (!msh->root)
 		return ;
 	we.msh = msh;
@@ -68,7 +69,7 @@ void	we_lexeme_formating(t_we *we)
 	while (*lex)
 	{
 		if (*lex == '$' && state != WE_ST_SQUOTE)
-			lex = we_param_expansion(we, lex,  state);
+			lex = we_param_expansion(we, lex, state);
 		else if (*lex == '\'' && state == WE_ST_FREE)
 			state = WE_ST_SQUOTE;
 		else if (*lex == '\'' && state == WE_ST_SQUOTE)
@@ -104,7 +105,7 @@ char	*we_param_expansion(t_we *we, char *lex, int state)
 	}
 	else if (!(*(lex + 1) == '\"' || *(lex + 1) == '\''))
 		*we->buff->ptr++ = *lex;
-	return lex;
+	return (lex);
 }
 
 void	we_param_substitution(t_we *we, char *param, int state)

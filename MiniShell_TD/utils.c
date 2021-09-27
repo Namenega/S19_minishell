@@ -6,14 +6,14 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 15:44:13 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/24 15:56:17 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 13:45:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	msh_error(t_msh *msh, char *msg)
-{
-	(void)msh;
-	(void)msg;
-}
+// void	msh_error(t_msh *msh, char *msg)
+// {
+// 	(void)msh;
+// 	(void)msg;
+// }

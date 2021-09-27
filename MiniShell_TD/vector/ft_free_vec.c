@@ -6,13 +6,13 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 10:35:35 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/23 15:47:50 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 14:27:32 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
 
-int		ft_free_vec(t_vec *vec)
+int	ft_free_vec(t_vec *vec)
 {
 	free(vec->str);
 	free(vec);

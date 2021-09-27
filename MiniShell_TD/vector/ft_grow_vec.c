@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 10:36:30 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/24 12:17:23 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 14:27:36 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_vec	*ft_grow_vec(t_vec *vec)
 {
+	char	*new;
 	size_t	len;
 	size_t	size;
-	char	*new;
 
 	size = (vec->end - vec->str);
 	new = malloc(size * 2);

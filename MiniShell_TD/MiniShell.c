@@ -23,6 +23,7 @@
 #include "lexer.h"
 #include "parser.h"
 #include "word_expansion.h"
+#include "utils.h"
 
 void	handle_sigint(int sig)
 {
@@ -36,38 +37,39 @@ void	handle_sigint(int sig)
 
 }
 
+void	msh_error(t_msh *msh, char *msg)
+{
+	(void)msh;
+	(void)msg;
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
 	(void)env;
-	char	*buff;
-	t_tok	*tokens;
-	t_cst	*root;
+	char	*ret[4];
 	t_msh	msh;
 
+	msh = (t_msh){utils_env_copy(env, utils_env_size(env)), NULL, NULL, NULL,
+	 		(char*)&ret};
 	// signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);		// Ignore SIGQUIT
 	printf("Welcome! Exit by pressing CTRL-D.\n");
 	while(1)
 	{
-		buff = readline(">");
-		if (*buff)					// ADD to history if not empty
+		msh.line = readline("msh>");
+		if (*msh.line)					// ADD to history if not empty
 		{
-			add_history(buff);
-			tokens = msh_lexer(buff);
-			if (!tokens)
-				return (1);
-			lexer_print_tokens(tokens);
-			root = msh_parser(tokens);
-			if (!root)
-				return (1);
-			cst_print_tree(root);
-			msh = (t_msh){env, buff, tokens, root, "123"};
+			add_history(msh.line);
+			lexer(&msh);
+			lexer_print(msh.head);
+			parser(&msh);
+			parser_print(msh.root);
 			we_word_expansion(&msh);
 			printf("\t \033[32mAFTER WORD EXPANSION:\033[0m\n");
-			cst_print_tree(root);
-			free(buff);
+			parser_print(msh.root);
+			free(msh.line);
 		}
 	}
 }

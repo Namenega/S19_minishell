@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/09/24 15:52:01 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/09/27 14:09:11 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,14 @@ NAME	= minishell
 LIBFT	= ./libft
 RDLINE	= /Users/$(USER)/.brew/opt/readline
 
-SRC		=	./lexer.c \
-			./parser.c \
+SRC		=	./lexer1.c \
+			./lexer2.c \
+			./parser1.c \
+			./parser2.c \
+			./parser3.c \
 			./word_expansion1.c \
 			./word_expansion2.c \
 			./utils.c \
-			./utils_cst.c \
 			./utils_env.c \
 			./vector/ft_new_vec.c \
 			./vector/ft_grow_vec.c \
