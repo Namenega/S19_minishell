@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 15:36:01 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/27 11:28:41 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/27 17:09:37 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,19 @@ void	free_token_list(t_token *tok)
 		tok->lsttok = tok->lsttok->next;
 		free(tmp);
 	}
+}
+
+int		ft_intcmp(int a, int b)
+{
+	// int i;
+	// int	j;
+	// i = (int)a;
+	// j = (int)b;
+	if (!a || !b)
+		return(0);
+	if (a == b)
+		return (1);
+	return (0);
 }
 
 //!Uncomment this if '$' needed

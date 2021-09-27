@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:37:45 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/27 11:30:38 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/27 18:10:26 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void		ms_loop(void);
 
 int			isnt_special(char c);
 void		free_token_list(t_token *tok);
+int			ft_intcmp(int a, int b);
 
 /*
 ** TOKENS/TOK_RECON_C
@@ -92,6 +93,12 @@ t_lsttok	*ft_lsttok_new(void *content, int type);
 void		ft_lsttok_add_back(t_lsttok **alst, t_lsttok *new);
 void		lst_new_addback(char *s, int type, t_token *tok);
 void		ft_lsttok_clear(t_lsttok **lst, void (*del)(void *));
+
+/*
+** FT_LST_C
+*/
+
+
 
 /*
 ** FT_ECHO_C

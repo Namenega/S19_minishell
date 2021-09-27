@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:33:47 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/27 11:32:57 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/27 14:33:09 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_echo(t_token *tok)
 	else if (tok->lsttok->next && tok->lsttok->next->tok_type != WORD)
 	{
 		tok->lsttok = tok->lsttok->next;
+		return ;
 	}
 	else if (!tok->lsttok->next)
 		write(1, "\n", 1);

@@ -1,12 +1,15 @@
 SRCNAME 	=	./main.c				\
 				./parser.c				\
+				./lexer.c				\
 				./ft_echo.c				\
 				./utils/utils_0.c		\
 				./utils/ft_lst.c		\
+				./utils/ft_btree.c		\
 				./tokens/tok_recon.c	\
 				./tokens/is_pipe.c		\
 				./tokens/is_io.c		\
-				./tokens/is_quote.c		\
+				./tokens/is_quote.c
+
 
 SRCS 		= ${SRCNAME}
 
@@ -14,7 +17,7 @@ OBJS 		= ${SRCS:.c=.o}
 
 NAME		= minishell
 
-CC 			= gcc -g3 #-fsanitize=address
+CC 			= gcc -g3 -fsanitize=address
 RM 			= rm -f
 CFLAGS 		= -Wall -Wextra -Werror -I -I../includes/libft \
 				-I /Users/$(USER)/.brew/opt/readline/include
@@ -24,7 +27,6 @@ CRED		= \033[0;31m
 CYELLOW		= \033[0;33m
 CGREY		= \033[38;2;128;128;128m
 CEND		= \033[0m
-
 
 .c.o:
 		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}

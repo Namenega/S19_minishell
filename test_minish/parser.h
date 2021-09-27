@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:02:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/20 16:12:05 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 18:10:21 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,12 @@ typedef struct s_parser
 t_cst*	msh_parser(t_lsttok *tokens);
 void	cst_print_tree(t_cst *tree);
 void	error_parser(t_parser *vars);
+
+
+
+void	search_words(t_cst *cmd, char **tab, size_t size, int nbr_left);
+char	**get_word_in_tab(t_cst *cmd);
+int		cst_add_words(t_cst *cmd, char **tab, size_t size, int nbr_left);
+
 
 #endif
