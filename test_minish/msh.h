@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:37:45 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/22 15:47:11 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/27 11:30:38 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,21 @@
 
 typedef struct s_lsttok
 {
-	void				*content;
-	int					tok_type;
-	struct	s_lsttok	*next;
+	void			*content;
+	int				tok_type;
+	struct s_lsttok	*next;
 }				t_lsttok;
-
 
 typedef struct s_token
 {
-	int			tokno;		//*number of token
-	int			i;			//*index
-	int			pos;		//*position in line[]
+	int			tokno;
+	int			i;
+	int			pos;
 	char		*tmp;
-	t_lsttok	*lsttok;	//*chained list of token
+	t_lsttok	*lsttok;
 }				t_token;
 
-typedef t_lsttok t_tok;
+typedef t_lsttok	t_tok;
 
 /*
 ** MAIN_C
@@ -88,7 +87,6 @@ void		is_pipe(t_token *tok);
 /*
 ** FT_LST_C
 */
-
 
 t_lsttok	*ft_lsttok_new(void *content, int type);
 void		ft_lsttok_add_back(t_lsttok **alst, t_lsttok *new);

@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 15:31:35 by namenega          #+#    #+#             */
-/*   Updated: 2021/08/31 15:31:52 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/27 11:25:41 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@
 
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	t_list *next;
+	t_list	*next;
 
 	if (lst)
+	{
 		while (*lst)
 		{
 			next = (*lst)->next;
@@ -29,4 +30,5 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 			free(*lst);
 			*lst = next;
 		}
+	}
 }

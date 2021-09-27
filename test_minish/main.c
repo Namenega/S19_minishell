@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 13:44:49 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/23 13:18:17 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/27 11:32:24 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	cmd(t_token *tok)
 {
 	while (tok->lsttok)
 	{
-		if (!ft_strncmp((char*)tok->lsttok->content, "echo", 5))	
+		if (!ft_strncmp((char *)tok->lsttok->content, "echo", 5))
 			ft_echo(tok);
 		else
 			tok->lsttok = tok->lsttok->next;
@@ -63,7 +63,6 @@ int	main(int ac, char **av, char **envp)
 		printf("Error: Run ./minishell without any other argument\n");
 	return (0);
 }
-
 
 //* print list fct
 // printf("[%d]\n", tok.tokno); //! used to print the nb of tokens

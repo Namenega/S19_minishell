@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_0.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 15:36:01 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/19 19:14:15 by pyg              ###   ########.fr       */
+/*   Updated: 2021/09/27 11:28:41 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_token_list(t_token *tok)
 {
 	t_lsttok	*tmp;
 
-	tmp	= tok->lsttok;
+	tmp = tok->lsttok;
 	while (tok->lsttok)
 	{
 		tmp = tok->lsttok;
