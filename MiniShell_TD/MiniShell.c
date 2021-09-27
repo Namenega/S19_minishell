@@ -47,13 +47,13 @@ int	main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
-	(void)env;
 	char	*ret[4];
 	t_msh	msh;
 
-	msh = (t_msh){utils_env_copy(env, utils_env_size(env)), NULL, NULL, NULL,
-	 		(char*)&ret};
-	// signal(SIGINT, handle_sigint);
+	printf("env: len: %zu\n", utils_env_size(env));
+	msh = (t_msh){utils_env_copy(env, utils_env_size(env) + 5), NULL, NULL, NULL,
+	 		(char*)&ret, utils_env_size(env), 5};
+	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);		// Ignore SIGQUIT
 	printf("Welcome! Exit by pressing CTRL-D.\n");
 	while(1)
