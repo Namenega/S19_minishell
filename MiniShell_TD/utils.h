@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:01:30 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 14:41:37 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 16:43:32 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	msh_error(t_msh *msh, char *msg);
 ** FILE: utils_env.c
 */
 
+void	utils_env_sort(char **env);
 void	utils_env_free(char **env);
 size_t	utils_env_size(char **env);
 char	**utils_env_copy(char **env, size_t size);

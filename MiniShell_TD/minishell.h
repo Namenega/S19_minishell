@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:45:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 14:36:43 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 16:08:07 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct s_msh
 	t_tok	*head;
 	t_cst	*root;
 	char	*ret;
+	size_t	env_size;
+	size_t	env_left;
 }				t_msh;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_expansion1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 11:32:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 10:43:23 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 16:00:56 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	*we_param_expansion(t_we *we, char *lex, int state)
 	ptr = utils_env_check_name(lex + 1);
 	if (ptr)
 	{
-		param = utils_env_get_param(we->msh->env, lex + 1, ptr - lex - 1);
+		param = utils_env_get_param(we->msh->env, lex + 1, ptr - (lex + 1));
 		lex = ptr - 1;
 		if (param)
 			we_param_substitution(we, param, state);
