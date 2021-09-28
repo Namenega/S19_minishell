@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 13:44:49 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/27 18:44:31 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/28 11:30:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	cst_add_words(t_cst *cmd, char **tab, size_t size, int nbr_left)
 	int	i;
 
 	i = 0;
-	tab[nbr_left - size] = malloc(sizeof(char) * ft_strlen(cmd->lexeme) + 1);
+	tab[nbr_left - size] = cmd->lexeme;
+	cmd->lexeme= NULL;
 	if (!tab)
 		return (0);
 	ft_strcpy(tab[nbr_left - size], cmd->lexeme);
@@ -27,10 +28,27 @@ int	cst_add_words(t_cst *cmd, char **tab, size_t size, int nbr_left)
 }
 
 
+// int	cst_add_words(t_cst *cmd, char **tab, size_t size, int nbr_left)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	tab[nbr_left - size] = malloc(sizeof(char) * ft_strlen(cmd->lexeme) + 1);
+// 	if (!tab)
+// 		return (0);
+// 	ft_strcpy(tab[nbr_left - size], cmd->lexeme);
+// 	size--;
+// 	return (size);
+// }
+
+
 void	search_words(t_cst *cmd, char **tab, size_t size, int nbr_left)
 {
 	if (cmd->left && cmd->left->type == CST_CMD_LIST)
+	{
+		printf("\t\t\t OK OK OK OK\n");
 		search_words(cmd->left, tab, size, nbr_left);
+	}
 	if (cmd->left && cmd->left->type == CST_WORD)
 		size = cst_add_words(cmd->left, tab, size, nbr_left);
 	if (cmd->right)
@@ -51,6 +69,7 @@ char	**get_word_in_tab(t_cst *cmd)
 	search_words(cmd, tab, size, nbr_left);
 
 	printf("tab = [%s]\n", tab[0]);
+	printf("tab = [%s]\n", tab[1]);
 	return (tab);
 }
 
@@ -86,7 +105,7 @@ void	ms_loop(void)
 		if (!cst)						//!WRONG !!! Error : need to clean then exit
 			return ;
 		cst_print_tree(cst);
-		get_word_in_tab(cst);
+		get_word_in_tab(cst->left);
 		// cmd(tok);
 		free(line);
 		free_token_list(&tok);
