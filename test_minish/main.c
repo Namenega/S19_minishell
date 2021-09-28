@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 13:44:49 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/28 15:02:29 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/28 16:59:50 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,36 @@
 // }				t_fd;
 
 
+int	get_ionbr_ioredir(t_io *io, t_cst *cmd)
+{
+	if (cmd->type == CST_IO_NBR)
+	{
+		io->fd = ft_atoi(cmd->lexeme);
+		printf("[%d]\n", io->fd);
+	}
+	// if (cmd->type == CST_IO_FILE)
+	// {
+		
+	// }
+		
+	if (cmd->left)
+		get_ionbr_ioredir(io, cmd->left);
+	if (cmd->right)
+		get_ionbr_ioredir(io, cmd->right);
+}
+
+void	get_io_args(t_launch *launch, t_cst *cmd)
+{
+	// printf("1.[%s]\n", cmd->lexeme);
+	// printf("[%s]\n", cmd->lexeme);
+	// printf("salut_2\n");
+	// printf("salut_3\n");
+	launch->io = malloc(sizeof(t_io));
+	if (!launch->io)
+		return ;								//! exit? free?
+	launch->io->fd = 0;
+	get_ionbr_ioredir(launch->io, cmd);
+}
 
 // void	cmd(t_token *tok)
 // {
@@ -52,12 +82,15 @@ void	ms_loop(void)
 		cst = msh_parser(tok.lsttok);
 		if (!cst)						//!WRONG !!! Error : need to clean then exit
 			return ;
-		cst_print_tree(cst);
+		cst_print_tree(cst);			//!print tree
 		if (cst->type == CST_PIPE_SEQ)
 			launch = get_word_in_tab(cst->left);
 		else
 			launch = get_word_in_tab(cst);
-		
+		if (cst->type == CST_PIPE_SEQ)
+			get_io_args(launch, cst->left);
+		else
+			get_io_args(launch, cst);
 		// cmd(tok);
 		free(line);
 		free_token_list(&tok);

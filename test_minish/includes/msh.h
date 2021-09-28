@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:37:45 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/28 15:00:51 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/28 16:17:09 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../../includes/libft/libft.h"
-
-# define MS_BUFFER 1024
-# define MS_TOK_SIZE 64
-# define MS_TOK_DELIM " \t\r\n\a"
 
 # define PIPE 10
 # define GREAT 11
@@ -68,7 +64,7 @@ typedef struct s_launch
 	int			size;
 	char		**tab;
 	char		**env;
-	t_io	*io;
+	t_io		*io;
 	// t_fd		*pipe_in;
 	// t_fd		*pipe_out;
 }				t_launch;
