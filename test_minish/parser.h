@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:02:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/28 12:06:20 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/28 13:38:53 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,8 @@ void	search_words(t_cst *cmd, char **tab, size_t size, int nbr_left);
 char	**get_word_in_tab(t_cst *cmd);
 int		cst_add_words(t_cst *cmd, char **tab, size_t size, int nbr_left);
 int		btree_level_count(t_cst *root);
+
+int word_count(t_cst *cmd);
+int *word_count_sub(t_cst *cmd, int *count);
 
 #endif

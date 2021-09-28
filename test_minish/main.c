@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 13:44:49 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/28 12:14:34 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/28 13:36:02 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,24 @@ void	search_words(t_cst *cmd, char **tab, size_t size, int nbr_left)
 char	**get_word_in_tab(t_cst *cmd)
 {
 	char	**tab;
-	size_t	size;
+	int	size;
 	int		nbr_left;
-	size_t	i;
+	int	i;
 
 	i = 0;
-	size = btree_level_count(cmd);
+	size = word_count(cmd);
+	// size = btree_level_count(cmd);
 	nbr_left = size;
-	printf("size = [%zu] && nbr_left = [%d]\n\n", size, nbr_left);
+	printf("size = [%d] && nbr_left = [%d]\n\n", size, nbr_left);
 	tab = malloc(sizeof(char *) * size);
 	if (!tab)
 		return (NULL);
 	search_words(cmd, tab, size, nbr_left);
-	while (i < size)
-	{
-		printf("[%s]\n", tab[i]);
-		i++;
-	}
+	// while (i < size)
+	// {
+	// 	printf("[%s]\n", tab[i]);
+	// 	i++;
+	// }
 	return (tab);
 }
 
