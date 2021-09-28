@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:01:30 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 16:43:32 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/28 11:39:25 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_msh	t_msh;
 */
 
 void	msh_error(t_msh *msh, char *msg);
+int		ret_str_2_int(t_msh *msh);
+void	ret_int_2_str(t_msh *msh, int ret);
 
 /*
 ** FILE: utils_env.c

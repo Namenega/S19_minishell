@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:02:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 17:48:47 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/28 12:28:04 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ char	**utils_env_copy(char **env, size_t size)
 		entry++;
 	}
 	*entry = NULL;
+	utils_env_free(env);
 	return (new_env);
 }
 
