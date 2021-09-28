@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 13:44:49 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/28 11:30:13 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/28 12:14:34 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,15 @@ int	cst_add_words(t_cst *cmd, char **tab, size_t size, int nbr_left)
 	int	i;
 
 	i = 0;
-	tab[nbr_left - size] = cmd->lexeme;
-	cmd->lexeme= NULL;
+	printf("size - nbr_left = [%lu]\n", size - nbr_left);
+	tab[size - nbr_left] = cmd->lexeme;
+	cmd->lexeme = NULL;
 	if (!tab)
 		return (0);
-	ft_strcpy(tab[nbr_left - size], cmd->lexeme);
-	size--;
-	return (size);
+	// ft_strcpy(tab[nbr_left - size], cmd->lexeme);
+	nbr_left--;
+	return (nbr_left);
 }
-
-
-// int	cst_add_words(t_cst *cmd, char **tab, size_t size, int nbr_left)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	tab[nbr_left - size] = malloc(sizeof(char) * ft_strlen(cmd->lexeme) + 1);
-// 	if (!tab)
-// 		return (0);
-// 	ft_strcpy(tab[nbr_left - size], cmd->lexeme);
-// 	size--;
-// 	return (size);
-// }
-
 
 void	search_words(t_cst *cmd, char **tab, size_t size, int nbr_left)
 {
@@ -50,7 +36,7 @@ void	search_words(t_cst *cmd, char **tab, size_t size, int nbr_left)
 		search_words(cmd->left, tab, size, nbr_left);
 	}
 	if (cmd->left && cmd->left->type == CST_WORD)
-		size = cst_add_words(cmd->left, tab, size, nbr_left);
+		nbr_left = cst_add_words(cmd->left, tab, size, nbr_left);
 	if (cmd->right)
 		search_words(cmd->right, tab, size, nbr_left);
 }
@@ -60,16 +46,21 @@ char	**get_word_in_tab(t_cst *cmd)
 	char	**tab;
 	size_t	size;
 	int		nbr_left;
+	size_t	i;
 
-	size = 5;
-	nbr_left = 5;
+	i = 0;
+	size = btree_level_count(cmd);
+	nbr_left = size;
+	printf("size = [%zu] && nbr_left = [%d]\n\n", size, nbr_left);
 	tab = malloc(sizeof(char *) * size);
 	if (!tab)
 		return (NULL);
 	search_words(cmd, tab, size, nbr_left);
-
-	printf("tab = [%s]\n", tab[0]);
-	printf("tab = [%s]\n", tab[1]);
+	while (i < size)
+	{
+		printf("[%s]\n", tab[i]);
+		i++;
+	}
 	return (tab);
 }
 

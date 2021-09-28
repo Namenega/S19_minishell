@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:13:12 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/27 17:40:17 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/28 12:00:06 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,26 @@ int	cst_search_type(t_cst *root, int data_ref, int (*cmpf)(int, int))
 	if (root->right)
 		return (cst_search_type(root->right, data_ref, cmpf));
 	return (0);
+}
+
+static int	max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	else
+		return (b);
+}
+
+int	btree_level_count(t_cst *root)
+{
+	int	i;
+
+	i = 0;
+	if (!root)
+		return (0);
+	if (root->left)
+		i = max(i, btree_level_count(root->right));
+	if (root->right)
+		i = max(i, btree_level_count(root->right));
+	return (i + 1);
 }

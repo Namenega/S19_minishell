@@ -223,7 +223,7 @@ Failure : returns -1
 
 EXECVE
 
-<int execve(const char *file, char const *argv[])>
+<int execve(const char *file, char const *argv[], char const *envp)>
 
 Execute le programme correspondant au fichier. Cleui-ci doit être un executable binaire ou un script. (/bin/ls).
 
