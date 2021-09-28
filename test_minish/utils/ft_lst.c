@@ -6,11 +6,11 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:54:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/27 11:28:16 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/28 14:24:29 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../msh.h"
+#include "../includes/msh.h"
 
 void	lst_new_addback(char *s, int type, t_token *tok)
 {

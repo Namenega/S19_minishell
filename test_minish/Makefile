@@ -4,7 +4,7 @@ SRCNAME 	=	./main.c				\
 				./ft_echo.c				\
 				./utils/utils_0.c		\
 				./utils/ft_lst.c		\
-				./utils/ft_btree.c		\
+				./utils/words_in_tab.c	\
 				./tokens/tok_recon.c	\
 				./tokens/is_pipe.c		\
 				./tokens/is_io.c		\

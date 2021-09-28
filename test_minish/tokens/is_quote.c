@@ -6,11 +6,11 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 18:53:24 by pyg               #+#    #+#             */
-/*   Updated: 2021/09/27 11:27:23 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/28 14:24:13 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../msh.h"
+#include "../includes/msh.h"
 
 void	is_quote(t_token *tok)
 {

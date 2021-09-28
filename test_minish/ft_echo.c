@@ -6,11 +6,11 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:33:47 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/27 14:33:09 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/28 14:25:48 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh.h"
+#include "includes/msh.h"
 
 //! echo + nothing = display a \n
 //! echo + $wrong_thing = display a \n

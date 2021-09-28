@@ -6,11 +6,11 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 18:50:56 by pyg               #+#    #+#             */
-/*   Updated: 2021/09/21 15:33:24 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/28 14:24:04 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../msh.h"
+#include "../includes/msh.h"
 
 void	is_pipe(t_token *tok)
 {

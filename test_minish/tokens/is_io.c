@@ -6,11 +6,11 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 15:03:31 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/21 15:39:57 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/28 14:23:59 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../msh.h"
+#include "../includes/msh.h"
 
 int	check_io(t_token *tok)
 {

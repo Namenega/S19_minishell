@@ -6,11 +6,11 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 11:51:59 by pyg               #+#    #+#             */
-/*   Updated: 2021/09/27 11:27:01 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/28 14:24:17 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../msh.h"
+#include "../includes/msh.h"
 
 //token : A sequence of characters considered a single unit by the shell. It is either a word or an operator.
 
