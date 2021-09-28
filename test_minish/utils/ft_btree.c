@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_btree.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:13:12 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/28 13:40:41 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/28 14:00:23 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,21 @@ int	btree_level_count(t_cst *root)
 	return (i + 1);
 }
 
-int *word_count_sub(t_cst *cmd, int *count)
+static void word_count_sub(t_cst *cmd, int *count)
 {
 	if (cmd->type == CST_WORD)
-		count++;
+		(*count)++;
 	if (cmd->left)
 		word_count_sub(cmd->left, count);
 	if (cmd->right)
 		word_count_sub(cmd->right, count);
-	return (count);
 }
-
 
 int word_count(t_cst *cmd)
 {
-	int	*count;
+	int	count;
 
 	count = 0;
-	return (word_count_sub(cmd, count));
+	word_count_sub(cmd, &count);
+	return (count);
 }

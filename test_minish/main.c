@@ -3,15 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 13:44:49 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/28 13:36:02 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/28 14:08:40 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 #include "parser.h"
+
+typedef struct s_launch
+{
+	int		size;
+	char	**tab;
+	char	**env;
+	t_io	*io;
+	t_fd 	*pipe_in;
+	t_fd 	*pipe_out;
+}				t_launch;
+
+typedef struct s_io
+{
+	int		fd;
+	int		oflag;
+	char	*filename;
+	t_io	*next;
+}				t_io;
+
+typedef struct s_fd
+{
+	int		fd[2];
+}				t_fd;
 
 int	cst_add_words(t_cst *cmd, char **tab, size_t size, int nbr_left)
 {
@@ -57,11 +80,11 @@ char	**get_word_in_tab(t_cst *cmd)
 	if (!tab)
 		return (NULL);
 	search_words(cmd, tab, size, nbr_left);
-	// while (i < size)
-	// {
-	// 	printf("[%s]\n", tab[i]);
-	// 	i++;
-	// }
+	while (i < size)
+	{
+		printf("[%s]\n", tab[i]);
+		i++;
+	}
 	return (tab);
 }
 
@@ -97,7 +120,10 @@ void	ms_loop(void)
 		if (!cst)						//!WRONG !!! Error : need to clean then exit
 			return ;
 		cst_print_tree(cst);
-		get_word_in_tab(cst->left);
+		if (cst->type == CST_PIPE_SEQ)
+			get_word_in_tab(cst->left);
+		else
+			get_word_in_tab(cst);
 		// cmd(tok);
 		free(line);
 		free_token_list(&tok);
