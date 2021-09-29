@@ -6,16 +6,16 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 12:12:03 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/29 13:15:31 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/29 14:09:16 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/msh.h"
 #include "../includes/parser.h"
 
-void	io_lst_new_addback(t_cst *cmd, t_getio *io)
+void	io_lst_new_addback(t_cst *cmd, t_io *io)
 {
-	t_getio	*tmp;
+	t_io	*tmp;
 
 	tmp = io_lst_new(cmd);
 	if (!tmp)
@@ -23,11 +23,11 @@ void	io_lst_new_addback(t_cst *cmd, t_getio *io)
 	io_lst_add_back(&io, tmp);
 }
 
-t_getio	*io_lst_new(t_cst *cmd)
+t_io	*io_lst_new(t_cst *cmd)
 {
-	t_getio	*new;
+	t_io	*new;
 
-	new = malloc(sizeof(t_getio));
+	new = malloc(sizeof(t_io));
 	if (!new)
 		return (NULL);						//! Erro msg need a change
 	new->redir = cmd->lexeme;				//* >, >>, <, <<		> & >> : fd = 1		< & << : fd = 0
@@ -42,12 +42,12 @@ t_getio	*io_lst_new(t_cst *cmd)
 	}
 	if (cmd->right && cmd->right->type == CST_WORD)
 		new->filename = cmd->right->lexeme;
-	//!oflag?
+											//! oflag?
 	new->next = NULL;
 	return (new);
 }
 
-void	io_lst_add_back(t_getio **alst, t_getio *new)
+void	io_lst_add_back(t_io **alst, t_io *new)
 {
 	if (!*alst)
 	{

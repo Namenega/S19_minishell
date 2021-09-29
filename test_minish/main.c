@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 13:44:49 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/29 13:16:46 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/29 14:08:43 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // }				t_fd;
 
 
-void	get_io(t_getio *io, t_cst *cmd)  //! Adapt to CST changes
+void	get_io(t_io *io, t_cst *cmd)  //! Adapt to CST changes
 {
 	// if (cmd->type == CST_IO_NBR)
 	// {
@@ -34,7 +34,7 @@ void	get_io(t_getio *io, t_cst *cmd)  //! Adapt to CST changes
 	// 	return ;
 	// }
 	if (cmd->type == CST_IO_REDIR)
-		io_lst_new_addback(cmd, /*&*/io);
+		io_lst_new_addback(cmd, io);
 	if (cmd->left)
 		get_io(io, cmd->left);
 	if (cmd->right)
@@ -43,7 +43,7 @@ void	get_io(t_getio *io, t_cst *cmd)  //! Adapt to CST changes
 
 void	get_io_args(t_launch *launch, t_cst *cmd)
 {
-	launch->io = malloc(sizeof(t_getio));
+	launch->io = malloc(sizeof(t_io));
 	if (!launch->io)
 		return ;								//! exit? free?
 	launch->io->fd = 0;

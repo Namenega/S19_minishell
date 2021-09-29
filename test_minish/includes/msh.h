@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:37:45 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/29 13:12:02 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/29 14:07:10 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,21 @@ typedef struct s_token
 
 typedef t_lsttok	t_tok;
 
-typedef struct s_getio
+typedef struct s_io
 {
 	int				fd;
 	char			*redir;
 	int				oflag;
 	char			*filename;
-	struct s_getio	*next;
-}				t_getio;
-
+	struct s_io	*next;
+}				t_io;
 
 typedef struct s_launch
 {
 	int			size;
 	char		**tab;
 	char		**env;
-	t_getio		*io;
+	t_io		*io;
 	// t_fd		*pipe_in;
 	// t_fd		*pipe_out;
 }				t_launch;
