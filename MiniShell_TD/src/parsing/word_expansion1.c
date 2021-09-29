@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 11:32:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 16:00:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/29 16:49:00 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,26 @@ void	we_word_expansion(t_msh *msh)
 {
 	t_we	we;
 
-	if (!msh->root)
+	if (!msh->ast)
 		return ;
 	we.msh = msh;
 	we.curr = NULL;
 	we.type = TYPE_CMD;
 	we.old = NULL;
-	we.buff = ft_new_vec(DFLT_VEC_SIZE);
+	we.buff = ft_vec_new(DFLT_VEC_SIZE);
 	if (!we.buff)
 		we_error(&we, ERR_MALLOC);
 	we.ifs = utils_env_get_ifs(msh->env);
 	if (!we.ifs)
 		we_error(&we, ERR_MALLOC);
-	we_cst_traversal(&we, msh->root);
-	ft_free_vec(we.buff);
+	we_ast_traversal(&we, msh->ast);
+	ft_vec_free(we.buff);
 }
 
-void	we_cst_traversal(t_we *we, t_cst *curr)
+void	we_ast_traversal(t_we *we, t_ast *curr)
 {
-	t_cst	*right_branch;
-	t_cst	*left_branch;
+	t_ast	*right_branch;
+	t_ast	*left_branch;
 
 	we->curr = curr;
 	left_branch = we->curr->left;
@@ -51,9 +51,9 @@ void	we_cst_traversal(t_we *we, t_cst *curr)
 		we->old = NULL;
 	}
 	if (left_branch)
-		we_cst_traversal(we, left_branch);
+		we_ast_traversal(we, left_branch);
 	if (right_branch)
-		we_cst_traversal(we, right_branch);
+		we_ast_traversal(we, right_branch);
 	we->type = TYPE_CMD;
 }
 
@@ -64,7 +64,7 @@ void	we_lexeme_formating(t_we *we)
 
 	lex = we->old;
 	state = WE_ST_FREE;
-	if (ft_check_vec(we->buff, lex))
+	if (ft_vec_check(we->buff, lex))
 		we_error(we, ERR_MALLOC);
 	while (*lex)
 	{
@@ -113,7 +113,7 @@ void	we_param_substitution(t_we *we, char *param, int state)
 	int		len;
 	int		do_ifs;
 
-	if (ft_check_vec(we->buff, param))
+	if (ft_vec_check(we->buff, param))
 		we_error(we, ERR_MALLOC);
 	do_ifs = (we->type == TYPE_CMD && state == WE_ST_FREE);
 	len = ft_strlen(param);

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 12:28:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 14:20:12 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/29 16:50:14 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	lexer_handle_pipe(t_lexer *lex)
 {
-	lexer_new_token(lex, WORD);
+	lexer_new(lex, WORD);
 	lex->i++;
-	lexer_new_token(lex, PIPE);
+	lexer_new(lex, PIPE);
 }
 
-void	lexer_new_token(t_lexer *lex, int type)
+void	lexer_new(t_lexer *lex, int type)
 {
 	t_tok	*new;
 	char	*lexeme;

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 12:29:05 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 14:13:07 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/29 16:50:14 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void	lexer(t_msh *msh)
 		else
 			lex.i++;
 	}
-	lexer_new_token(&lex, WORD);
-	msh->head = lex.head;
+	lexer_new(&lex, WORD);
+	msh->tok = lex.head;
 }
 
 void	lexer_handle_blank(t_lexer *lex)
 {
-	lexer_new_token(lex, WORD);
+	lexer_new(lex, WORD);
 	lex->i++;
 	lex->i_p = lex->i;
 }
@@ -54,11 +54,11 @@ void	lexer_handle_quote(t_lexer *lex)
 	while (lex->line[lex->i] && lex->line[lex->i] != quote)
 		lex->i++;
 	if (lex->line[lex->i] != quote)
-		lexer_error(lex, ERR_QUOTES_ODD);
+		lexer_error(lex, ERR_QUOTES);
 	lex->i++;
 }
 
-int	lexer_check_io_nbr(t_lexer *lex)
+int	lexer_handle_io_nbr(t_lexer *lex)
 {
 	int	i_p;
 
@@ -76,10 +76,10 @@ void	lexer_handle_io(t_lexer *lex)
 {
 	char	type;
 
-	if (lexer_check_io_nbr(lex))
-		lexer_new_token(lex, IO_NUMBER);
+	if (lexer_handle_io_nbr(lex))
+		lexer_new(lex, IO_NUMBER);
 	else
-		lexer_new_token(lex, WORD);
+		lexer_new(lex, WORD);
 	if (lex->line[lex->i] == CHR_LESS)
 		type = LESS;
 	else
@@ -90,5 +90,5 @@ void	lexer_handle_io(t_lexer *lex)
 		lex->i++;
 	}
 	lex->i++;
-	lexer_new_token(lex, type);
+	lexer_new(lex, type);
 }

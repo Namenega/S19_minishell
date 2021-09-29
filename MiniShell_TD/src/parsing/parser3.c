@@ -6,16 +6,16 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:54:35 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 15:06:31 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/29 16:08:11 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void	parser_free(t_cst *tree)
+void	parser_free(t_ast *tree)
 {
-	t_cst	*left;
-	t_cst	*right;
+	t_ast	*left;
+	t_ast	*right;
 
 	if (!tree)
 		return ;
@@ -44,7 +44,7 @@ void	parser_error(t_parser *vars, char *msg, char *opt)
 	msh_error(vars->msh, msg);
 }
 
-static void	parser_print_2(t_cst *tree, char **types, char **tabs, int tab)
+static void	parser_print_2(t_ast *tree, char **types, char **tabs, int tab)
 {
 	if (!tree)
 		return ;
@@ -66,7 +66,7 @@ static void	parser_print_2(t_cst *tree, char **types, char **tabs, int tab)
 	}
 }
 
-void	parser_print(t_cst *tree)
+void	parser_print(t_ast *tree)
 {
 	char	*types[5];
 	char	*tabs[10];

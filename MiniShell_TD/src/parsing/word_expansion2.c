@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_expansion2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:22:20 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 10:43:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/29 16:08:11 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	we_error(t_we *we, char *msg)
 {
 	if (we->buff)
 	{
-		ft_free_vec(we->buff);
+		ft_vec_free(we->buff);
 		we->buff = NULL;
 	}
 	if (we->old)
@@ -35,7 +35,7 @@ void	we_error(t_we *we, char *msg)
 void	we_add_word(t_we *we, t_vec *buff)
 {
 	char	*lex;
-	t_cst	*new;
+	t_ast	*new;
 
 	if (!*buff->str)
 		return ;

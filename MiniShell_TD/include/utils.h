@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:01:30 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/29 14:32:41 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/29 17:51:36 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,10 @@
 # define UTILS_H
 
 # include "libft.h"
-# include "vector.h" // TODO: Add to libft
-# include "lexer.h"
 # include "parser.h"
-# include "word_expansion.h"
 
 typedef struct s_tok	t_tok;
-typedef struct s_cst	t_cst;
+typedef struct s_cst	t_ast;
 typedef struct s_msh	t_msh;
 
 /*
@@ -36,7 +33,7 @@ void	ret_int_2_str(t_msh *msh, int ret);
 */
 
 void	utils_env_sort(char **env);
-void	utils_env_free(char **env);
+void	utils_free_tab(char **env);
 size_t	utils_env_size(char **env);
 void	utils_env_print(char **tab);
 char	**utils_env_copy(char **env, size_t size);

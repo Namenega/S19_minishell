@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:02:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/29 14:33:54 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/29 17:51:36 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	utils_env_sort(char **env)
 		utils_env_quicksort(lo, env);
 }
 
-void	utils_env_free(char **env)
+void	utils_free_tab(char **env)
 {
 	if (!env)
 		return ;

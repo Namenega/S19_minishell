@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:03:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 14:17:30 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/29 16:49:35 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 void	parser(t_msh *msh)
 {
-	t_cst		*cst;
+	t_ast		*cst;
 	t_parser	vars;
 
-	if (!msh->head)
+	if (!msh->tok)
 		return ;
-	vars = (t_parser){msh, msh->head, msh->head, NULL};
-	cst = parser_pipe_seq(&vars);
+	vars = (t_parser){msh, msh->tok, msh->tok, NULL};
+	cst = parser_pipe(&vars);
 	if (!cst || vars.node)
 		parser_error(&vars, ERR_SYNTAX, vars.node->lex);
-	msh->root = cst;
+	msh->ast = cst;
 }
 
-t_cst	*parser_new_node(t_parser *vars, int type, t_tok *node)
+t_ast	*parser_new(t_parser *vars, int type, t_tok *node)
 {
-	t_cst	*new;
+	t_ast	*new;
 
 	new = malloc(sizeof(*new));
 	if (!new)
