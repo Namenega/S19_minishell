@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:45:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/29 15:19:59 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/29 15:29:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_launch
 {
 	int			size;
 	char		**tab;
+	char		*filename;
 	char		**env;
 	t_io		*io;
 	t_io		*last;

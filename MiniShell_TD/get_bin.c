@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 11:46:05 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/29 13:01:05 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/29 15:33:09 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static inline int	search_dir(t_msh *msh, char *file, char *path)
 	t_dirent	*info;
 
 	found = 0;
-	printf("\033[33mDIR:%s\033[0m\n", path); 		// TODO:remove
+	// printf("\033[33mDIR:%s\033[0m\n", path); 		// TODO:remove
 	dirp = opendir(path);
 	if (!dirp)
 		msh_error(msh, strerror(errno));
@@ -35,7 +35,7 @@ static inline int	search_dir(t_msh *msh, char *file, char *path)
 	info = readdir(dirp);
 	while (info && !found)
 	{
-		printf("\033[35mFILE\033[0m:%s\n", info->d_name);	// TODO:remove
+		// printf("\033[35mFILE\033[0m:%s\n", info->d_name);	// TODO:remove
 		if (!ft_strcmp(file, info->d_name))
 			found = 1;
 		info = readdir(dirp);
@@ -69,6 +69,6 @@ char	*get_bin(t_msh *msh, char *file)
 	filepath[len_path] = '/';
 	ft_memcpy(filepath + len_path + 1, file, len_file);
 	filepath[len_path + 1 + len_file] = '\0';
-	printf("\033[36mFILEPATH\033[0m:%s\n", filepath);	// TODO:remove
+	// printf("\033[36mFILEPATH\033[0m:%s\n", filepath);	// TODO:remove
 	return (filepath);
 }

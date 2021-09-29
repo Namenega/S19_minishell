@@ -67,6 +67,7 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);		// Ignore SIGQUIT
 	printf("Welcome! Exit by pressing CTRL-D.\n");
+	set_path(&msh);
 	while(1)
 	{
 		msh.line = readline("msh>");
@@ -93,8 +94,8 @@ int	main(int argc, char **argv, char **env)
 			}
 			utils_env_print(launch->tab);
 			io_lst_print(launch->io);
+			launch->filename = get_bin(&msh, launch->tab[0]);
+			printf("FILENAME:%s\n", launch->filename);
 		}
 	}
-	set_path(&msh);
-	get_bin(&msh, argv[1]);
 }
