@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst.c                                           :+:      :+:    :+:   */
+/*   list_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:54:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/28 14:24:29 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/29 12:13:32 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/msh.h"
+#include "../includes/parser.h"
 
 void	lst_new_addback(char *s, int type, t_token *tok)
 {
@@ -28,7 +29,7 @@ t_lsttok	*ft_lsttok_new(void *content, int type)
 
 	new = malloc(sizeof(t_lsttok));
 	if (!new)
-		return (NULL);
+		return (NULL);						//! Erro msg need a change
 	new->content = content;
 	new->tok_type = type;
 	new->next = NULL;
@@ -43,9 +44,7 @@ void	ft_lsttok_add_back(t_lsttok **alst, t_lsttok *new)
 		return ;
 	}
 	while ((*alst)->next)
-	{
 		alst = &((*alst)->next);
-	}
 	(*alst)->next = new;
 }
 

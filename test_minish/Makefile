@@ -3,7 +3,8 @@ SRCNAME 	=	./main.c				\
 				./lexer.c				\
 				./ft_echo.c				\
 				./utils/utils_0.c		\
-				./utils/ft_lst.c		\
+				./utils/list_token.c	\
+				./utils/io_list.c		\
 				./utils/words_in_tab.c	\
 				./tokens/tok_recon.c	\
 				./tokens/is_pipe.c		\

@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:02:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/29 11:32:08 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/29 13:13:21 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ void		error_parser(t_parser *vars);
 
 
 t_launch	*get_word_in_tab(t_cst *cmd);
-// int		word_count(t_cst *cmd);
-// void	search_words(t_cst *cmd, char **tab, size_t size, int nbr_left);
-// int		cst_add_words(t_cst *cmd, char **tab, size_t size, int nbr_left);
 
+void		io_lst_new_addback(t_cst *cmd, t_getio *io);
+t_getio		*io_lst_new(t_cst *cmd/*, t_io **last*/);
+t_getio		*io_lst_last(t_getio *lst);
+void		io_lst_add_back(t_getio **alst, t_getio *new);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:37:45 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/29 11:21:43 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/29 13:12:02 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ typedef struct s_token
 
 typedef t_lsttok	t_tok;
 
-typedef struct s_io
+typedef struct s_getio
 {
-	int			fd;
-	char		*redir;
-	int			oflag;
-	char		*filename;
-	struct t_io	*next;
-}				t_io;
+	int				fd;
+	char			*redir;
+	int				oflag;
+	char			*filename;
+	struct s_getio	*next;
+}				t_getio;
 
 
 typedef struct s_launch
@@ -65,7 +65,7 @@ typedef struct s_launch
 	int			size;
 	char		**tab;
 	char		**env;
-	t_io		*io;
+	t_getio		*io;
 	// t_fd		*pipe_in;
 	// t_fd		*pipe_out;
 }				t_launch;
@@ -101,7 +101,7 @@ int			check_io(t_token *tok);
 void		is_pipe(t_token *tok);
 
 /*
-** FT_LST_C
+** LIST_TOKEN_C
 */
 
 t_lsttok	*ft_lsttok_new(void *content, int type);
@@ -110,8 +110,10 @@ void		lst_new_addback(char *s, int type, t_token *tok);
 void		ft_lsttok_clear(t_lsttok **lst, void (*del)(void *));
 
 /*
-** FT_LST_C
+** FT_IO_LST_C
 */
+
+
 
 /*
 ** FT_ECHO_C

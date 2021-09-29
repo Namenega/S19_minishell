@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 13:44:49 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/29 11:49:59 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/29 13:16:46 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,44 +20,35 @@
 // }				t_fd;
 
 
-void	get_ionbr_ioredir(t_io *io, t_cst *cmd)  //! Adapt to CST changes
+void	get_io(t_getio *io, t_cst *cmd)  //! Adapt to CST changes
 {
-	if (cmd->type == CST_IO_NBR)
-	{
-		io->fd = ft_atoi(cmd->lexeme);
-	}
-	if (cmd->type == CST_IO_FILE) //! CST_IO_FILE = CST_IO_REDIR after changes
-		io->redir = cmd->lexeme;
-	if (cmd->type == CST_IO_FILE && cmd->left && cmd->left->type == CST_WORD) //! CST_IO_FILE = CST_IO_REDIR after changes
-	{
-		io->filename = cmd->left->lexeme;
-		return ;
-	}
+	// if (cmd->type == CST_IO_NBR)
+	// {
+	// 	io->fd = ft_atoi(cmd->lexeme);
+	// }
+	// if (cmd->type == CST_IO_FILE) //! CST_IO_FILE = CST_IO_REDIR after changes
+	// 	io->redir = cmd->lexeme;
+	// if (cmd->type == CST_IO_FILE && cmd->left && cmd->left->type == CST_WORD) //! CST_IO_FILE = CST_IO_REDIR after changes
+	// {
+	// 	io->filename = cmd->left->lexeme;
+	// 	return ;
+	// }
+	if (cmd->type == CST_IO_REDIR)
+		io_lst_new_addback(cmd, /*&*/io);
 	if (cmd->left)
-		get_ionbr_ioredir(io, cmd->left);
+		get_io(io, cmd->left);
 	if (cmd->right)
-		get_ionbr_ioredir(io, cmd->right);
+		get_io(io, cmd->right);
 }
 
 void	get_io_args(t_launch *launch, t_cst *cmd)
 {
-	launch->io = malloc(sizeof(t_io));
+	launch->io = malloc(sizeof(t_getio));
 	if (!launch->io)
 		return ;								//! exit? free?
 	launch->io->fd = 0;
-	get_ionbr_ioredir(launch->io, cmd);
+	get_io(launch->io, cmd);
 }
-
-// void	cmd(t_token *tok)
-// {
-// 	while (tok->lsttok)
-// 	{
-// 		if (!ft_strncmp((char *)tok->lsttok->content, "echo", 5))
-// 			ft_echo(tok);
-// 		else
-// 			tok->lsttok = tok->lsttok->next;
-// 	}
-// }
 
 void	ms_loop(void)
 {
@@ -88,16 +79,15 @@ void	ms_loop(void)
 			get_io_args(launch, cst->left);
 		else
 			get_io_args(launch, cst);
-		int i = 0;
-		while (i < launch->size)
-		{
-			printf("[%s]\n", launch->tab[i]);
-			i++;
-		}
-		printf("io_fd = [%d]\n", launch->io->fd);
-		printf("io_redir = [%s]\n", launch->io->redir);
-		printf("io_filename = [%s]\n", launch->io->filename);
-		// cmd(tok);
+		// *int i = 0;
+		// while (i < launch->size)
+		// {
+		// 	printf("[%s]\n", launch->tab[i]);
+		// 	i++;
+		// }
+		// printf("io_fd = [%d]\n", launch->io->fd);
+		// printf("io_redir = [%s]\n", launch->io->redir);
+		// printf("io_filename = [%s]\n", launch->io->filename);
 		free(line);
 		free_token_list(&tok);
 		// system("leaks minishell");
