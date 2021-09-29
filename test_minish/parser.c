@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:03:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/28 14:25:59 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/29 11:34:39 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	error_parser(t_parser *vars) //TODO: implement!!
 
 void	cst_print_tree2(t_cst *tree, int tab)
 {
-	char	*type[] = {"CST_PIPE_SEQ", "CST_CMD_LIST", "CST_IO_REDIR",\
+	char	*type[] = {"CST_PIPE", "CST_CMD_LIST", "CST_IO_REDIR",\
 							"CST_IO_NBR", "CST_IO_FILE", "CST_IO_HERE",\
 							"CST_WORD"};
 	char	*spaces[] = {" ", "\t", "\t\t","\t\t\t", "\t\t\t\t", "\t\t\t\t\t",
@@ -53,7 +53,7 @@ void	cst_print_tree(t_cst *tree)
 
 void	cst_print_node(t_cst *tree)
 {
-	char	*arr_type[] = {"CST_PIPE_SEQ", "CST_CMD_LIST", "CST_IO_REDIR",\
+	char	*arr_type[] = {"CST_PIPE", "CST_CMD_LIST", "CST_IO_REDIR",\
 							"CST_IO_NBR", "CST_IO_FILE", "CST_IO_HERE",\
 							"CST_WORD"};
 	if (!tree)
@@ -218,7 +218,7 @@ t_cst*	parse_pipe_seq(t_parser *vars)
 		return NULL;
 	}
 	vars->tmp = cmd_list;
-	pipe_seq = parse_new_node(vars, CST_PIPE_SEQ, vars->node);
+	pipe_seq = parse_new_node(vars, CST_PIPE, vars->node);
 	vars->tmp = NULL;
 	pipe_seq->left = cmd_list;
 	pipe_seq->right = parse_pipe_seq(vars);

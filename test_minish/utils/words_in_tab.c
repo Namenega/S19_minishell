@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:13:12 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/29 11:18:43 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/29 11:38:18 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,5 @@ t_launch	*get_word_in_tab(t_cst *cmd)
 	if (!launch->tab)
 		return (NULL);
 	search_words(cmd, launch, nbr_left);
-	while (i < launch->size)
-	{
-		printf("[%s]\n", launch->tab[i]);
-		i++;
-	}
 	return (launch);
 }
