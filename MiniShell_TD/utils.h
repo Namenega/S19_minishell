@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:01:30 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/28 11:39:25 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/29 14:32:41 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ret_int_2_str(t_msh *msh, int ret);
 void	utils_env_sort(char **env);
 void	utils_env_free(char **env);
 size_t	utils_env_size(char **env);
+void	utils_env_print(char **tab);
 char	**utils_env_copy(char **env, size_t size);
 char	*utils_env_get_ifs(char **env);
 char	*utils_env_check_name(char *str);

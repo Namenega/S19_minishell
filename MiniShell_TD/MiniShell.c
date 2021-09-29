@@ -49,7 +49,8 @@ int	main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
-	t_msh	msh;
+	t_msh		msh;
+	t_launch	*launch;
 
 	msh.env = utils_env_copy(env, utils_env_size(env) + 5);
 	msh.path = NULL;
@@ -66,22 +67,34 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);		// Ignore SIGQUIT
 	printf("Welcome! Exit by pressing CTRL-D.\n");
-	// while(1)
-	// {
-	// 	msh.line = readline("msh>");
-	// 	if (*msh.line)					// ADD to history if not empty
-	// 	{
-	// 		add_history(msh.line);
-	// 		lexer(&msh);
-	// 		lexer_print(msh.head);
-	// 		parser(&msh);
-	// 		parser_print(msh.root);
-	// 		we_word_expansion(&msh);
-	// 		printf("\t \033[32mAFTER WORD EXPANSION:\033[0m\n");
-	// 		parser_print(msh.root);
-	// 		free(msh.line);
-	// 	}
-	// }
+	while(1)
+	{
+		msh.line = readline("msh>");
+		if (*msh.line)					// ADD to history if not empty
+		{
+			add_history(msh.line);
+			lexer(&msh);
+			lexer_print(msh.head);
+			parser(&msh);
+			parser_print(msh.root);
+			we_word_expansion(&msh);
+			printf("\t \033[32mAFTER WORD EXPANSION:\033[0m\n");
+			parser_print(msh.root);
+			free(msh.line);
+			if (msh.root->type == CST_PIPE)
+			{
+				launch = get_word_in_tab(msh.root->left);
+				get_io(launch, msh.root->left);
+			}
+			else
+			{
+				launch = get_word_in_tab(msh.root);
+				get_io(launch, msh.root);
+			}
+			utils_env_print(launch->tab);
+			io_lst_print(launch->io);
+		}
+	}
 	set_path(&msh);
 	get_bin(&msh, argv[1]);
 }
