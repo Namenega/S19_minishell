@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/09/27 14:09:11 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/09/29 12:04:23 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ SRC		=	./lexer1.c \
 			./word_expansion2.c \
 			./utils.c \
 			./utils_env.c \
+			./set_path.c \
+			./get_bin.c \
 			./vector/ft_new_vec.c \
 			./vector/ft_grow_vec.c \
 			./vector/ft_free_vec.c \

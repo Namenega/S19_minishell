@@ -40,36 +40,48 @@ void	handle_sigint(int sig)
 void	msh_error(t_msh *msh, char *msg)
 {
 	(void)msh;
-	(void)msg;
+	printf("\033[31mEXIT_FAILURE\033[0m\n");
+	printf("%s\n", msg);
+	exit(EXIT_FAILURE);
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
-	char	*ret[4];
 	t_msh	msh;
 
-	printf("env: len: %zu\n", utils_env_size(env));
-	msh = (t_msh){utils_env_copy(env, utils_env_size(env) + 5), NULL, NULL, NULL,
-	 		(char*)&ret, utils_env_size(env), 5};
+	msh.env = utils_env_copy(env, utils_env_size(env) + 5);
+	msh.path = NULL;
+	msh.line = NULL;
+	msh.head = NULL;
+	msh.root = NULL;
+	msh.ret[0] = '1';
+	msh.ret[1] = '2';
+	msh.ret[2] = '1';
+	msh.ret[3] = '\0';
+	msh.env_size = utils_env_size(env);
+	msh.env_left = 5;
+
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);		// Ignore SIGQUIT
 	printf("Welcome! Exit by pressing CTRL-D.\n");
-	while(1)
-	{
-		msh.line = readline("msh>");
-		if (*msh.line)					// ADD to history if not empty
-		{
-			add_history(msh.line);
-			lexer(&msh);
-			lexer_print(msh.head);
-			parser(&msh);
-			parser_print(msh.root);
-			we_word_expansion(&msh);
-			printf("\t \033[32mAFTER WORD EXPANSION:\033[0m\n");
-			parser_print(msh.root);
-			free(msh.line);
-		}
-	}
+	// while(1)
+	// {
+	// 	msh.line = readline("msh>");
+	// 	if (*msh.line)					// ADD to history if not empty
+	// 	{
+	// 		add_history(msh.line);
+	// 		lexer(&msh);
+	// 		lexer_print(msh.head);
+	// 		parser(&msh);
+	// 		parser_print(msh.root);
+	// 		we_word_expansion(&msh);
+	// 		printf("\t \033[32mAFTER WORD EXPANSION:\033[0m\n");
+	// 		parser_print(msh.root);
+	// 		free(msh.line);
+	// 	}
+	// }
+	set_path(&msh);
+	get_bin(&msh, argv[1]);
 }
