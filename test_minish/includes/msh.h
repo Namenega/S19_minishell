@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 15:37:45 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/28 16:17:09 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/29 11:21:43 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef t_lsttok	t_tok;
 typedef struct s_io
 {
 	int			fd;
+	char		*redir;
 	int			oflag;
 	char		*filename;
 	struct t_io	*next;

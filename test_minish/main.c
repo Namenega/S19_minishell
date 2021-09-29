@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 13:44:49 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/28 16:59:50 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/29 11:23:04 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@
 // }				t_fd;
 
 
-int	get_ionbr_ioredir(t_io *io, t_cst *cmd)
+void	get_ionbr_ioredir(t_io *io, t_cst *cmd)  //! Adapt to CST changes
 {
 	if (cmd->type == CST_IO_NBR)
 	{
 		io->fd = ft_atoi(cmd->lexeme);
-		printf("[%d]\n", io->fd);
+		printf("io_fd = [%d]\n", io->fd);
 	}
-	// if (cmd->type == CST_IO_FILE)
-	// {
-		
-	// }
-		
+	if (cmd->type == CST_IO_FILE)
+	{
+		io->redir = cmd->lexeme;
+		printf("io_redir = [%s]\n", io->redir);
+	}
 	if (cmd->left)
 		get_ionbr_ioredir(io, cmd->left);
 	if (cmd->right)

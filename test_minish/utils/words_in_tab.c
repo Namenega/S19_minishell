@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:13:12 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/28 16:13:49 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/29 11:18:43 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	search_words(t_cst *cmd, t_launch *launch, int nbr_left)
 {
 	if (cmd->left && cmd->left->type == CST_WORD)
 		nbr_left = cst_add_words(cmd->left, launch, nbr_left);
-	if (cmd->right /*&& cmd->right->type != CST_IO_REDIR*/)
+	if (cmd->right)
 		search_words(cmd->right, launch, nbr_left);
 }
 
