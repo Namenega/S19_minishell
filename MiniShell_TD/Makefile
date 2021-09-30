@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
+#    By: namenega <namenega@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/09/30 10:25:10 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/09/30 13:57:43 by namenega         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC		=	./src/builtins/msh_cd.c \
 			./src/builtins/msh_unset.c \
 			./src/builtins/unset.c \
 			./src/exec/command1.c \
+			./src/exec/command2.c \
 			./src/exec/command2.c \
 			./src/parsing/lexer1.c \
 			./src/parsing/lexer2.c \
