@@ -1,29 +1,16 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   test_readline.c									:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: tderwedu <tderwedu@student.s19.be>		 +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2021/08/17 12:04:26 by tderwedu		  #+#	#+#			 */
-/*   Updated: 2021/08/18 11:15:03 by tderwedu		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   MiniShell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/09/30 10:29:32 by tderwedu         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-
-#include <readline/readline.h>
-#include <readline/history.h>
-
-#include <signal.h>
-#include <sys/types.h>
-
-#include "lexer.h"
-#include "parser.h"
-#include "word_expansion.h"
-#include "utils.h"
+#include "minishell.h"
 
 void	handle_sigint(int sig)
 {
@@ -45,18 +32,24 @@ void	msh_error(t_msh *msh, char *msg)
 	exit(EXIT_FAILURE);
 }
 
+/*
+**	TODO List
+** - check free : line, tok, ast, exec
+**
+*/
+
 int	main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
-	t_msh		msh;
-	t_launch	*launch;
+	t_msh	msh;
+	t_exec	*exec;
 
 	msh.env = utils_env_copy(env, utils_env_size(env) + 5);
 	msh.path = NULL;
 	msh.line = NULL;
-	msh.head = NULL;
-	msh.root = NULL;
+	msh.tok = NULL;
+	msh.ast = NULL;
 	msh.ret[0] = '1';
 	msh.ret[1] = '2';
 	msh.ret[2] = '1';
@@ -75,27 +68,17 @@ int	main(int argc, char **argv, char **env)
 		{
 			add_history(msh.line);
 			lexer(&msh);
-			lexer_print(msh.head);
+			lexer_print(msh.tok);
 			parser(&msh);
-			parser_print(msh.root);
+			parser_print(msh.ast);
 			we_word_expansion(&msh);
 			printf("\t \033[32mAFTER WORD EXPANSION:\033[0m\n");
-			parser_print(msh.root);
-			free(msh.line);
-			if (msh.root->type == CST_PIPE)
-			{
-				launch = get_word_in_tab(msh.root->left);
-				get_io(launch, msh.root->left);
-			}
+			parser_print(msh.ast);
+			if (msh.ast->type == AST_PIPE)
+				exec = cmd_get(&msh, msh.ast->left);
 			else
-			{
-				launch = get_word_in_tab(msh.root);
-				get_io(launch, msh.root);
-			}
-			utils_env_print(launch->tab);
-			io_lst_print(launch->io);
-			launch->filename = get_bin(&msh, launch->tab[0]);
-			printf("FILENAME:%s\n", launch->filename);
+				exec = cmd_get(&msh, msh.ast);
+			cmd_print(exec);
 		}
 	}
 }

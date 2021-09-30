@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:02:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/29 17:22:40 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:48:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ enum	e_symbols
 
 enum	e_ast
 {
-	CST_PIPE,
-	CST_CMD_LIST,
-	CST_IO_REDIR,
-	CST_IO_NBR,
-	CST_WORD
+	AST_PIPE,
+	AST_CMD_LIST,
+	AST_IO_REDIR,
+	AST_IO_NBR,
+	AST_WORD
 };
 
 enum	e_state
@@ -64,12 +64,28 @@ typedef struct s_tok	t_tok;
 typedef struct s_ast	t_ast;
 typedef struct s_msh	t_msh;
 
-typedef struct s_tok
+struct s_tok
 {
 	char	*lex;
 	int		type;
 	t_tok	*next;
-}				t_tok;
+};
+
+struct s_ast
+{
+	int		type;
+	char	*lex;
+	t_ast	*left;
+	t_ast	*right;
+};
+
+typedef struct s_parser
+{
+	t_msh	*msh;
+	t_tok	*head;
+	t_tok	*node;
+	t_ast	*tmp;
+}				t_parser;
 
 typedef struct s_lexer
 {
@@ -80,22 +96,6 @@ typedef struct s_lexer
 	t_tok	*tail;
 	char	*line;
 }				t_lexer;
-
-typedef struct s_ast
-{
-	int		type;
-	char	*lex;
-	t_ast	*left;
-	t_ast	*right;
-}				t_ast;
-
-typedef struct s_parser
-{
-	t_msh	*msh;
-	t_tok	*head;
-	t_tok	*node;
-	t_ast	*tmp;
-}			t_parser;
 
 typedef struct s_we
 {
@@ -132,7 +132,7 @@ void	lexer_print(t_tok *token);
 void	parser(t_msh *msh);
 t_ast	*parser_new(t_parser *vars, int type, t_tok *node);
 
-/* FILE: src/parser/parser1.c */
+/* FILE: src/parser/parser2.c */
 
 t_ast	*parser_pipe(t_parser *vars);
 t_ast	*parser_cmd_list(t_parser *vars);
@@ -140,7 +140,7 @@ t_ast	*parser_io_redir(t_parser *vars);
 t_ast	*parser_io_file(t_parser *vars);
 t_ast	*parser_io_here(t_parser *vars);
 
-/* FILE: src/parser/parser1.c */
+/* FILE: src/parser/parser3.c */
 
 void	parser_free(t_ast *tree);
 void	parser_error(t_parser *vars, char *msg, char *opt);

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 11:32:42 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/29 17:51:36 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:59:31 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "minishell.h"
 #include "utils.h"
 
+// TODO: *argv -> **argv
 static int	msh_exit_get_int(char *argv)
 {
 	char 	*ptr;

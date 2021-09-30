@@ -44,6 +44,10 @@ SRCNAME	=	ft_atoi.c			\
 			ft_lstmap.c			\
 			ft_lstnew.c			\
 			ft_lstsize.c		\
+			ft_vec_check.c		\
+			ft_vec_free.c		\
+			ft_vec_grow.c		\
+			ft_vec_new.c 
 
 SRCS	= ${SRCNAME}
 

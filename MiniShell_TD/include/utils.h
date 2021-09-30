@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:01:30 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/29 17:51:36 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:19:06 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 # include "libft.h"
 # include "parser.h"
+# include "minishell.h"
 
 typedef struct s_tok	t_tok;
-typedef struct s_cst	t_ast;
+typedef struct s_ast	t_ast;
 typedef struct s_msh	t_msh;
 
 /*

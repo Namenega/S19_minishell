@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 11:32:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/29 16:49:00 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:29:47 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "word_expansion.h"
+#include "parser.h"
 
 void	we_word_expansion(t_msh *msh)
 {
@@ -40,7 +40,7 @@ void	we_ast_traversal(t_we *we, t_ast *curr)
 	we->curr = curr;
 	left_branch = we->curr->left;
 	right_branch = we->curr->right;
-	if (we->curr->type == CST_IO_REDIR)
+	if (we->curr->type == AST_IO_REDIR)
 		we->type = TYPE_IO;
 	if (we->curr->lex)
 	{

@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:22:20 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/29 16:08:11 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:30:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "word_expansion.h"
+#include "parser.h"
 
 void	we_error(t_we *we, char *msg)
 {
@@ -48,7 +48,7 @@ void	we_add_word(t_we *we, t_vec *buff)
 		new = malloc(sizeof(*new));
 		if (!new)
 			we_error(we, ERR_MALLOC);
-		new->type = CST_WORD;
+		new->type = AST_WORD;
 		new->lex = lex;
 		new->right = NULL;
 		new->left = we->curr->left;

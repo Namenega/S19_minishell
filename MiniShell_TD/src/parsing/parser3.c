@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:54:35 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/29 16:08:11 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:29:15 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ void	parser_print(t_ast *tree)
 	char	*types[5];
 	char	*tabs[10];
 
-	types[0] = "CST_PIPE";
-	types[1] = "CST_CMD_LIST";
-	types[2] = "CST_IO_REDIR";
-	types[3] = "CST_IO_NBR";
-	types[4] = "CST_WORD";
+	types[0] = "AST_PIPE";
+	types[1] = "AST_CMD_LIST";
+	types[2] = "AST_IO_REDIR";
+	types[3] = "AST_IO_NBR";
+	types[4] = "AST_WORD";
 	tabs[0] = " ";
 	tabs[1] = "\t";
 	tabs[2] = "\t\t";

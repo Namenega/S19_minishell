@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 12:28:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/29 16:50:14 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:10:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "parser.h"
 
 void	lexer_handle_pipe(t_lexer *lex)
 {

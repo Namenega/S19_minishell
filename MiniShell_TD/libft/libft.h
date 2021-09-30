@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 13:18:32 by namenega          #+#    #+#             */
-/*   Updated: 2021/08/31 18:48:02 by namenega         ###   ########.fr       */
+/*   Updated: 2021/09/29 15:52:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+
+# define DFLT_VEC_SIZE	256
+
+typedef struct s_vec
+{
+	char	*str;
+	char	*ptr;
+	char	*end;
+}				t_vec;
 
 typedef struct s_list
 {
@@ -69,5 +78,9 @@ char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
+void			ft_vec_free(t_vec *vec);
+t_vec			*ft_vec_grow(t_vec *vec);
+t_vec			*ft_vec_new(size_t size);
+int				ft_vec_check(t_vec *vec, char *str);
 
 #endif

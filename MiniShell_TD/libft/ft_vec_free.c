@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_cd.c                                           :+:      :+:    :+:   */
+/*   ft_vec_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/28 10:05:51 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/30 11:12:50 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/02/22 10:35:35 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/09/29 15:50:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "libft.h"
 
-// int	msh_cd(t_msh *msh, int argc, char **argv, char **env)
-// {
-	
-// }
+void	ft_vec_free(t_vec *vec)
+{
+	free(vec->str);
+	free(vec);
+}
