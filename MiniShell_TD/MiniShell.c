@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/30 10:29:32 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/30 14:04:00 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ void	handle_sigint(int sig)
 	rl_replace_line("", 0);		// Clear the previous text
 	rl_redisplay();				// Discplay the new buffer
 
+}
+
+void	msh_free(t_msh *msh)
+{
+	(void)msh;
 }
 
 void	msh_error(t_msh *msh, char *msg)
