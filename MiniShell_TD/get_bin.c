@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 11:46:05 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/29 15:33:09 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/30 11:33:42 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <sys/types.h>
 #include <sys/errno.h>
 
+//	TODO: move to an HEADER
 typedef struct dirent t_dirent;
 
 static inline int	search_dir(t_msh *msh, char *file, char *path)
