@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 14:13:56 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/01 13:36:24 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/01 14:35:54 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void	normal_echo(char **tab, int i, t_exec *exec)
 	while (tab[i])
 	{
 		ft_putstr_fd(tab[i], exec->io->fd);
-		write(exec->io->fd, " ", 1);
+		if (tab[i + 1])
+			write(exec->io->fd, " ", 1);
 		i++;
 	}
 	write(1, "\n", 1);
@@ -31,7 +32,8 @@ static int	echo_multiple_n(t_exec *exec, int i, char **tab)
 	while (tab[i])
 	{
 		ft_putstr(tab[i], exec->io->fd);
-		write(exec->io->fd, " ", 1);
+		if (tab[i + 1])
+			write(exec->io->fd, " ", 1);
 		i++;
 	}
 	return (i);
@@ -78,7 +80,8 @@ static int	if_echo_n(char **tab, int i, t_exec *exec)
 	else														//* echo -nfadsfas
 	{															//!WRONG
 		ft_putstr_fd(tab[i], exec->io->fd);
-		write(exec->io->fd, " ", 1);
+		if (tab[i + 1])
+			write(exec->io->fd, " ", 1);
 		i++;
 	}
 	return (i);

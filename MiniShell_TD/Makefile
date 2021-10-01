@@ -6,7 +6,7 @@
 #    By: namenega <namenega@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/10/01 13:36:06 by namenega         ###   ########.fr        #
+#    Updated: 2021/10/01 16:34:46 by namenega         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRC		=	./src/builtins/msh_cd.c \
 			./src/builtins/unset.c \
 			./src/exec/command1.c \
 			./src/exec/command2.c \
-			./src/exec/command2.c \
+			./src/exec/command3.c \
+			./src/exec/heredoc.c \
 			./src/parsing/lexer1.c \
 			./src/parsing/lexer2.c \
 			./src/parsing/parser1.c \
