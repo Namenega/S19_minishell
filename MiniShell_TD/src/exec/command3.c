@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:55:18 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/30 14:05:57 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/01 11:42:03 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,12 @@ void	simple_redirection(t_msh *msh, t_exec *ex)
 		msh->env = NULL;
 		msh_free(msh);
 		execve(ex->cmdpath, ex->tab, ex->env);
+		
 		// gestion error execve
 		close(entry_file);
-		
+		if (ex->cmdpath)
+			free(ex->cmdpath);
+		if (ex->tab)
+			ft_free_split(ex->tab)
 	}
 }
