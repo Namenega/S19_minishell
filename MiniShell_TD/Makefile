@@ -6,7 +6,7 @@
 #    By: namenega <namenega@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/09/30 13:57:43 by namenega         ###   ########.fr        #
+#    Updated: 2021/10/01 13:36:06 by namenega         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ LIBFT	= ./libft
 RDLINE	= /Users/$(USER)/.brew/opt/readline
 
 SRC		=	./src/builtins/msh_cd.c \
+			./src/builtins/msh_echo.c \
 			./src/builtins/msh_env.c \
 			./src/builtins/msh_exit.c \
 			./src/builtins/msh_export.c \

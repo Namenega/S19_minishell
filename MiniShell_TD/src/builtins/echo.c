@@ -6,11 +6,11 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 14:13:56 by namenega          #+#    #+#             */
-/*   Updated: 2021/09/30 17:09:32 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/01 13:36:24 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/exec.h"
+#include "../../include/exec.h"
 
 static void	normal_echo(char **tab, int i, t_exec *exec)
 {
@@ -84,7 +84,7 @@ static int	if_echo_n(char **tab, int i, t_exec *exec)
 	return (i);
 }
 
-void	if_echo(t_exec *exec)
+void	msh_echo(t_exec *exec)
 {
 	char	**tab;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 09:56:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/30 13:57:24 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/01 13:36:13 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,7 @@ void	cmd_print(t_exec *exec);
 void	simple_redirection(t_io *io, t_exec *exec);
 
 /* ================================= Builtins =============================== */
+
+void	msh_echo(t_exec *exec);
 
 #endif
