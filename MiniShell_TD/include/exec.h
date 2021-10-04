@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 09:56:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 15:10:44 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/04 17:21:05 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	heredoc(t_msh *msh, t_ast *ast);
 /* ================================= Builtins =============================== */
 
 void	msh_echo(t_msh *msh, t_exec *exec);
-int	msh_cd(t_msh *msh, t_exec *exec);
+int		msh_cd(t_msh *msh, t_exec *exec);
+void	msh_unset(char **env, t_exec *exec);
 
 #endif

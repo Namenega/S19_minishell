@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MiniShell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 16:17:05 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 17:20:45 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,9 @@ int	main(int argc, char **argv, char **env)
 			else
 				exec = cmd_get(&msh, msh.ast);
 			exec->cmdpath = get_bin(&msh, exec->tab[0]);
-			cmd_print(exec);
-			simple_redirection(&msh, exec);
+			// cmd_print(exec);
+			// simple_redirection(&msh, exec);
+			msh_unset(env, exec);
 			// msh_cd(&msh, exec);
 		}
 	}
