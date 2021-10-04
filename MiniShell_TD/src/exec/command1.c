@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/01 16:29:26 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/04 11:43:05 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_exec	*cmd_get(t_msh *msh, t_ast *ast)
 	cmd.tail = NULL;
 	cmd.i = 0;
 	if (ast)
-		cmd_ast_traversal(&cmd, ast);
+		cmd_ast_traversal(msh, &cmd, ast);
 	return (exec);
 }
 
@@ -43,14 +43,14 @@ void	cmd_add_word(t_cmd *cmd, t_ast *ast)
 	ast->lex = NULL;
 }
 
-void	cmd_ast_traversal(t_cmd *cmd, t_ast *ast)
+void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast)
 {
 	if (ast->left && ast->left->type == AST_WORD)
 		cmd_add_word(cmd, ast->left);
 	else if (ast->left && ast->left->type == AST_IO_REDIR)
-		cmd_add_io(cmd, ast->left);
+		cmd_add_io(msh, cmd, ast->left);
 	if (ast->right)
-		cmd_ast_traversal(cmd, ast->right);
+		cmd_ast_traversal(msh, cmd, ast->right);
 }
 
 static inline int	cmd_io_oflag(char *type)
@@ -65,7 +65,7 @@ static inline int	cmd_io_oflag(char *type)
 		return (0);
 }
 
-void	cmd_add_io(t_cmd *cmd, t_ast *ast)
+void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast)
 {
 	t_io	*new;
 
@@ -77,7 +77,7 @@ void	cmd_add_io(t_cmd *cmd, t_ast *ast)
 	else if (!ft_strcmp(ast->lex, ">") || !ft_strcmp(ast->lex, ">>"))
 		new->fd = 1;
 	else if (!ft_strcmp(ast->lex, "<<"))				//!Ajout du else if
-		heredoc(cmd->exec);
+		heredoc(msh, cmd->exec);
 	else // if (!ft_strcmp(ast->lex, "<") || !ft_strcmp(ast->lex, "<<"))
 		new->fd = 0;
 	if (ast->right && ast->right->type == AST_WORD)

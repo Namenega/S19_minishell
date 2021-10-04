@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/04 10:55:16 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 12:07:55 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,31 @@
 
 static void	read_heredoc(char *line, t_exec *exec)
 {
+	int i;
+	i = ft_strcmp(line, exec->io->filename);
+	printf("i = %d\n", i);
 	while (1)
 	{
+		printf("2\n");
 		line = readline("> ");
 		if (!line || !ft_strcmp(line, exec->io->filename))
+		{
+			// printf("3\n");
 			break ;
+		}
 		write(1, line, ft_strlen(line));
 		write(1, "\n" ,1);
 	}
 }
 
-void	heredoc(t_exec *exec)
+void	heredoc(t_msh *msh, t_exec *exec)
 {
 	pid_t	pid;
 	int		pipefd[2];
 	char	*line;
 	int		ret;
 
+	(void)msh;
 	if (pipe(pipefd) == -1)
 		return ;					//!Error msg need to change : pipe error.
 	pid = fork();

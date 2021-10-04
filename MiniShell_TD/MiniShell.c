@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 11:18:27 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/04 11:40:25 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int	main(int argc, char **argv, char **env)
 			else
 				exec = cmd_get(&msh, msh.ast);
 			// cmd_print(exec);
-			msh_echo(&msh, exec);
+			// msh_echo(&msh, exec);
+			// heredoc(&msh, exec);
 		}
 	}
 }

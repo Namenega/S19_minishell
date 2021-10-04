@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 09:56:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 10:54:06 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 11:42:47 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ typedef struct s_cmd
 
 t_exec	*cmd_get(t_msh *msh, t_ast *ast);
 void	cmd_add_word(t_cmd *cmd, t_ast *ast);
-void	cmd_ast_traversal(t_cmd *cmd, t_ast *ast);
-void	cmd_add_io(t_cmd *cmd, t_ast *ast);
+void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast);
+void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast);
 
 /* FILE: src/exec/command2.c */
 
@@ -74,7 +74,7 @@ void	simple_redirection(t_msh *msh, t_exec *ex);
 
 /* FILE: src/exec/heredoc.c */
 
-void	heredoc(t_exec *exec);
+void	heredoc(t_msh *msh, t_exec *exec);
 
 /* ================================= Builtins =============================== */
 
