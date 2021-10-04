@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 09:56:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 11:42:47 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/04 13:01:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ void	heredoc(t_msh *msh, t_exec *exec);
 /* ================================= Builtins =============================== */
 
 void	msh_echo(t_msh *msh, t_exec *exec);
+int	msh_cd(t_msh *msh, t_exec *exec);
 
 #endif

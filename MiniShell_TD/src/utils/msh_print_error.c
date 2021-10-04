@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:17:40 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 11:17:57 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 13:12:52 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "util.h"
+#include "utils.h"
 
 int	msh_print_error(char *s1, char *s2, char *s3, int ret)
 {

@@ -51,6 +51,9 @@ int	msh_chdir(t_msh *msh, char *path)
 	// Update PWD
 	free(msh->cwd);
 	msh->cwd = path;
+	printf("   cwd:%s\n", msh->cwd);
+	printf("getcwd:%s\n", getcwd(NULL, 0));
+	return (0);
 }
 
 char	*get_absolute_path(char *cwd, char *dst)
@@ -87,6 +90,7 @@ int		msh_check_path(char *dst, char *path)
 	t_stat	st;
 
 	errno = 0;
+	printf("OK OK OK \n");
 	if (stat(path, &st))
 	{
 		if (errno == ENOENT)
@@ -102,6 +106,7 @@ int		msh_check_path(char *dst, char *path)
 	}
 	if (ft_strlen(dst) > MAXPATHLEN)
 		return (msh_print_error(MSH_CD, dst, MSG_ENAME2LONG, EXIT_FAIL));
+	printf("OK OK OK \n");
 	return (0);
 }
 
@@ -128,10 +133,8 @@ int		msh_get_path(t_msh *msh, char *dst)
 int  msh_cd(t_msh *msh, t_exec *exec)
 {
 	char	*path;
-	t_vec	*buff;
 
-	if (ft_strcmp(exec->tab[1], "-") < 0)
-		return (msh_print_error(MSH_CD, exec->tab[1], MSG_CD_USE, EXIT_FAIL));
+	printf("argv[1]:%s\n", exec->tab[1]);
 	if (!exec->tab[1])
 	{
 		path = utils_env_get_param(exec->env, "HOME", 4);
@@ -146,8 +149,9 @@ int  msh_cd(t_msh *msh, t_exec *exec)
 			return (msh_print_error(MSH_CD, MSG_OPWD, NULL, EXIT_FAIL));
 		return (msh_chdir(msh, path));
 	}
+	else if (exec->tab[1][0] == '-')
+		return (msh_print_error(MSH_CD, exec->tab[1], MSG_CD_USE, EXIT_FAIL));
 	else
-	{
-		path = get_absolute_path(msh->cwd, exec->tab[1]);
-	}
+		path = msh_get_path(msh, *(exec->tab));
+	return (0);
 }

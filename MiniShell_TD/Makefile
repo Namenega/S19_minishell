@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/10/04 10:53:25 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/10/04 13:01:36 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ LIBFT	= ./libft
 RDLINE	= /Users/$(USER)/.brew/opt/readline
 
 SRC		=	./src/builtins/msh_echo.c \
+			./src/builtins/msh_cd.c \
 			./src/exec/command1.c \
 			./src/exec/command2.c \
 			./src/exec/command3.c \
@@ -30,6 +31,8 @@ SRC		=	./src/builtins/msh_echo.c \
 			./src/parsing/word_expansion1.c \
 			./src/parsing/word_expansion2.c \
 			./src/utils/utils.c \
+			./src/utils/msh_canonpath.c \
+			./src/utils/msh_print_error.c \
 			./src/utils/utils_cst.c \
 			./src/utils/utils_env.c \
 			./set_path.c \
