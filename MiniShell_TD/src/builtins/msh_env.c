@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 11:41:18 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/30 10:20:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 19:47:50 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	msh_env(t_msh *msh, char **argv, char **env)
 	while (*env)
 	{
 		write(1, *env, ft_strlen(*env));
+		write(1, "\n", 1);
 		env++;
 	}
 	return (EXIT_SUCCESS);

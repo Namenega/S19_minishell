@@ -6,7 +6,7 @@
 #    By: namenega <namenega@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/10/04 17:37:09 by namenega         ###   ########.fr        #
+#    Updated: 2021/10/04 19:46:04 by namenega         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,12 @@ NAME	= minishell
 LIBFT	= ./libft
 RDLINE	= /Users/$(USER)/.brew/opt/readline
 
-SRC		=	./src/builtins/msh_echo.c \
+SRC		=	./src/builtins/which_cmd.c \
+			./src/builtins/msh_echo.c \
 			./src/builtins/msh_cd.c \
 			./src/builtins/msh_unset.c \
+			./src/builtins/msh_pwd.c \
+			./src/builtins/msh_env.c \
 			./src/exec/command1.c \
 			./src/exec/command2.c \
 			./src/exec/command3.c \

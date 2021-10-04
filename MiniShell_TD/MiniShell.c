@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 18:24:20 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/04 19:14:01 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,17 @@ int	main(int argc, char **argv, char **env)
 			// parser_print(msh.ast);
 			we_word_expansion(&msh);
 			// printf("\t \033[32mAFTER WORD EXPANSION:\033[0m\n");
-			parser_print(msh.ast);
+			// parser_print(msh.ast);
 			if (msh.ast->type == AST_PIPE)
 				exec = cmd_get(&msh, msh.ast->left);
 			else
 				exec = cmd_get(&msh, msh.ast);
-			cmd_print(exec);
+			// cmd_print(exec);
+			which_cmd(exec, env, &msh);
 			// exec->cmdpath = get_bin(&msh, exec->tab[0]);
-			if (!ft_strcmp(exec->tab[0], "unset"))
-				msh_unset(env, exec);
+			// if (!ft_strcmp(exec->tab[0], "unset"))
+			// 	msh_unset(env, exec);
 			// else
-			// 	simple_redirection(&msh, exec);
 			// msh_cd(&msh, exec);
 		}
 	}

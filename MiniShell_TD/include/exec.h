@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 09:56:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 17:21:05 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/04 19:45:38 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,15 @@ void	simple_redirection(t_msh *msh, t_exec *ex);
 
 /* FILE: src/exec/heredoc.c */
 
-int	heredoc(t_msh *msh, t_ast *ast);
+int		heredoc(t_msh *msh, t_ast *ast);
 
 /* ================================= Builtins =============================== */
 
+void	which_cmd(t_exec *exec, char **env, t_msh *msh);
 void	msh_echo(t_msh *msh, t_exec *exec);
 int		msh_cd(t_msh *msh, t_exec *exec);
 void	msh_unset(char **env, t_exec *exec);
+void	msh_pwd(char **env, t_msh *msh);
+int		msh_env(t_msh *msh, char **argv, char **env);
 
 #endif
