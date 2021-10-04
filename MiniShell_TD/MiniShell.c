@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MiniShell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 13:05:00 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 14:38:11 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,8 @@ int	main(int argc, char **argv, char **env)
 				exec = cmd_get(&msh, msh.ast->left);
 			else
 				exec = cmd_get(&msh, msh.ast);
-			cmd_print(exec);
-			msh_cd(&msh, exec);
-			// heredoc(&msh, exec);
+			// cmd_print(exec);
+			// msh_cd(&msh, exec);
 		}
 	}
 }

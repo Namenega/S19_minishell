@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/04 13:13:34 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/04 14:40:18 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,19 @@
 //CTRL C need to stop process
 //CTRL D need to stop process but print readline buffer already registered.
 
-static void	read_heredoc(char *line, char *eof)
+static void	read_heredoc(int pipefd[2], char *line, char *eof)
 {
 	while (1)
 	{
-		line = readline("> ");
+		line = readline("heredoc> ");
 		if (!line || !ft_strcmp(line, eof))
-		{
 			break ;
-		}
-		write(1, line, ft_strlen(line));
-		write(1, "\n" ,1);
+		write(pipefd[1], line, ft_strlen(line));
+		write(pipefd[1], "\n", 1);
 	}
 }
 
-void	heredoc(t_msh *msh, t_ast *ast)
+int	heredoc(t_msh *msh, t_ast *ast)
 {
 	pid_t	pid;
 	int		pipefd[2];
@@ -38,17 +36,17 @@ void	heredoc(t_msh *msh, t_ast *ast)
 	int		ret;
 
 	(void)msh;
+	line = NULL;
 	eof = ast->right->lex;
 	if (pipe(pipefd) == -1)
-		return ;					//!Error msg need to change : pipe error.
+		return (0);					//!Error msg need to change : pipe error.
 	pid = fork();
 	if (pid < 0)
-		return ;					//!Error msg need to change : fork error.
+		return (0);					//!Error msg need to change : fork error.
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
-		line = NULL;
-		read_heredoc(line, eof);
+		read_heredoc(pipefd, line, eof);
 		free(line);
 		close(pipefd[1]);
 		close(pipefd[0]);
@@ -61,4 +59,5 @@ void	heredoc(t_msh *msh, t_ast *ast)
 		if (ret == EXIT_SUCCESS)
 			close(pipefd[0]);
 	}
+	return (pipefd[1]);
 }

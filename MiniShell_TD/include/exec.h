@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 09:56:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 13:19:46 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 14:22:18 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	simple_redirection(t_msh *msh, t_exec *ex);
 
 /* FILE: src/exec/heredoc.c */
 
-void	heredoc(t_msh *msh, t_ast *ast);
+int	heredoc(t_msh *msh, t_ast *ast);
 
 /* ================================= Builtins =============================== */
 
