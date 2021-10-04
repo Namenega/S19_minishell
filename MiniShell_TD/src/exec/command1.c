@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 14:36:01 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/04 15:18:40 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static inline int	cmd_io_oflag(char *type)
 void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast)
 {
 	t_io	*new;
+	int		err_d;
 
 	new = malloc(sizeof(*new));
 	if (!new)
@@ -76,12 +77,16 @@ void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast)
 		new->fd = ft_atoi(ast->left->lex);
 	else if (!ft_strcmp(ast->lex, ">") || !ft_strcmp(ast->lex, ">>"))
 		new->fd = 1;
-	else if (!ft_strcmp(ast->lex, "<<"))				//!Ajout du else if
-	{
-		new->fd = heredoc(msh, ast);
-	}
 	else // if (!ft_strcmp(ast->lex, "<") || !ft_strcmp(ast->lex, "<<"))
 		new->fd = 0;
+	if (!ft_strcmp(ast->lex, "<<"))				//!Ajout du else if
+	{
+		new->heredoc_fd = heredoc(msh, ast);
+		err_d = dup2(new->heredoc_fd, new->fd);
+		if (err_d == -1)
+			return ;							//!Error need to change
+		close(new->heredoc_fd);
+	}
 	if (ast->right && ast->right->type == AST_WORD)
 	{
 		new->filename = ast->right->lex;

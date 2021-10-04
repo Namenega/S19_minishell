@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 09:56:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 14:22:18 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/04 15:10:44 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_msh	t_msh;
 struct s_io
 {
 	int		fd;
+	int		heredoc_fd;
 	int		oflag;
 	char	*filename;
 	t_io	*next;
