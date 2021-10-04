@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/04 12:13:04 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 13:13:34 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,13 @@
 //CTRL C need to stop process
 //CTRL D need to stop process but print readline buffer already registered.
 
-static void	read_heredoc(char *line, t_exec *exec)
+static void	read_heredoc(char *line, char *eof)
 {
-	// int i;
-	// i = ft_strcmp(line, exec->io->filename);
-	// printf("i = %d\n", i);
 	while (1)
 	{
-		printf("2\n");
 		line = readline("> ");
-		if (!line || !ft_strcmp(line, exec->io->filename))
+		if (!line || !ft_strcmp(line, eof))
 		{
-			// printf("3\n");
 			break ;
 		}
 		write(1, line, ft_strlen(line));
@@ -34,14 +29,16 @@ static void	read_heredoc(char *line, t_exec *exec)
 	}
 }
 
-void	heredoc(t_msh *msh, t_exec *exec)
+void	heredoc(t_msh *msh, t_ast *ast)
 {
 	pid_t	pid;
 	int		pipefd[2];
 	char	*line;
+	char	*eof = NULL;
 	int		ret;
 
 	(void)msh;
+	eof = ast->right->lex;
 	if (pipe(pipefd) == -1)
 		return ;					//!Error msg need to change : pipe error.
 	pid = fork();
@@ -51,15 +48,7 @@ void	heredoc(t_msh *msh, t_exec *exec)
 	{
 		signal(SIGINT, SIG_DFL);
 		line = NULL;
-		read_heredoc(line, exec);
-		// while (1)
-		// {
-		// 	line = readline("> ");
-		// 	if (!line || !ft_strcmp(line, exec->io->filename))
-		// 		break ;
-		// 	write(1, line, ft_strlen(line));
-		// 	write(1, "\n" ,1);
-		// }
+		read_heredoc(line, eof);
 		free(line);
 		close(pipefd[1]);
 		close(pipefd[0]);
