@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
+#    By: namenega <namenega@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/10/04 13:01:36 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/10/04 17:37:09 by namenega         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ RDLINE	= /Users/$(USER)/.brew/opt/readline
 
 SRC		=	./src/builtins/msh_echo.c \
 			./src/builtins/msh_cd.c \
+			./src/builtins/msh_unset.c \
 			./src/exec/command1.c \
 			./src/exec/command2.c \
 			./src/exec/command3.c \
