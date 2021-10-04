@@ -6,7 +6,11 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 09:56:00 by tderwedu          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/10/04 13:01:22 by tderwedu         ###   ########.fr       */
+=======
+/*   Updated: 2021/10/04 13:11:33 by namenega         ###   ########.fr       */
+>>>>>>> 27393e61cc532fff0157a3065f20b18195787d31
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +78,7 @@ void	simple_redirection(t_msh *msh, t_exec *ex);
 
 /* FILE: src/exec/heredoc.c */
 
-void	heredoc(t_msh *msh, t_exec *exec);
+void	heredoc(t_msh *msh, t_ast *ast);
 
 /* ================================= Builtins =============================== */
 

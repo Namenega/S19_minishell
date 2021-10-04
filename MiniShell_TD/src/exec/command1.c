@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 11:43:05 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/04 13:11:55 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast)
 	else if (!ft_strcmp(ast->lex, ">") || !ft_strcmp(ast->lex, ">>"))
 		new->fd = 1;
 	else if (!ft_strcmp(ast->lex, "<<"))				//!Ajout du else if
-		heredoc(msh, cmd->exec);
+		heredoc(msh, ast);
 	else // if (!ft_strcmp(ast->lex, "<") || !ft_strcmp(ast->lex, "<<"))
 		new->fd = 0;
 	if (ast->right && ast->right->type == AST_WORD)
