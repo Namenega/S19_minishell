@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 16:17:05 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 16:53:19 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	main(int argc, char **argv, char **env)
 	printf("\033[36mCWD\033[0m:%s\n", msh.cwd);
 	while(1)
 	{
-		msh.line = readline("msh>");
+		msh.line = readline("\033[32mmsh>\033[35m");
 		if (*msh.line)					// ADD to history if not empty
 		{
 			// printf("\t\t\033[32mOK\033[0m\n"); // TODO: remove
@@ -88,8 +88,10 @@ int	main(int argc, char **argv, char **env)
 				exec = cmd_get(&msh, msh.ast);
 			exec->cmdpath = get_bin(&msh, exec->tab[0]);
 			cmd_print(exec);
-			simple_redirection(&msh, exec);
-			// msh_cd(&msh, exec);
+			// simple_redirection(&msh, exec);
+			msh_cd(&msh, exec);
 		}
 	}
 }
+
+//cd /b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/oinfre a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre

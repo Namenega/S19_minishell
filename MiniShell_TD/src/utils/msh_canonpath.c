@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:14:38 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 14:19:09 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 17:12:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static inline void	msh_canonpath_backtrack(char **p, char **q, char *base)
 
 static inline void	msh_canonpath_cpy(char **p, char **q, char *base)
 {
-	if ((*q)  != base)
+	if ((*q)  > base)
 		*(*q) ++ = '/';
 	while ((*p)[0] && (*p)[0] != '/')
 		*(*q)++ = *(*p)++;
@@ -61,7 +61,6 @@ char	*msh_canonpath(char *path)
 	result = ft_strdup(path);
 	if (!result)
 		return (NULL);
-	printf("\tRESULT: %s\n", result);
 	base = result + (result[0] == '/') + (result[1] == '/');
 	p = base;
 	q = base;
@@ -77,5 +76,6 @@ char	*msh_canonpath(char *path)
 			msh_canonpath_cpy(&p, &q, base);
 	}
 	q[0] = '\0';
+	printf("RESULT:%s\n", result);
 	return (result);
 }
