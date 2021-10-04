@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   MiniShell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 10:50:45 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 11:18:27 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "include/minishell.h"
 
 void	handle_sigint(int sig)
 {
@@ -73,17 +73,17 @@ int	main(int argc, char **argv, char **env)
 		{
 			add_history(msh.line);
 			lexer(&msh);
-			lexer_print(msh.tok);
+			// lexer_print(msh.tok);
 			parser(&msh);
-			parser_print(msh.ast);
+			// parser_print(msh.ast);
 			we_word_expansion(&msh);
-			printf("\t \033[32mAFTER WORD EXPANSION:\033[0m\n");
-			parser_print(msh.ast);
+			// printf("\t \033[32mAFTER WORD EXPANSION:\033[0m\n");
+			// parser_print(msh.ast);
 			if (msh.ast->type == AST_PIPE)
 				exec = cmd_get(&msh, msh.ast->left);
 			else
 				exec = cmd_get(&msh, msh.ast);
-			cmd_print(exec);
+			// cmd_print(exec);
 			msh_echo(&msh, exec);
 		}
 	}
