@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/30 14:04:00 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 10:50:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	main(int argc, char **argv, char **env)
 			else
 				exec = cmd_get(&msh, msh.ast);
 			cmd_print(exec);
+			msh_echo(&msh, exec);
 		}
 	}
 }

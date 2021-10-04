@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/01 16:33:23 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/04 10:55:16 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	heredoc(t_exec *exec)
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
+		line = NULL;
 		read_heredoc(line, exec);
 		// while (1)
 		// {

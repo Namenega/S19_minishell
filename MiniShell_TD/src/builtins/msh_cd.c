@@ -34,11 +34,11 @@ typedef struct stat		t_stat;
 // #define ELOOP			62	/* Too many levels of symbolic links */
 // #define ENAMETOOLONG		63	/* File name too long */
 
-#define	E_BASH		"msh: cd: "
-#define	E_BASH_USE	": invalid option\ncd: usage: cd [dir]\n"
-#define	E_BASH_HOME	"HOME not set\n"
-#define	E_BASH_OPWD	"OLDPWD not set\n"
-#define	E_BASH_SYM	": Too many levels of symbolic links\n"
+#define	MSH_CD		"msh: cd: "
+#define	MSH_CD_USE	": invalid option\ncd: usage: cd [dir]\n"
+#define	MSG_HOME	"HOME not set\n"
+#define	MSG_OPWD	"OLDPWD not set\n"
+#define	MSG_ELOOP	": Too many levels of symbolic links\n"
 #define	MSG_ENOENT	": No such file or directory\n"
 #define	E_FILE_LONG	": File name too long\n"
 #define EXIT_FAIL	1
@@ -101,17 +101,17 @@ int		msh_check_path (char *dst, char *path)
 	if (stat(path, &st))
 	{
 		if (errno == ENAMETOOLONG)
-			return (msh_print_error(E_BASH, dst, E_FILE_LONG, EXIT_FAIL));
+			return (msh_print_error(MSH_CD, dst, E_FILE_LONG, EXIT_FAIL));
 		if (errno == ELOOP)
-			return (msh_print_error(E_BASH, dst, E_BASH_SYM, EXIT_FAIL));
+			return (msh_print_error(MSH_CD, dst, MSG_ELOOP, EXIT_FAIL));
 		if (errno == ENOENT)
-			return (msh_print_error(E_BASH, dst, E_BASH_SYM, EXIT_FAIL));
+			return (msh_print_error(MSH_CD, dst, MSG_ENOENT, EXIT_FAIL));
 	}
 	
 	S_ISDIR (st.st_mode);
 
 	if (ft_strlen(dst) > MAXPATHLEN)
-		return (msh_print_error(E_BASH, dst, E_FILE_LONG, EXIT_FAIL));
+		return (msh_print_error(MSH_CD, dst, E_FILE_LONG, EXIT_FAIL));
 }
 
 static inline void	msh_canonpath_backtrack(char **p, char **q, char *base)
@@ -178,19 +178,19 @@ int  msh_cd(t_msh *msh, int argc, char **argv, char **env)
 
 	/* Opt handling */
 	if (ft_strcmp(argv[1], "-") < 0)
-		return (msh_print_error(E_BASH, argv[1], E_BASH_USE, EXIT_FAIL));
+		return (msh_print_error(MSH_CD, argv[1], MSH_CD_USE, EXIT_FAIL));
 	/* Get dst*/
 	if (!argv[1])
 	{
 		path = utils_env_get_param(env, "HOME", 4);
 		if (!path)
-			return (msh_print_error(E_BASH, E_BASH_HOME, NULL, EXIT_FAIL));
+			return (msh_print_error(MSH_CD, MSG_HOME, NULL, EXIT_FAIL));
 	}
 	else if (argv[1][0]== '-' && argv[1][1] == '\0')
 	{
 		path = utils_env_get_param(env, "OLDPWD", 4);
 		if (!path)
-			return (msh_print_error(E_BASH, E_BASH_OPWD, NULL, EXIT_FAIL));
+			return (msh_print_error(MSH_CD, MSG_OPWD, NULL, EXIT_FAIL));
 	}
 	else
 	{

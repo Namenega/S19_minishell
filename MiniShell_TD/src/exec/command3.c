@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:55:18 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/01 15:13:37 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/04 10:54:38 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	simple_redirection(t_msh *msh, t_exec *ex)
 			if (entry_file == -1)
 				return ;				//! Error msg need a change
 			err_d = dup2(entry_file, io->fd);
-			if (err_d == -1);
+			if (err_d == -1)
 				return ;				//! Error msg need a change.
 			io = io->next;
 		}

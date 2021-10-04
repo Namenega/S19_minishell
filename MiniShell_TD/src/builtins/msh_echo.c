@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 14:13:56 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/04 10:30:14 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 10:53:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	echo_multiple_n(t_exec *exec, int i, char **tab)
 	i++;
 	while (tab[i])
 	{
-		ft_putstr(tab[i], exec->io->fd);
+		ft_putstr_fd(tab[i], exec->io->fd);
 		write(exec->io->fd, " ", 1);
 		i++;
 	}
@@ -89,6 +89,7 @@ void	msh_echo(t_msh *msh, t_exec *exec)
 	char	**tab;
 	int		i;
 
+	(void)msh;
 	i = 1;
 	if (!exec->tab)
 		return ;												//* Error msg need a change
@@ -101,7 +102,7 @@ void	msh_echo(t_msh *msh, t_exec *exec)
 	while (tab[i])
 	{
 		if (i == 1 && tab[i] && !ft_strncmp(tab[i], "-n", 2))	//* echo -n
-			i += ft_echo_n(tab, i, exec);
+			i += if_echo_n(tab, i, exec);
 		else if (tab[i])										//* echo
 			normal_echo(tab, i, exec);
 	}

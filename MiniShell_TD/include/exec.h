@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 09:56:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/01 16:34:30 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/04 10:54:06 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	cmd_print(t_exec *exec);
 
 /* FILE: src/exec/command3.c */
 
-void	simple_redirection(t_io *io, t_exec *exec);
+void	simple_redirection(t_msh *msh, t_exec *ex);
 
 /* FILE: src/exec/heredoc.c */
 
@@ -78,6 +78,6 @@ void	heredoc(t_exec *exec);
 
 /* ================================= Builtins =============================== */
 
-void	msh_echo(t_exec *exec);
+void	msh_echo(t_msh *msh, t_exec *exec);
 
 #endif
