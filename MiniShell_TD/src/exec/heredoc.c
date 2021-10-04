@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/04 14:40:18 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/04 15:21:44 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ int	heredoc(t_msh *msh, t_ast *ast)
 		waitpid(pid, &ret, 0);
 		close(pipefd[1]);
 		if (ret == EXIT_SUCCESS)
+		{
 			close(pipefd[0]);
+			return (-1);
+		}
 	}
-	return (pipefd[1]);
+	return (pipefd[0]);
 }
