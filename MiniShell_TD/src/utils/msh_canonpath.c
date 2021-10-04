@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:14:38 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 11:41:48 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 14:19:09 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char	*msh_canonpath(char *path)
 	result = ft_strdup(path);
 	if (!result)
 		return (NULL);
+	printf("\tRESULT: %s\n", result);
 	base = result + (result[0] == '/') + (result[1] == '/');
 	p = base;
 	q = base;

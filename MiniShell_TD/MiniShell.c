@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 13:05:00 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 14:51:43 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,22 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGQUIT, SIG_IGN);		// Ignore SIGQUIT
 	printf("Welcome! Exit by pressing CTRL-D.\n");
 	set_path(&msh);
+	msh.cwd = ft_strdup(utils_env_get_param(env, "PWD", 3));
+	printf("\033[36mCWD\033[0m:%s\n", msh.cwd);
 	while(1)
 	{
 		msh.line = readline("msh>");
 		if (*msh.line)					// ADD to history if not empty
 		{
+			printf("\t\t\033[32mOK\033[0m\n"); // TODO: remove
 			add_history(msh.line);
 			lexer(&msh);
-			// lexer_print(msh.tok);
+			lexer_print(msh.tok);
 			parser(&msh);
-			// parser_print(msh.ast);
+			parser_print(msh.ast);
 			we_word_expansion(&msh);
 			// printf("\t \033[32mAFTER WORD EXPANSION:\033[0m\n");
-			// parser_print(msh.ast);
+			parser_print(msh.ast);
 			if (msh.ast->type == AST_PIPE)
 				exec = cmd_get(&msh, msh.ast->left);
 			else

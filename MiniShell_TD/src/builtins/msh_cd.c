@@ -23,15 +23,6 @@
 
 typedef struct stat		t_stat;
 
-/*
-** TODO:
-**  - Check MAX_PATH only on input
-**  - is "./..." absolute?
-*/
-
-// #define ELOOP			62	/* Too many levels of symbolic links */
-// #define ENAMETOOLONG		63	/* File name too long */
-
 #define	MSH_CD			"msh: cd: "
 #define	MSG_CD_USE		": invalid option\ncd: usage: cd [dir]\n"
 #define	MSG_HOME		"HOME not set\n"
@@ -42,17 +33,23 @@ typedef struct stat		t_stat;
 #define MSG_ENOTDIR		": Not a directory\n"
 #define EXIT_FAIL		1
 
-int	msh_chdir(t_msh *msh, char *path)
+int	msh_chdir(t_msh *msh, char *path, int update)
 {
 	errno = 0;
 	if (chdir(path))
 		return (msh_print_error(MSH_CD, strerror(errno), NULL, EXIT_FAIL));
-	// Update OLDPWD
-	// Update PWD
 	free(msh->cwd);
-	msh->cwd = path;
-	printf("   cwd:%s\n", msh->cwd);
-	printf("getcwd:%s\n", getcwd(NULL, 0));
+	if (!update)
+		msh->cwd = path;
+	else
+	{
+		free(path);
+		msh->cwd = getcwd(NULL, 0);
+	}
+	// TODO: Update OLDPWD in ENV
+	// TODO: Update PWD in ENV
+	printf("\033[36m   cwd\033[0m:%s\n", msh->cwd);			// TODO: remove
+	printf("\033[36mgetcwd\033[0m:%s\n", getcwd(NULL, 0));	// TODO: remove
 	return (0);
 }
 
@@ -60,6 +57,7 @@ char	*get_absolute_path(char *cwd, char *dst)
 {
 	int		len_cwd;
 	int		len_dst;
+	int		sep;
 	char	*path;
 	char	*canon_path;
 
@@ -69,12 +67,15 @@ char	*get_absolute_path(char *cwd, char *dst)
 	{
 		len_cwd = ft_strlen(cwd);
 		len_dst = ft_strlen(dst);
-		path = malloc(sizeof(*path) * (len_cwd + len_dst + 1));
+		sep = cwd[len_cwd - 1] != '/';
+		path = malloc(sizeof(*path) * (len_cwd + len_dst + 1 + sep));
 		if (!path)
 			return (NULL);
 		ft_memcpy(path, cwd, len_cwd);
-		ft_memcpy(path + len_cwd, dst, len_dst);
-		path[len_cwd + len_dst] = '\0';
+		if (sep)
+			path[len_cwd] = '/';
+		ft_memcpy(path + len_cwd + sep, dst, len_dst);
+		path[len_cwd + sep + len_dst + 1] = '\0';
 	}
 	canon_path = msh_canonpath(path);
 	free(path);
@@ -90,15 +91,12 @@ int		msh_check_path(char *dst, char *path)
 	t_stat	st;
 
 	errno = 0;
-	printf("OK OK OK \n");
 	if (stat(path, &st))
 	{
-		if (errno == ENOENT)
+		if (errno == ENOENT || errno == ELOOP)
 			return (0);
 		else if (errno == ENAMETOOLONG)
 			return (msh_print_error(MSH_CD, dst, MSG_ENAME2LONG, EXIT_FAIL));
-		else if (errno == ELOOP)
-			return (msh_print_error(MSH_CD, dst, MSG_ELOOP, EXIT_FAIL));
 		else if (!S_ISDIR (st.st_mode))
 			return (msh_print_error(MSH_CD, dst, MSG_ENOTDIR, EXIT_FAIL));
 		else
@@ -106,18 +104,19 @@ int		msh_check_path(char *dst, char *path)
 	}
 	if (ft_strlen(dst) > MAXPATHLEN)
 		return (msh_print_error(MSH_CD, dst, MSG_ENAME2LONG, EXIT_FAIL));
-	printf("OK OK OK \n");
 	return (0);
 }
 
-int		msh_get_path(t_msh *msh, char *dst)
+int		msh_set_path(t_msh *msh, char *dst)
 {
+	int		update;
 	char	*path;
 
 	path = get_absolute_path(msh->cwd, dst);
 	if (msh_check_path(dst, path))
 		return (EXIT_FAIL);
-	if (errno == ENOENT)
+	update = (errno == ELOOP);
+	if (errno == ENOENT || errno == ELOOP)
 	{
 		free(msh->cwd);
 		msh->cwd = getcwd(NULL, 0);
@@ -126,32 +125,33 @@ int		msh_get_path(t_msh *msh, char *dst)
 			return (EXIT_FAIL);
 		if (errno == ENOENT)
 			return (msh_print_error(MSH_CD, dst, MSG_ENOENT, EXIT_FAIL));
+		else if (errno == ELOOP)
+			return (msh_print_error(MSH_CD, dst, MSG_ELOOP, EXIT_FAIL));
 	}
-	return (msh_chdir(msh, path));
+	return (msh_chdir(msh, path, update));
 }
 
 int  msh_cd(t_msh *msh, t_exec *exec)
 {
 	char	*path;
 
-	printf("argv[1]:%s\n", exec->tab[1]);
+	printf("\t\t\033[32mOK OK\033[0m\n");
 	if (!exec->tab[1])
 	{
 		path = utils_env_get_param(exec->env, "HOME", 4);
 		if (!path)
 			return (msh_print_error(MSH_CD, MSG_HOME, NULL, EXIT_FAIL));
-		return (msh_chdir(msh, path));
+		return (msh_set_path(msh, path));
 	}
 	else if (exec->tab[1][0]== '-' && exec->tab[1][1] == '\0')
 	{
 		path = utils_env_get_param(exec->env, "OLDPWD", 4);
 		if (!path)
 			return (msh_print_error(MSH_CD, MSG_OPWD, NULL, EXIT_FAIL));
-		return (msh_chdir(msh, path));
+		return (msh_set_path(msh, path));
 	}
 	else if (exec->tab[1][0] == '-')
 		return (msh_print_error(MSH_CD, exec->tab[1], MSG_CD_USE, EXIT_FAIL));
 	else
-		// path = msh_get_path(msh, *(exec->tab));
-	return (0);
+		return (msh_set_path(msh, exec->tab[1]));
 }
