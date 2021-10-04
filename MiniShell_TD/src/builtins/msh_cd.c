@@ -152,6 +152,6 @@ int  msh_cd(t_msh *msh, t_exec *exec)
 	else if (exec->tab[1][0] == '-')
 		return (msh_print_error(MSH_CD, exec->tab[1], MSG_CD_USE, EXIT_FAIL));
 	else
-		path = msh_get_path(msh, *(exec->tab));
+		// path = msh_get_path(msh, *(exec->tab));
 	return (0);
 }
