@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 14:56:24 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 16:17:05 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,20 +73,22 @@ int	main(int argc, char **argv, char **env)
 		msh.line = readline("msh>");
 		if (*msh.line)					// ADD to history if not empty
 		{
-			printf("\t\t\033[32mOK\033[0m\n"); // TODO: remove
+			// printf("\t\t\033[32mOK\033[0m\n"); // TODO: remove
 			add_history(msh.line);
 			lexer(&msh);
-			lexer_print(msh.tok);
+			// lexer_print(msh.tok);
 			parser(&msh);
-			parser_print(msh.ast);
+			// parser_print(msh.ast);
 			we_word_expansion(&msh);
 			// printf("\t \033[32mAFTER WORD EXPANSION:\033[0m\n");
-			parser_print(msh.ast);
+			// parser_print(msh.ast);
 			if (msh.ast->type == AST_PIPE)
 				exec = cmd_get(&msh, msh.ast->left);
 			else
 				exec = cmd_get(&msh, msh.ast);
-			// cmd_print(exec);
+			exec->cmdpath = get_bin(&msh, exec->tab[0]);
+			cmd_print(exec);
+			simple_redirection(&msh, exec);
 			// msh_cd(&msh, exec);
 		}
 	}

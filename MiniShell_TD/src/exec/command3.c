@@ -6,10 +6,11 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:55:18 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/04 10:54:38 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 16:25:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/errno.h>
 #include "../../include/exec.h"
 
 void	simple_redirection(t_msh *msh, t_exec *ex)
@@ -18,6 +19,7 @@ void	simple_redirection(t_msh *msh, t_exec *ex)
 	pid_t	pid;
 	int		entry_file;
 	int		err_d;
+	int		ret;
 
 	pid = fork();
 	if (pid < 0)
@@ -27,18 +29,26 @@ void	simple_redirection(t_msh *msh, t_exec *ex)
 		io = ex->io;
 		while (io)
 		{
-			entry_file = open(io->filename, io->oflag, 0644);
-			if (entry_file == -1)
-				return ;				//! Error msg need a change
-			err_d = dup2(entry_file, io->fd);
-			if (err_d == -1)
-				return ;				//! Error msg need a change.
+			if (io->heredoc_fd <= 0)
+			{
+				entry_file = open(io->filename, io->oflag, 0644);
+				if (entry_file == -1)
+					return ;				//! Error msg need a change
+				err_d = dup2(entry_file, io->fd);
+				if (err_d == -1)
+					return ;				//! Error msg need a change.
+			}
+			else
+			{
+				err_d = dup2(io->heredoc_fd, io->fd);
+				if (err_d == -1)
+					return ;				//! Error msg need a change.
+			}
 			io = io->next;
 		}
 		msh->env = NULL;
 		msh_free(msh);
 		execve(ex->cmdpath, ex->tab, ex->env);
-		
 		// gestion error execve
 		close(entry_file);
 		if (ex->cmdpath)
@@ -46,4 +56,5 @@ void	simple_redirection(t_msh *msh, t_exec *ex)
 		if (ex->tab)
 			ft_free_split(ex->tab);
 	}
+	waitpid(pid, &ret, 0);
 }

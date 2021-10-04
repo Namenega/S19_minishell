@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:22:20 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 15:23:07 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 15:41:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	we_add_word(t_we *we, t_vec *buff)
 
 	if (!*buff->str)
 		return ;
-	*buff->ptr = '\0';
+	*(buff->ptr) = '\0';
 	lex = ft_strdup(buff->str);
 	if (!lex)
 		we_error(we, ERR_MALLOC);

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/30 10:43:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 16:19:55 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	cmd_print(t_exec *exec)
 	{
 		printf("\033[36m IO\033[0m\n");
 		printf("\t\033[35m fd   \033[0m %i\n", io->fd);
+		if (io->heredoc_fd >= 0)
+			printf("\t\033[35m heredoc\033[0m %i\n", io->heredoc_fd);
 		printf("\t\033[35m oflag\033[0m %i\n", io->oflag);
 		printf("\t\033[35m file \033[0m %s\n", io->filename);
 		io= io->next;

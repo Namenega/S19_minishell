@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 11:32:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 15:23:02 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 15:46:19 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	we_lexeme_formating(t_we *we)
 		else if (*lex == '\"' && state == WE_ST_DQUOTE)
 			state = WE_ST_FREE;
 		else
-			*we->buff->ptr++ = *lex;
+			*(we->buff->ptr)++ = *lex;
 		lex++;
 	}
 	we_add_word(we, we->buff);

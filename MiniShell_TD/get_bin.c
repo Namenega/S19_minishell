@@ -6,17 +6,17 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 11:46:05 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/30 11:33:42 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 16:14:47 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "minishell.h"
 
 #include <stdio.h>
 #include <string.h>
 #include <dirent.h>
 #include <sys/types.h>
 #include <sys/errno.h>
+
+#include "minishell.h"
 
 //	TODO: move to an HEADER
 typedef struct dirent t_dirent;
@@ -37,7 +37,7 @@ static inline int	search_dir(t_msh *msh, char *file, char *path)
 	while (info && !found)
 	{
 		// printf("\033[35mFILE\033[0m:%s\n", info->d_name);	// TODO:remove
-		if (!ft_strcmp(file, info->d_name))
+		if (ft_strcmp(file, info->d_name) == 0)
 			found = 1;
 		info = readdir(dirp);
 	}
@@ -49,17 +49,19 @@ static inline int	search_dir(t_msh *msh, char *file, char *path)
 
 char	*get_bin(t_msh *msh, char *file)
 {
-	int		found;
 	int		len_file;
 	int		len_path;
 	char	*filepath;
 	char	**path;
 
-	found = 0;
 	path = msh->path;
-	while (*path && !found)
-		found = search_dir(msh, file, *path++);
-	if (!found)
+	while (*path)
+	{
+		if (search_dir(msh, file, *path))
+			break ;
+		path++;
+	}
+	if (!*path)
 		msh_error(msh, ERR_NO_CMD);
 	len_path = ft_strlen(*path);
 	len_file = ft_strlen(file);
