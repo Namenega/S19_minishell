@@ -21,7 +21,6 @@
 #include <sys/errno.h>
 #include "utils.h"
 
-# define DIRSEP		'/'
 typedef struct stat		t_stat;
 
 /*
@@ -30,30 +29,28 @@ typedef struct stat		t_stat;
 **  - is "./..." absolute?
 */
 
-
 // #define ELOOP			62	/* Too many levels of symbolic links */
 // #define ENAMETOOLONG		63	/* File name too long */
 
-#define	MSH_CD		"msh: cd: "
-#define	MSH_CD_USE	": invalid option\ncd: usage: cd [dir]\n"
-#define	MSG_HOME	"HOME not set\n"
-#define	MSG_OPWD	"OLDPWD not set\n"
-#define	MSG_ELOOP	": Too many levels of symbolic links\n"
-#define	MSG_ENOENT	": No such file or directory\n"
-#define	E_FILE_LONG	": File name too long\n"
-#define EXIT_FAIL	1
+#define	MSH_CD			"msh: cd: "
+#define	MSG_CD_USE		": invalid option\ncd: usage: cd [dir]\n"
+#define	MSG_HOME		"HOME not set\n"
+#define	MSG_OPWD		"OLDPWD not set\n"
+#define	MSG_ELOOP		": Too many levels of symbolic links\n"
+#define	MSG_ENOENT		": No such file or directory\n"
+#define	MSG_ENAME2LONG	": File name too long\n"
+#define MSG_ENOTDIR		": Not a directory\n"
+#define EXIT_FAIL		1
 
-int	path_is_absolute(char *str)
+int	msh_chdir(t_msh *msh, char *path)
 {
-  if (str == 0 || str[0] == '\0')
-	return (0);
-  if (str[0] == '/')
-	return (1);
-  if (str[0] == '.' && (str[1] == '/' || str[1] == '\0'))
-	return (1);
-  if (str[0] == '.' && str[1] == '.' && (str[2] == '/' || str[2] == '\0'))
-	return (1);
-  return (0);
+	errno = 0;
+	if (chdir(path))
+		return (msh_print_error(MSH_CD, strerror(errno), NULL, EXIT_FAIL));
+	// Update OLDPWD
+	// Update PWD
+	free(msh->cwd);
+	msh->cwd = path;
 }
 
 char	*get_absolute_path(char *cwd, char *dst)
@@ -61,9 +58,10 @@ char	*get_absolute_path(char *cwd, char *dst)
 	int		len_cwd;
 	int		len_dst;
 	char	*path;
+	char	*canon_path;
 
-	if (path_is_absolute(dst))
-		return (ft_strdup(dst));
+	if (dst[0] == '/')
+		path = ft_strdup(dst);
 	else
 	{
 		len_cwd = ft_strlen(cwd);
@@ -74,190 +72,82 @@ char	*get_absolute_path(char *cwd, char *dst)
 		ft_memcpy(path, cwd, len_cwd);
 		ft_memcpy(path + len_cwd, dst, len_dst);
 		path[len_cwd + len_dst] = '\0';
-		return (path);
 	}
+	canon_path = msh_canonpath(path);
+	free(path);
+	return (canon_path);
 }
-
-int	msh_print_error(char *s1, char *s2, char *s3, int ret)
-{
-	if (s1)
-		write(2, s1, ft_strlen(s1));
-	if (s2)
-		write(2, s2, ft_strlen(s2));
-	if (s3)
-		write(2, s3, ft_strlen(s3));
-	return (ret);	
-}
-
 
 /*
-** Return 1 if PATH corresponds to a directory. 
+** msh_check_path:
+** Check if PATH is a valid path.
 */
-int		msh_check_path (char *dst, char *path)
+int		msh_check_path(char *dst, char *path)
 {
 	t_stat	st;
 
 	errno = 0;
 	if (stat(path, &st))
 	{
-		if (errno == ENAMETOOLONG)
-			return (msh_print_error(MSH_CD, dst, E_FILE_LONG, EXIT_FAIL));
-		if (errno == ELOOP)
+		if (errno == ENOENT)
+			return (0);
+		else if (errno == ENAMETOOLONG)
+			return (msh_print_error(MSH_CD, dst, MSG_ENAME2LONG, EXIT_FAIL));
+		else if (errno == ELOOP)
 			return (msh_print_error(MSH_CD, dst, MSG_ELOOP, EXIT_FAIL));
+		else if (!S_ISDIR (st.st_mode))
+			return (msh_print_error(MSH_CD, dst, MSG_ENOTDIR, EXIT_FAIL));
+		else
+			return (msh_print_error(MSH_CD, strerror(errno), NULL, EXIT_FAIL));
+	}
+	if (ft_strlen(dst) > MAXPATHLEN)
+		return (msh_print_error(MSH_CD, dst, MSG_ENAME2LONG, EXIT_FAIL));
+	return (0);
+}
+
+int		msh_get_path(t_msh *msh, char *dst)
+{
+	char	*path;
+
+	path = get_absolute_path(msh->cwd, dst);
+	if (msh_check_path(dst, path))
+		return (EXIT_FAIL);
+	if (errno == ENOENT)
+	{
+		free(msh->cwd);
+		msh->cwd = getcwd(NULL, 0);
+		path = get_absolute_path(msh->cwd, dst);
+		if (msh_check_path(dst, path))
+			return (EXIT_FAIL);
 		if (errno == ENOENT)
 			return (msh_print_error(MSH_CD, dst, MSG_ENOENT, EXIT_FAIL));
 	}
-	
-	S_ISDIR (st.st_mode);
-
-	if (ft_strlen(dst) > MAXPATHLEN)
-		return (msh_print_error(MSH_CD, dst, E_FILE_LONG, EXIT_FAIL));
+	return (msh_chdir(msh, path));
 }
 
-static inline void	msh_canonpath_backtrack(char **p, char **q, char *base)
-{
-	(*p) += 2;
-	if ((*q) > base)
-	{
-		while (--(*q)  > base && (*q)[0] != '/')
-			;
-	}
-}
-static inline void	msh_canonpath_cpy(char **p, char **q, char *base)
-{
-	if ((*q)  != base)
-		*(*q) ++ = '/';
-	while ((*p)[0] && (*p)[0] != '/')
-		*(*q)++ = *(*p)++;
-}
-
-/*
-** Return the canonical path from PATH:
-** - Multiple '/'s are collapsed to a single '/'.
-** - Leading './'s and trailing '/.'s are removed.
-** - Trailing '/'s are removed.
-** - Non-leading '../'s and trailing '..'s are handled by removing
-**   portions of the path.
-** Variables:
-** - base points just past the root directory
-** - p points at beginning of path element we're considering.
-** - q points just past the last kept directory.
-*/
-char	*msh_canonpath(char *path)
-{
-	char	*result;
-	char	*base;
-	char	*p;
-	char	*q;
-
-	result = ft_strdup(path);
-	if (!result)
-		return (NULL);
-	base = result + (result[0] == '/') + (result[1] == '/');
-	p = base;
-	q = base;
-	while (p[0])
-	{
-		if (p[0] == '/')
-			p++;
-		else if(p[0] == '.' && (p[1] == '/' || p[1] == '\0'))
-			p++;
-		else if (p[0] == '.' && p[1] == '.' && (p[2] == '/' || p[2] == '\0'))
-			msh_canonpath_backtrack(&p, &q, base);
-		else
-			msh_canonpath_cpy(&p, &q, base);
-	}
-	q[0] = '\0';
-	return (result);
-}
-
-int  msh_cd(t_msh *msh, int argc, char **argv, char **env)
+int  msh_cd(t_msh *msh, t_exec *exec)
 {
 	char	*path;
 	t_vec	*buff;
 
-	/* Opt handling */
-	if (ft_strcmp(argv[1], "-") < 0)
-		return (msh_print_error(MSH_CD, argv[1], MSH_CD_USE, EXIT_FAIL));
-	/* Get dst*/
-	if (!argv[1])
+	if (ft_strcmp(exec->tab[1], "-") < 0)
+		return (msh_print_error(MSH_CD, exec->tab[1], MSG_CD_USE, EXIT_FAIL));
+	if (!exec->tab[1])
 	{
-		path = utils_env_get_param(env, "HOME", 4);
+		path = utils_env_get_param(exec->env, "HOME", 4);
 		if (!path)
 			return (msh_print_error(MSH_CD, MSG_HOME, NULL, EXIT_FAIL));
+		return (msh_chdir(msh, path));
 	}
-	else if (argv[1][0]== '-' && argv[1][1] == '\0')
+	else if (exec->tab[1][0]== '-' && exec->tab[1][1] == '\0')
 	{
-		path = utils_env_get_param(env, "OLDPWD", 4);
+		path = utils_env_get_param(exec->env, "OLDPWD", 4);
 		if (!path)
 			return (msh_print_error(MSH_CD, MSG_OPWD, NULL, EXIT_FAIL));
+		return (msh_chdir(msh, path));
 	}
 	else
 	{
-		path = get_absolute_path(msh->cwd, argv[1]);
+		path = get_absolute_path(msh->cwd, exec->tab[1]);
 	}
-
-	// concatenate: ABS = CWD + DST
-	// Canonicalize CAN = canolize(ABS)
-	// Check if PATH exist
-	//	y-> use canonical CAN
-	//	n-> try with ABS
-	// Change directory: chdir()
-	// Update PWD:
-	//	- CAN: set PWD=CAn
-	//	- ABS: uset getCWD
-	/* Error Handling*/
-	buff = ft_vec_new(2 * (MAXPATHLEN + 1));
-	if (!buff)
-		msh_error(msh, ERR_MALLOC);
-
 }
-
-char	*msh_chdir(t_msh *msh, char *dst)
-{
-	if (!msh->cwd)
-		msh->cwd = get_cwd(NULL, 0);
-}
-
-
-// char	*msh_canonpath(char *path)
-// {
-// 	char	*result;
-// 	char	*base;
-// 	char	*p;
-// 	char	*q;
-
-// 	result = strdup(path);
-// 	if (!result)
-// 		return (NULL);
-// 	base = result + 1;
-// 	if (result[1] == '/')
-// 		base++;
-// 	p = base;
-// 	q = base;
-// 	while (p[0])
-// 	{
-// 		if (p[0] == '/')
-// 			p++;
-// 		else if(p[0] == '.' && (p[1] == '/' || p[1] == '\0'))
-// 			p++;
-// 		else if (p[0] == '.' && p[1] == '.' && (p[2] == '/' || p[2] == '\0'))
-// 		{
-// 			p += 2;
-// 			if (q > base)
-// 			{
-// 				while (--q > base && q[0] != '/')
-// 					;
-// 			}
-// 		}
-// 		else
-// 		{
-// 			if (q != base)
-// 				*q++ = '/';
-// 			while (p[0] && p[0] != '/')
-// 				*q++ = *p++;
-// 		}
-// 	}
-// 	q[0] = '\0';
-// 	return (result);
-// }

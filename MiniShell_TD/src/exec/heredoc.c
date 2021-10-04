@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/04 12:07:55 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/04 12:13:04 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 
 static void	read_heredoc(char *line, t_exec *exec)
 {
-	int i;
-	i = ft_strcmp(line, exec->io->filename);
-	printf("i = %d\n", i);
+	// int i;
+	// i = ft_strcmp(line, exec->io->filename);
+	// printf("i = %d\n", i);
 	while (1)
 	{
 		printf("2\n");
