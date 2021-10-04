@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 14:51:43 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 14:56:24 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,8 @@ int	main(int argc, char **argv, char **env)
 				exec = cmd_get(&msh, msh.ast->left);
 			else
 				exec = cmd_get(&msh, msh.ast);
-			cmd_print(exec);
-			msh_cd(&msh, exec);
-			// heredoc(&msh, exec);
+			// cmd_print(exec);
+			// msh_cd(&msh, exec);
 		}
 	}
 }
