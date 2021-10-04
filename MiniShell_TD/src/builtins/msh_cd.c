@@ -24,10 +24,17 @@
 # define DIRSEP		'/'
 typedef struct stat		t_stat;
 
-// #define ELOOP			62			  /* Too many levels of symbolic links */
-// #define ENAMETOOLONG	63			  /* File name too long */
+/*
+** TODO:
+**  - Check MAX_PATH only on input
+**  - is "./..." absolute?
+*/
 
-int	path_isabsolute(char *str)
+
+// #define ELOOP			62	/* Too many levels of symbolic links */
+// #define ENAMETOOLONG		63	/* File name too long */
+
+int	path_is_absolute(char *str)
 {
   if (str == 0 || str[0] == '\0')
 	return (0);
@@ -40,14 +47,69 @@ int	path_isabsolute(char *str)
   return (0);
 }
 
+char	*get_absolute_path(char *cwd, char *dst)
+{
+	int		len_cwd;
+	int		len_dst;
+	char	*path;
+
+	if (path_is_absolute(dst))
+		return (ft_strdup(dst));
+	else
+	{
+		len_cwd = ft_strlen(cwd);
+		len_dst = ft_strlen(dst);
+		path = malloc(sizeof(*path) * (len_cwd + len_dst + 1));
+		if (!path)
+			return (NULL);
+		ft_memcpy(path, cwd, len_cwd);
+		ft_memcpy(path + len_cwd, dst, len_dst);
+		path[len_cwd + len_dst] = '\0';
+		return (path);
+	}
+}
+
+int	msh_print_error(char *s1, char *s2, char *s3, int ret)
+{
+	if (s1)
+		write(2, s1, ft_strlen(s1));
+	if (s2)
+		write(2, s2, ft_strlen(s2));
+	if (s3)
+		write(2, s3, ft_strlen(s3));
+	return (ret);	
+}
+
+#define	E_BASH		"msh: cd: "
+#define	E_BASH_USE	": invalid option\ncd: usage: cd [dir]\n"
+#define	E_BASH_HOME	"HOME not set\n"
+#define	E_BASH_OPWD	"OLDPWD not set\n"
+#define	E_FILE_LONG	": File name too long\n"
+#define EXIT_FAIL	1
+
 /*
 ** Return 1 if PATH corresponds to a directory. 
 */
-static int	msh_isdir (char *path)
+int		msh_check_path (char *dst, char *path)
 {
-	t_stat	sb;
+	t_stat	st;
 
-	return (stat (path, &sb) == 0 && S_ISDIR (sb.st_mode));
+	errno = 0;
+	if (stat(path, &st))
+	{
+		if (errno == ENAMETOOLONG)
+			return (msh_print_error(E_BASH, dst, E_FILE_LONG, EXIT_FAIL));
+	}
+	
+	S_ISDIR (st.st_mode);
+
+	if (ft_strlen(dst) > MAXPATHLEN)
+	{
+		write(2, "msh: cd: ", 9);
+		write(2, dst, ft_strlen(dst));
+		write(2, ": File name too long\n", 21);
+		return (EXIT_FAILURE);
+	}
 }
 
 static inline void	msh_canonpath_backtrack(char **p, char **q, char *base)
@@ -64,7 +126,12 @@ static inline void	msh_canonpath_cpy(char **p, char **q, char *base)
 	if ((*q)  != base)
 		*(*q) ++ = '/';
 	while ((*p)[0] && (*p)[0] != '/')
-		*(*q) ++ = *(*p)++;
+		*(*q)++ = *(*p)++;
+}
+
+int	check_dst(char *dst)
+{
+
 }
 
 /*
@@ -75,10 +142,10 @@ static inline void	msh_canonpath_cpy(char **p, char **q, char *base)
 ** - Non-leading '../'s and trailing '..'s are handled by removing
 **   portions of the path.
 ** Variables:
-** - base ust past the root directory
+** - base points just past the root directory
 ** - p points at beginning of path element we're considering.
 ** - q points just past the last kept directory.
-**/
+*/
 char	*msh_canonpath(char *path)
 {
 	char	*result;
@@ -109,7 +176,7 @@ char	*msh_canonpath(char *path)
 
 int  msh_cd(t_msh *msh, int argc, char **argv, char **env)
 {
-	char	*dst;
+	char	*path;
 	t_vec	*buff;
 
 	/* Opt handling */
@@ -123,8 +190,8 @@ int  msh_cd(t_msh *msh, int argc, char **argv, char **env)
 	/* Get dst*/
 	if (!argv[1])
 	{
-		dst = utils_env_get_param(env, "HOME", 4);
-		if (!dst)
+		path = utils_env_get_param(env, "HOME", 4);
+		if (!path)
 		{
 				write(2, "msh: cd: HOME not set\n", 22);
 				return (EXIT_FAILURE);
@@ -132,15 +199,24 @@ int  msh_cd(t_msh *msh, int argc, char **argv, char **env)
 	}
 	else if (argv[1][0]== '-' && argv[1][1] == '\0')
 	{
-		dst = utils_env_get_param(env, "OLDPWD", 4);
-		if (!dst)
+		path = utils_env_get_param(env, "OLDPWD", 4);
+		if (!path)
 		{
 				write(2, "msh: cd: OLDPWD not set\n", 24);
 				return (EXIT_FAILURE);
 		}
 	}
 	else
-		dst = argv[1];
+	{
+		if (ft_strlen(argv[1]) > MAXPATHLEN)
+		{
+			write(2, "msh: cd: ", 9);
+			write(2, argv[1], ft_strlen(argv[1]));
+			write(2, ": File name too long\n", 21);
+			return (EXIT_FAILURE);
+		}
+		path = get_absolute_path(msh->cwd, argv[1]);
+	}
 
 	// concatenate: ABS = CWD + DST
 	// Canonicalize CAN = canolize(ABS)
@@ -151,18 +227,10 @@ int  msh_cd(t_msh *msh, int argc, char **argv, char **env)
 	// Update PWD:
 	//	- CAN: set PWD=CAn
 	//	- ABS: uset getCWD
-	
-	if (dst > MAXPATHLEN)
-	{
-		write(2, "msh: cd: ", 9);
-		write(2, argv[1], ft_strlen(argv[1]));
-		write(2, ": File name too long\n", 21);
-	}
 	/* Error Handling*/
 	buff = ft_vec_new(2 * (MAXPATHLEN + 1));
 	if (!buff)
 		msh_error(msh, ERR_MALLOC);
-	ft_strcpy();
 
 }
 
