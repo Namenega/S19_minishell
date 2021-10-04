@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 17:20:45 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/04 17:22:13 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	main(int argc, char **argv, char **env)
 	printf("\033[36mCWD\033[0m:%s\n", msh.cwd);
 	while(1)
 	{
-		msh.line = readline("msh>");
+		msh.line = readline("\033[32mmsh>\033[35m");
 		if (*msh.line)					// ADD to history if not empty
 		{
 			// printf("\t\t\033[32mOK\033[0m\n"); // TODO: remove
@@ -87,10 +87,18 @@ int	main(int argc, char **argv, char **env)
 			else
 				exec = cmd_get(&msh, msh.ast);
 			exec->cmdpath = get_bin(&msh, exec->tab[0]);
+<<<<<<< HEAD
 			// cmd_print(exec);
 			// simple_redirection(&msh, exec);
 			msh_unset(env, exec);
 			// msh_cd(&msh, exec);
+=======
+			cmd_print(exec);
+			// simple_redirection(&msh, exec);
+			msh_cd(&msh, exec);
+>>>>>>> c7799208a3eeaa94777d94d698552cc7228f0574
 		}
 	}
 }
+
+//cd /b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/oinfre a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre

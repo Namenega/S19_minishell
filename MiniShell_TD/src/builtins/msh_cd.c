@@ -67,15 +67,15 @@ char	*get_absolute_path(char *cwd, char *dst)
 	{
 		len_cwd = ft_strlen(cwd);
 		len_dst = ft_strlen(dst);
-		sep = cwd[len_cwd - 1] != '/';
-		path = malloc(sizeof(*path) * (len_cwd + len_dst + 1 + sep));
+		sep = (len_cwd > 2 || (len_cwd == 2 && cwd[1] != '/'));
+		path = malloc(sizeof(*path) * (len_cwd + sep + len_dst + 1));
 		if (!path)
 			return (NULL);
 		ft_memcpy(path, cwd, len_cwd);
 		if (sep)
 			path[len_cwd] = '/';
 		ft_memcpy(path + len_cwd + sep, dst, len_dst);
-		path[len_cwd + sep + len_dst + 1] = '\0';
+		path[len_cwd + sep + len_dst] = '\0';
 	}
 	canon_path = msh_canonpath(path);
 	free(path);
@@ -135,7 +135,6 @@ int  msh_cd(t_msh *msh, t_exec *exec)
 {
 	char	*path;
 
-	printf("\t\t\033[32mOK OK\033[0m\n");
 	if (!exec->tab[1])
 	{
 		path = utils_env_get_param(exec->env, "HOME", 4);
