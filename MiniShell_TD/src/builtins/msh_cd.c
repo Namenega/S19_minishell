@@ -34,6 +34,15 @@ typedef struct stat		t_stat;
 // #define ELOOP			62	/* Too many levels of symbolic links */
 // #define ENAMETOOLONG		63	/* File name too long */
 
+#define	E_BASH		"msh: cd: "
+#define	E_BASH_USE	": invalid option\ncd: usage: cd [dir]\n"
+#define	E_BASH_HOME	"HOME not set\n"
+#define	E_BASH_OPWD	"OLDPWD not set\n"
+#define	E_BASH_SYM	": Too many levels of symbolic links\n"
+#define	MSG_ENOENT	": No such file or directory\n"
+#define	E_FILE_LONG	": File name too long\n"
+#define EXIT_FAIL	1
+
 int	path_is_absolute(char *str)
 {
   if (str == 0 || str[0] == '\0')
@@ -80,12 +89,6 @@ int	msh_print_error(char *s1, char *s2, char *s3, int ret)
 	return (ret);	
 }
 
-#define	E_BASH		"msh: cd: "
-#define	E_BASH_USE	": invalid option\ncd: usage: cd [dir]\n"
-#define	E_BASH_HOME	"HOME not set\n"
-#define	E_BASH_OPWD	"OLDPWD not set\n"
-#define	E_FILE_LONG	": File name too long\n"
-#define EXIT_FAIL	1
 
 /*
 ** Return 1 if PATH corresponds to a directory. 
@@ -99,17 +102,16 @@ int		msh_check_path (char *dst, char *path)
 	{
 		if (errno == ENAMETOOLONG)
 			return (msh_print_error(E_BASH, dst, E_FILE_LONG, EXIT_FAIL));
+		if (errno == ELOOP)
+			return (msh_print_error(E_BASH, dst, E_BASH_SYM, EXIT_FAIL));
+		if (errno == ENOENT)
+			return (msh_print_error(E_BASH, dst, E_BASH_SYM, EXIT_FAIL));
 	}
 	
 	S_ISDIR (st.st_mode);
 
 	if (ft_strlen(dst) > MAXPATHLEN)
-	{
-		write(2, "msh: cd: ", 9);
-		write(2, dst, ft_strlen(dst));
-		write(2, ": File name too long\n", 21);
-		return (EXIT_FAILURE);
-	}
+		return (msh_print_error(E_BASH, dst, E_FILE_LONG, EXIT_FAIL));
 }
 
 static inline void	msh_canonpath_backtrack(char **p, char **q, char *base)
@@ -127,11 +129,6 @@ static inline void	msh_canonpath_cpy(char **p, char **q, char *base)
 		*(*q) ++ = '/';
 	while ((*p)[0] && (*p)[0] != '/')
 		*(*q)++ = *(*p)++;
-}
-
-int	check_dst(char *dst)
-{
-
 }
 
 /*
@@ -181,40 +178,22 @@ int  msh_cd(t_msh *msh, int argc, char **argv, char **env)
 
 	/* Opt handling */
 	if (ft_strcmp(argv[1], "-") < 0)
-	{
-		write(2, "msh: cd: ", 9);
-		write(2, argv[1], ft_strlen(argv[1]));
-		write(2, ": invalid option\ncd: usage: cd [dir]\n", 37);
-		return (EXIT_FAILURE);
-	}
+		return (msh_print_error(E_BASH, argv[1], E_BASH_USE, EXIT_FAIL));
 	/* Get dst*/
 	if (!argv[1])
 	{
 		path = utils_env_get_param(env, "HOME", 4);
 		if (!path)
-		{
-				write(2, "msh: cd: HOME not set\n", 22);
-				return (EXIT_FAILURE);
-		}
+			return (msh_print_error(E_BASH, E_BASH_HOME, NULL, EXIT_FAIL));
 	}
 	else if (argv[1][0]== '-' && argv[1][1] == '\0')
 	{
 		path = utils_env_get_param(env, "OLDPWD", 4);
 		if (!path)
-		{
-				write(2, "msh: cd: OLDPWD not set\n", 24);
-				return (EXIT_FAILURE);
-		}
+			return (msh_print_error(E_BASH, E_BASH_OPWD, NULL, EXIT_FAIL));
 	}
 	else
 	{
-		if (ft_strlen(argv[1]) > MAXPATHLEN)
-		{
-			write(2, "msh: cd: ", 9);
-			write(2, argv[1], ft_strlen(argv[1]));
-			write(2, ": File name too long\n", 21);
-			return (EXIT_FAILURE);
-		}
 		path = get_absolute_path(msh->cwd, argv[1]);
 	}
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 14:13:56 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/01 13:51:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/04 10:30:14 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	if_echo_n(char **tab, int i, t_exec *exec)
 	return (i);
 }
 
-void	msh_echo(t_exec *exec)
+void	msh_echo(t_msh *msh, t_exec *exec)
 {
 	char	**tab;
 	int		i;
