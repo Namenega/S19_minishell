@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:02:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 10:14:37 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:45:37 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,4 +183,17 @@ char	*utils_env_go_2_val(char *var)
 	if (!*var)
 		return (NULL);
 	return (var + 1);
+}
+
+char	*utils_env_next_addr(t_msh *msh)
+{
+	printf("utils_env_next_addr\n");
+	if (msh->env_left)
+		return (msh->env + msh->env_size  - --msh->env_left);
+	msh->env_left = 5;
+	msh->env_size += 5;
+	msh->env  = utils_env_copy(msh->env, msh->env_size);
+	if (!msh->env)
+		return (NULL);
+	return (msh->env + msh->env_size  - --msh->env_left);
 }

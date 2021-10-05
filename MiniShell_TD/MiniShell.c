@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 10:25:07 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:10:30 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	main(int argc, char **argv, char **env)
 	printf("\033[36mCWD\033[0m:%s\n", msh.cwd);
 	while(1)
 	{
-		msh.line = readline("\033[32mmsh>\033[35m");
+		msh.line = readline("\033[32mmsh>\033[0m");
 		if (*msh.line)					// ADD to history if not empty
 		{
 			// printf("\t\t\033[32mOK\033[0m\n"); // TODO: remove

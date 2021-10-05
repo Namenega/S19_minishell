@@ -23,6 +23,7 @@
 
 typedef struct stat		t_stat;
 
+//TODO: on single HEADER to rule them all
 #define	MSH_CD			"msh: cd: "
 #define	MSG_CD_USE		": invalid option\ncd: usage: cd [dir]\n"
 #define	MSG_HOME		"HOME not set\n"

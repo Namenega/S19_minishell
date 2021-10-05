@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 09:56:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 10:23:20 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:35:15 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,7 @@ int		msh_unset(t_msh *msh, t_exec *exe);
 int		msh_pwd(t_msh *msh, t_exec *exe);
 int		msh_env(t_msh *msh, t_exec *exe);
 int		msh_export(t_exec *exec);
+
+void	exec_error(t_exec *exec, char *msg);
 
 #endif
