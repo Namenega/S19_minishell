@@ -6,6 +6,7 @@
 - Check norm
 - Improve HEREDOC (param expansion)
 - signals handling
+- update MSH->PATH if needed after an export !!!
 
 /*
 **		=== TESTS ===

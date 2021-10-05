@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/10/05 14:59:32 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/10/05 17:14:33 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,7 @@ NAME	= minishell
 LIBFT	= ./libft
 RDLINE	= /Users/$(USER)/.brew/opt/readline
 
-SRC		=	./src/builtins/which_cmd.c \
-			./src/builtins/msh_echo.c \
+SRC		=	./src/builtins/msh_echo.c \
 			./src/builtins/msh_cd.c \
 			./src/builtins/msh_unset.c \
 			./src/builtins/msh_pwd.c \
@@ -28,6 +27,8 @@ SRC		=	./src/builtins/which_cmd.c \
 			./src/exec/command2.c \
 			./src/exec/command3.c \
 			./src/exec/heredoc.c \
+			./src/exec/launch_builtin.c \
+			./src/exec/get_bin.c \
 			./src/parsing/lexer1.c \
 			./src/parsing/lexer2.c \
 			./src/parsing/parser1.c \
@@ -36,12 +37,11 @@ SRC		=	./src/builtins/which_cmd.c \
 			./src/parsing/word_expansion1.c \
 			./src/parsing/word_expansion2.c \
 			./src/utils/utils.c \
+			./src/utils/set_path.c \
 			./src/utils/msh_canonpath.c \
 			./src/utils/msh_print_error.c \
 			./src/utils/utils_cst.c \
 			./src/utils/utils_env.c \
-			./set_path.c \
-			./get_bin.c \
 			./MiniShell.c
 
 CC		= gcc

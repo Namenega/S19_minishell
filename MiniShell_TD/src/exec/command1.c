@@ -6,20 +6,16 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 12:23:23 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 16:11:23 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-t_exec	*cmd_get(t_msh *msh, t_ast *ast)
+t_exec	*cmd_get(t_msh *msh, t_ast *ast, t_exec *exec)
 {
 	t_cmd	cmd;
-	t_exec	*exec;
 
-	exec = malloc(sizeof(*exec));
-	if (!exec)
-		return (NULL);
 	exec->size = cmd_word_count(ast);
 	exec->tab = malloc(sizeof(char *) * (exec->size + 1));
 	if (!exec->tab)
@@ -46,10 +42,12 @@ void	cmd_add_word(t_cmd *cmd, t_ast *ast)
 
 void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast)
 {
-	if (ast->left && ast->left->type == AST_WORD)
-		cmd_add_word(cmd, ast->left);
-	else if (ast->left && ast->left->type == AST_IO_REDIR)
-		cmd_add_io(msh, cmd, ast->left);
+	if (ast->type == AST_WORD)
+		cmd_add_word(cmd, ast);
+	else if (ast->type == AST_IO_REDIR)
+		cmd_add_io(msh, cmd, ast);
+	if (ast->left)
+		cmd_ast_traversal(msh, cmd, ast->left);
 	if (ast->right)
 		cmd_ast_traversal(msh, cmd, ast->right);
 }

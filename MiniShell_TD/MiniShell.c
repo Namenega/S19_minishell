@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 15:36:28 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 17:10:27 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,13 @@ int	main(int argc, char **argv, char **env)
 			lexer(&msh);
 			parser(&msh);
 			we_word_expansion(&msh);
+			// parser_print(msh.ast);
 			if (msh.ast->type == AST_PIPE)
 				exec = cmd_get(&msh, msh.ast->left);
 			else
 				exec = cmd_get(&msh, msh.ast);
-			which_cmd(&msh, exec);
+			cmd_print(exec);
+			launch_builtin(&msh, exec);
 		}
 	}
 	printf("Bye Bye!");

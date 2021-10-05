@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 11:35:07 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/05 16:15:19 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 static void	cmd_word_count_sub(t_ast *ast, int *count)
 {
+	if (ast->type == AST_IO_REDIR)
+		return ;
 	if (ast->type == AST_WORD)
 		(*count)++;
-	if (ast->left && ast->left->type != AST_IO_REDIR)
+	if (ast->left)
 		cmd_word_count_sub(ast->left, count);
-	if (ast->right && ast->right->type != AST_IO_REDIR)
+	if (ast->right)
 		cmd_word_count_sub(ast->right, count);
 }
 
