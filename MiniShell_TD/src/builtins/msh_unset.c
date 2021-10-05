@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 09:46:24 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 12:42:50 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 15:12:44 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static int	find_env(char *s, char **env, int len)
 	i = 0;
 	while (env[i])
 	{
-		if (!ft_strncmp(env[i], s, len) && env[i][len] == '=')
+		if (!ft_strncmp(env[i], s, len)
+			&& (env[i][len] == '=' || env[i][len] == '\0'))
 			break ;
 		i++;
 	}
@@ -51,12 +52,11 @@ int	msh_unset(t_msh *msh, t_exec *exec) //TODO: correct return
 	i = 1;
 	len = 0;
 	(void)msh;
-	if (!exec->env || !exec->tab[i])
+	if (!exec->env)
 		return (EXIT_FAILURE);				//!Error need a change
-	if (exec->tab[i])
-		len = ft_strlen(exec->tab[i]);
 	while (exec->tab[i])
 	{
+		len = ft_strlen(exec->tab[i]);
 		if (find_env(exec->tab[i], exec->env, len))
 			msh->env_left++;
 		i++;

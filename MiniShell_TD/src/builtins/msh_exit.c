@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 11:32:42 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 14:48:19 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/05 15:16:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "utils.h"
 
 // TODO: one HEADER with all MSGs
-// #define	MSH_EXIT			"msh: exit: "
+// #define	MSG_EXIT			"msh: exit: "
 // #define	MSG_EXIT_USE		": numeric argument required\n"
 // #define	MSG_EXIT_ARGS		"too many arguments\n"
 
@@ -34,11 +34,11 @@ int	msh_exit(t_msh *msh, t_exec *exec)
 		while (*ptr && (*ptr >= '0' && *ptr <= '9'))
 			ptr++;
 		if (*ptr)
-			return (msh_print_error(MSH_EXIT, val, MSG_EXIT_USE, 0xFF));
+			return (msh_print_error(MSG_EXIT, val, MSG_EXIT_USE, 0xFF));
 		ret = (ft_atoi(val) & 0xFF);
 	}
 	if (exec->tab[2])
-		return (msh_print_error(MSH_EXIT, MSG_EXIT_ARGS, NULL, 0xFF));
+		return (msh_print_error(MSG_EXIT, MSG_EXIT_ARGS, NULL, 0xFF));
 	msh_free(msh);
 	exit(ret);
 }

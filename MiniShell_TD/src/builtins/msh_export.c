@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   msh_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 16:29:41 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 14:49:24 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/05 15:15:02 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
 //TODO: on single HEADER to rule them all
-// #define	MSH_EXPORT		"msh: export: `"
+// #define	msh_export		"msh: export: `"
 // #define	MSG_IDENTIFIER	"': not a valid identifier\n"
 
 int	msh_export_print(t_exec *exec)
@@ -30,11 +30,11 @@ int	msh_export_print(t_exec *exec)
 	{
 		value = utils_env_go_2_val(*argv);
 		write(1, "declare -x ", 11);
-		write(1, *argv, value - *argv - (*value == '='));
+		write(1, *argv, value - (*value != '\0') - *argv );
 		if (*value)
 		{
 			write(1, "=\"", 2);
-			write(1, value, ft_strlen(value));
+			write(1, value + 1, ft_strlen(value) - 1);
 			write(1, "\"", 1);
 		}
 		write(1, "\n", 1);
@@ -49,8 +49,8 @@ int	msh_export_var(t_msh *msh, char *exp)
 	char	**param;
 
 	value = utils_env_check_name(exp);
-	if (!value || !(*value != '=' || *value == '\0'))
-		return (msh_print_error(MSH_EXPORT, exp, MSG_IDENTIFIER, EXIT_FAILURE));
+	if (!value && !(*value != '=' || *value == '\0'))
+		return (msh_print_error(MSG_EXPORT, exp, MSG_IDENTIFIER, EXIT_FAILURE));
 	param = utils_env_param(msh->env, exp, value - exp);
 	if (param)
 		free(*param);
@@ -72,11 +72,11 @@ int	msh_export(t_exec *exec)
 	int	r;
 	int	ret;
 
-	if (!exec->tab[1])
-		return (msh_export_print(exec));
 	i = 1;
 	r = 0;
 	ret = 0;
+	if (!exec->tab[i])
+		return (msh_export_print(exec));
 	while (exec->tab[i])
 	{
 		r = msh_export_var(exec->msh, exec->tab[i]);

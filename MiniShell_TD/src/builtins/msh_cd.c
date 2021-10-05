@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*																			*/
 /*														:::	  ::::::::	*/
-/*	msh_cd.c											:+:	  :+:	:+:	*/
+/*	MSG_CD.c											:+:	  :+:	:+:	*/
 /*													+:+ +:+		 +:+	 */
 /*	By: tderwedu <tderwedu@student.s19.be>		 +#+  +:+		+#+		*/
 /*												+#+#+#+#+#+	+#+			*/
@@ -24,17 +24,17 @@
 typedef struct stat		t_stat;
 
 //TODO: on single HEADER to rule them all
-// #define	MSH_CD			"msh: cd: "
+// #define	MSG_CD			"msh: cd: "
 // #define	MSG_CD_USE		": invalid option\ncd: usage: cd [dir]\n"
 // #define	MSG_HOME		"HOME not set\n"
-// #define	MSG_OPWD		"OLDPWD not set\n"
+// #define	MSG_OLDPWD		"OLDPWD not set\n"
 // #define	MSG_ELOOP		": Too many levels of symbolic links\n"
 // #define	MSG_ENOENT		": No such file or directory\n"
 // #define	MSG_ENAME2LONG	": File name too long\n"
 // #define MSG_ENOTDIR		": Not a directory\n"
 // #define EXIT_FAIL		1
 
-int	msh_cd_export(t_msh *msh, char *name, char *val)
+int	MSG_CD_export(t_msh *msh, char *name, char *val)
 {
 	int		len_val;
 	int		len_name;
@@ -63,10 +63,10 @@ int	msh_chdir(t_msh *msh, char *path, int update)
 {
 	errno = 0;
 	if (chdir(path))
-		return (msh_print_error(MSH_CD, strerror(errno), NULL, EXIT_FAILURE));
-	if (msh_cd_export(msh, "OLDPWD", msh->cwd))
+		return (msh_print_error(MSG_CD, strerror(errno), NULL, EXIT_FAILURE));
+	if (MSG_CD_export(msh, "OLDPWD", msh->cwd))
 		return (EXIT_FAILURE);
-	if (msh_cd_export(msh, "PWD", path))
+	if (MSG_CD_export(msh, "PWD", path))
 		return (EXIT_FAILURE);
 	free(msh->cwd);
 	if (!update)
@@ -122,14 +122,14 @@ int	msh_check_path(char *dst, char *path)
 		if (errno == ENOENT || errno == ELOOP)
 			return (0);
 		else if (errno == ENAMETOOLONG)
-			return (msh_print_error(MSH_CD, dst, MSG_ENAME2LONG, EXIT_FAILURE));
+			return (msh_print_error(MSG_CD, dst, MSG_ENAME2LONG, EXIT_FAILURE));
 		else if (!S_ISDIR (st.st_mode))
-			return (msh_print_error(MSH_CD, dst, MSG_ENOTDIR, EXIT_FAILURE));
+			return (msh_print_error(MSG_CD, dst, MSG_ENOTDIR, EXIT_FAILURE));
 		else
-			return (msh_print_error(MSH_CD, strerror(errno), NULL, EXIT_FAILURE));
+			return (msh_print_error(MSG_CD, strerror(errno), NULL, EXIT_FAILURE));
 	}
 	if (ft_strlen(dst) > MAXPATHLEN)
-		return (msh_print_error(MSH_CD, dst, MSG_ENAME2LONG, EXIT_FAILURE));
+		return (msh_print_error(MSG_CD, dst, MSG_ENAME2LONG, EXIT_FAILURE));
 	return (0);
 }
 
@@ -150,9 +150,9 @@ int	msh_set_path(t_msh *msh, char *dst)
 		if (msh_check_path(dst, path))
 			return (EXIT_FAILURE);
 		if (errno == ENOENT)
-			return (msh_print_error(MSH_CD, dst, MSG_ENOENT, EXIT_FAILURE));
+			return (msh_print_error(MSG_CD, dst, MSG_ENOENT, EXIT_FAILURE));
 		else if (errno == ELOOP)
-			return (msh_print_error(MSH_CD, dst, MSG_ELOOP, EXIT_FAILURE));
+			return (msh_print_error(MSG_CD, dst, MSG_ELOOP, EXIT_FAILURE));
 	}
 	return (msh_chdir(msh, path, update));
 }
@@ -165,18 +165,18 @@ int	msh_cd(t_msh *msh, t_exec *exec)
 	{
 		path = utils_env_get_param(exec->env, "HOME", 4);
 		if (!path)
-			return (msh_print_error(MSH_CD, MSG_HOME, NULL, EXIT_FAILURE));
+			return (msh_print_error(MSG_CD, MSG_HOME, NULL, EXIT_FAILURE));
 		return (msh_set_path(msh, path));
 	}
 	else if (exec->tab[1][0] == '-' && exec->tab[1][1] == '\0')
 	{
 		path = utils_env_get_param(exec->env, "OLDPWD", 4);
 		if (!path)
-			return (msh_print_error(MSH_CD, MSG_OPWD, NULL, EXIT_FAILURE));
+			return (msh_print_error(MSG_CD, MSG_OLDPWD, NULL, EXIT_FAILURE));
 		return (msh_set_path(msh, path));
 	}
 	else if (exec->tab[1][0] == '-')
-		return (msh_print_error(MSH_CD, exec->tab[1], MSG_CD_USE, EXIT_FAILURE));
+		return (msh_print_error(MSG_CD, exec->tab[1], MSG_CD_USE, EXIT_FAILURE));
 	else
 		return (msh_set_path(msh, exec->tab[1]));
 }

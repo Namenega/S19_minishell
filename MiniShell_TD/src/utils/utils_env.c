@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:02:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 14:51:52 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 15:13:27 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,4 +214,3 @@ char	**utils_env_next_addr(t_msh *msh)
 	addr[1] = NULL;
 	return (addr);
 }
-// VAR1=var1 VAR2=var2 VAR3=var3 VAR4=var4 VAR5=var5 VAR6=var6 VAR7=var7 VAR8=var8 

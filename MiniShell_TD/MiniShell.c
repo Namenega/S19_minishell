@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 12:23:49 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 15:36:28 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	t_msh	msh;
-	t_exec	*exec;
+	t_exec *exec;
 
 	msh.env_left = 5;
 	msh.env_size = utils_env_size(env) + msh.env_left;
@@ -70,31 +70,20 @@ int	main(int argc, char **argv, char **env)
 	while(1)
 	{
 		msh.line = readline("\033[32mmsh>\033[0m");
-		if (*msh.line)					// ADD to history if not empty
+		if (!msh.line)
+			break;
+		else if (*msh.line)					// ADD to history if not empty
 		{
-			// printf("\t\t\033[32mOK\033[0m\n"); // TODO: remove
 			add_history(msh.line);
 			lexer(&msh);
-			// lexer_print(msh.tok);
 			parser(&msh);
-			// parser_print(msh.ast);
 			we_word_expansion(&msh);
-			// printf("\t \033[32mAFTER WORD EXPANSION:\033[0m\n");
-			// parser_print(msh.ast);
 			if (msh.ast->type == AST_PIPE)
 				exec = cmd_get(&msh, msh.ast->left);
 			else
 				exec = cmd_get(&msh, msh.ast);
-			// cmd_print(exec);
 			which_cmd(&msh, exec);
-			// exec->cmdpath = get_bin(&msh, exec->tab[0]);
-			// if (!ft_strcmp(exec->tab[0], "unset"))
-			// 	msh_unset(env, exec);
-			// else
-			// msh_cd(&msh, exec);
 		}
-	// system("leaks minishell");
 	}
+	printf("Bye Bye!");
 }
-
-//cd /b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/oinfre a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre

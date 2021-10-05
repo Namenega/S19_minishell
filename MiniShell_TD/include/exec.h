@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:13:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 14:53:09 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/05 15:21:29 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	cmd_print(t_exec *exec);
 /* FILE: src/exec/command3.c */
 
 void	simple_redirection(t_msh *msh, t_exec *ex);
-int		list_redirection(t_exec *exec, int entry_file);
+void	list_redirection(t_exec *exec, int entry_file);
 
 /* FILE: src/exec/heredoc.c */
 
