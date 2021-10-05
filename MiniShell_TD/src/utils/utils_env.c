@@ -187,7 +187,6 @@ char	*utils_env_go_2_val(char *var)
 		return (NULL);
 	return (var + 1);
 }
-<<<<<<< HEAD
 
 char	*utils_env_next_addr(t_msh *msh)
 {
@@ -201,5 +200,3 @@ char	*utils_env_next_addr(t_msh *msh)
 		return (NULL);
 	return (msh->env + msh->env_size  - --msh->env_left);
 }
-=======
->>>>>>> 4b996117e5fd8cf4f9f7f022e0f31e2ee7f6216f
