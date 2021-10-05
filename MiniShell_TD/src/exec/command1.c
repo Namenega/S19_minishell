@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 16:22:20 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 12:23:23 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_exec	*cmd_get(t_msh *msh, t_ast *ast)
 	exec->env = msh->env;
 	exec->io = NULL;
 	exec->cmdpath = NULL;
+	exec->msh = msh;
 	cmd.msh = msh;
 	cmd.exec = exec;
 	cmd.tail = NULL;

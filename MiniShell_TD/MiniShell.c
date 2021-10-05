@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 11:48:25 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 12:23:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ int	main(int argc, char **argv, char **env)
 	t_msh	msh;
 	t_exec	*exec;
 
-	msh.env = utils_env_copy(env, utils_env_size(env) + 5);
+	msh.env_left = 5;
+	msh.env_size = utils_env_size(env) + msh.env_left;
+	msh.env = utils_env_copy(env, msh.env_size);
 	msh.path = NULL;
 	msh.line = NULL;
 	msh.tok = NULL;
@@ -58,8 +60,6 @@ int	main(int argc, char **argv, char **env)
 	msh.ret[1] = '2';
 	msh.ret[2] = '1';
 	msh.ret[3] = '\0';
-	msh.env_size = utils_env_size(env);
-	msh.env_left = 5;
 
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);		// Ignore SIGQUIT

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:02:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 11:55:28 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 12:36:11 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,21 +192,25 @@ char	*utils_env_go_2_val(char *var)
 		return (NULL);
 	while (*var && *var != '=')
 		var++;
-	if (!*var)
-		return (NULL);
-	return (var + 1);
+	return (var + (*var == '='));
 }
-
 char	**utils_env_next_addr(t_msh *msh)
 {
-	printf("utils_env_next_addr\n");
+	char **addr;
+
 	if (msh->env_left)
-		return (msh->env + msh->env_size  - --msh->env_left);
+	{
+		addr = msh->env + msh->env_size  - msh->env_left--;
+		addr[1] = NULL;
+		return (addr);
+	}
 	msh->env_left = 5;
 	msh->env_size += 5;
 	msh->env  = utils_env_copy(msh->env, msh->env_size);
 	if (!msh->env)
 		return (NULL);
-	msh->env_left--;
-	return (msh->env + msh->env_size  - (msh->env_left + 1));
+	addr = msh->env + msh->env_size  - msh->env_left--;
+	addr[1] = NULL;
+	return (addr);
 }
+// VAR1=var1 VAR2=var2 VAR3=var3 VAR4=var4 VAR5=var5 VAR6=var6 VAR7=var7 VAR8=var8 

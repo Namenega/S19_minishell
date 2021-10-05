@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 09:46:24 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 11:32:45 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/05 12:42:50 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 //TODO: exit(), CTRL-D
 
-static void	find_env(char *s, char **env, int len)
+//TODO: UPDATE env_left
+
+static int	find_env(char *s, char **env, int len)
 {
 	int		i;
 	char	*tmp;
@@ -27,13 +29,18 @@ static void	find_env(char *s, char **env, int len)
 			break ;
 		i++;
 	}
-	free(env[i]);
-	while (env[i + 1])
+	if (env[i])
 	{
-		env[i] = env[i + 1];
-		i++;
+		free(env[i]);
+		while (env[i + 1])
+		{
+			env[i] = env[i + 1];
+			i++;
+		}
+		env[i] = NULL;
+		return (1);
 	}
-	env[i] = NULL;
+	return (0);
 }
 
 int	msh_unset(t_msh *msh, t_exec *exec) //TODO: correct return
@@ -50,7 +57,8 @@ int	msh_unset(t_msh *msh, t_exec *exec) //TODO: correct return
 		len = ft_strlen(exec->tab[i]);
 	while (exec->tab[i])
 	{
-		find_env(exec->tab[i], exec->env, len);
+		if (find_env(exec->tab[i], exec->env, len))
+			msh->env_left++;
 		i++;
 	}
 	return (EXIT_SUCCESS);
