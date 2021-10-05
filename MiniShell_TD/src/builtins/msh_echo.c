@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 14:13:56 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/05 10:21:26 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:28:45 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	echo_multiple_n(int i, char **tab)
 
 static int	parse_n(char *s)
 {
-	int i;
+	int	i;
 
 	if (!s)
 		return (0);
@@ -61,7 +61,6 @@ static int	parse_n(char *s)
 		return (0);
 }
 
-
 static int	if_echo_n(char **tab, int i)
 {
 	int		j;
@@ -74,10 +73,10 @@ static int	if_echo_n(char **tab, int i)
 			break ;
 		i++;
 	}
-	if (j == 1)													//* echo -n -n -n || echo -nnnn
+	if (j == 1)									//* echo -n -n -n || echo -nnnn
 		i = echo_multiple_n(i, tab);
-	else														//* echo -nfadsfas
-	{															//!WRONG
+	else													//* echo -nfadsfas
+	{
 		ft_putstr_fd(tab[i], 1);
 		if (tab[i + 1])
 			write(1, " ", 1);
@@ -94,7 +93,7 @@ int	msh_echo(t_msh *msh, t_exec *exec) // TODO: add return
 	(void)msh;
 	i = 1;
 	if (!exec->tab)
-		return (EXIT_FAILURE);												//* Error msg need a change
+		return (EXIT_FAILURE);						//* Error msg need a change
 	tab = exec->tab;
 	if (!tab[i])
 	{
@@ -104,13 +103,9 @@ int	msh_echo(t_msh *msh, t_exec *exec) // TODO: add return
 	while (tab[i])
 	{
 		if (i == 1 && tab[i] && !ft_strncmp(tab[i], "-n", 2))	//* echo -n
-		{
 			i = if_echo_n(tab, i);
-		}
 		else if (tab[i])										//* echo
-		{
 			i = normal_echo(tab, i);
-		}
 	}
 	return (EXIT_SUCCESS);
 }

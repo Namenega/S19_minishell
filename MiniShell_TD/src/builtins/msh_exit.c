@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 11:32:42 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 08:43:42 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:31:53 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 int	msh_exit(t_msh *msh, t_exec *exec)
 {
 	int		ret;
-	char 	*val;
-	char 	*ptr;
+	char	*val;
+	char	*ptr;
 
 	write(1, "exit\n", 5);
 	ret = ret_str_2_int(msh);

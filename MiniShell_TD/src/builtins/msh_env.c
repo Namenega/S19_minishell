@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 11:41:18 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 10:22:35 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:31:08 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	msh_env(t_msh *msh, t_exec *exec)
 {
-	char **env;
+	char	**env;
 
 	(void)msh;
 	env = exec->env;

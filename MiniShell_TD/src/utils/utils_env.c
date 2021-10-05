@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:02:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 10:14:37 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:42:11 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ size_t	utils_env_size(char **env)
 	return (size);
 }
 
-void utils_env_print(char **tab)
+void	utils_env_print(char **tab)
 {
 	printf("### Start Of Tab ###\n");
 	while (*tab)
@@ -106,7 +106,6 @@ void utils_env_print(char **tab)
 
 char	**utils_env_copy(char **env, size_t size)
 {
-	
 	char	**new_env;
 	char	**entry;
 

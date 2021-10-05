@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 10:02:44 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/29 15:33:32 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:43:33 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,8 @@ static inline void	fill_path(t_msh *msh, char *path)
 
 void	set_path(t_msh *msh)
 {
-
 	char	*path;
-	
+
 	if (msh->path)
 		free(msh->path);
 	path = utils_env_get_param(msh->env, "PATH", 4);
