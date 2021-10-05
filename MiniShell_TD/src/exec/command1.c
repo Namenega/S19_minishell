@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 12:23:23 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 18:28:34 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,12 @@ void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast)
 	if (ast->left && ast->left->type == AST_WORD)
 		cmd_add_word(cmd, ast->left);
 	else if (ast->left && ast->left->type == AST_IO_REDIR)
+	{
 		cmd_add_io(msh, cmd, ast->left);
+		printf("fd == [%d]\n", cmd->exec->io->heredoc_fd);
+		// if (cmd->exec->io->heredoc_fd == -1)
+		// 	return ;
+	}
 	if (ast->right)
 		cmd_ast_traversal(msh, cmd, ast->right);
 }
@@ -83,6 +88,9 @@ void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast)
 	if (!ft_strcmp(ast->lex, "<<"))				//!Ajout du else if
 	{
 		new->heredoc_fd = heredoc(msh, ast);
+		printf("fd_1 == [%d]\n", new->heredoc_fd);
+		if (new->heredoc_fd == -1)
+			return ;
 		// close(new->heredoc_fd);
 	}
 	else

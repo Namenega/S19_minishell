@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:45:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 16:58:56 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/05 18:52:13 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ char	*get_bin(t_msh *msh, char *name);
 
 void	signal_handling(void);
 void	handle_sigint(int sig);
+void	handle_sigusr1(int sig);
 
 #endif
