@@ -6,7 +6,11 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 09:56:00 by tderwedu          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/10/05 13:19:26 by namenega         ###   ########.fr       */
+=======
+/*   Updated: 2021/10/05 12:00:56 by tderwedu         ###   ########.fr       */
+>>>>>>> ee126a8435bb931e2e34ad93a6ec5c92110bef5f
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +92,7 @@ int		msh_unset(t_msh *msh, t_exec *exe);
 int		msh_pwd(t_msh *msh, t_exec *exe);
 int		msh_env(t_msh *msh, t_exec *exe);
 int		msh_export(t_exec *exec);
+int		msh_export_var(t_exec *exec, char *exp);
 
 void	exec_error(t_exec *exec, char *msg);
 

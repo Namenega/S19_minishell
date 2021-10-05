@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 16:29:41 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 11:54:15 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 12:30:57 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,14 @@ int	msh_export_print(t_exec *exec)
 	{
 		value = utils_env_go_2_val(*argv);
 		write(1, "declare -x ", 11);
-		write(1, *argv, value - *argv - 1);
-		write(1, "=\"", 2);
-		write(1, value, ft_strlen(value));
-		write(1, "\"\n", 2);
+		write(1, *argv, value - *argv - (*value == '='));
+		if (*value)
+		{
+			write(1, "=\"", 2);
+			write(1, value, ft_strlen(value));
+			write(1, "\"", 1);
+		}
+		write(1, "\n", 1);
 		argv++;
 	}
 	return (EXIT_SUCCESS);
@@ -45,14 +49,11 @@ int	msh_export_var(t_exec *exec, char *exp)
 	char	**param;
 
 	value = utils_env_check_name(exp);
-	if (*value != '=')
+	if (*value != '=' && *value != '\0')
 		return (msh_print_error(MSH_EXPORT, exp, MSG_IDENTIFIER, EXIT_FAILURE));
 	param = utils_env_param(exec->env, exp, value - exp);
 	if (param)
-	{
-		param = param - (value - exp + 1);
-		free(param);
-	}
+		free(*param);
 	else
 	{
 		param = utils_env_next_addr(exec->msh);
@@ -68,14 +69,20 @@ int	msh_export_var(t_exec *exec, char *exp)
 int	msh_export(t_exec *exec)
 {
 	int	i;
+	int	r;
+	int	ret;
 
 	if (!exec->tab[1])
 		return (msh_export_print(exec));
 	i = 1;
+	r = 0;
+	ret = 0;
 	while (exec->tab[i])
 	{
-		msh_export_var(exec, exec->tab[i]);
-		i++;//utils_env_get_param
+		r = msh_export_var(exec, exec->tab[i]);
+		if (r)
+			ret = r;
+		i++;
 	}
-	return (EXIT_SUCCESS);
+	return (ret);
 }
