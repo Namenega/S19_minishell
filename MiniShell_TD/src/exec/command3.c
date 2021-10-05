@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:55:18 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/05 12:23:49 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/05 12:26:23 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,10 @@ void	simple_redirection(t_msh *msh, t_exec *ex)
 			ft_free_split(ex->tab);
 	}
 	waitpid(pid, &ret, 0);
+}
+
+void	exec_error(t_exec *exec, char *msg)//TODO: code
+{
+	(void)exec;
+	(void)msg;
 }
