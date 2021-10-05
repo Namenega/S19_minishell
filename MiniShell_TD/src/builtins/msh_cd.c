@@ -32,37 +32,41 @@ typedef struct stat		t_stat;
 #define	MSG_ENOENT		": No such file or directory\n"
 #define	MSG_ENAME2LONG	": File name too long\n"
 #define MSG_ENOTDIR		": Not a directory\n"
-#define EXIT_FAIL		1
 
-void	msh_export_var(t_msh *msh, char *exp)
+int	msh_cd_export(t_msh *msh, char *name, char *val)
 {
-	char	*value;
-	char	**param;
+	int		len_val;
+	int		len_name;
+	char	*var;
+	char	**env;
 
-	value = utils_env_check_name(exp);
-	if (!value || !(*value != '=' || *value == '\0'))
-		return (msh_print_error(MSH_EXPORT, exp, MSG_IDENTIFIER, EXIT_FAILURE));
-	param = utils_env_param(msh->env, exp, value - exp);
-	if (param)
-		free(*param);
-	else
+	len_val = ft_strlen(val);
+	len_name = ft_strlen(name);
+	env = utils_env_param(msh->env, name, len_name);
+	if (env)
 	{
-		param = utils_env_next_addr(msh);
-		if (!param)
+		var = malloc(sizeof(*var) * (len_name + len_val + 2));
+		if (!var)
 			return (EXIT_FAILURE);
+		ft_memcpy(var, name, len_name);
+		var[len_name] = '=';
+		ft_memcpy(var + len_name + 1, val, len_val);
+		var[len_name + 1 + len_val] = '\0';
+		free(*env);
+		*env = var;
 	}
-	*param = ft_strdup(exp);
-	if (!*param)
-		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
-
 
 int	msh_chdir(t_msh *msh, char *path, int update)
 {
 	errno = 0;
 	if (chdir(path))
-		return (msh_print_error(MSH_CD, strerror(errno), NULL, EXIT_FAIL));
+		return (msh_print_error(MSH_CD, strerror(errno), NULL, EXIT_FAILURE));
+	if (msh_cd_export(msh, "OLDPWD", msh->cwd))
+		return (EXIT_FAILURE);
+	if (msh_cd_export(msh, "PWD", path))
+		return (EXIT_FAILURE);
 	free(msh->cwd);
 	if (!update)
 		msh->cwd = path;
@@ -71,9 +75,7 @@ int	msh_chdir(t_msh *msh, char *path, int update)
 		free(path);
 		msh->cwd = getcwd(NULL, 0);
 	}
-	msh_export_var(t_msh *msh, char *exp)
-	// TODO: Update PWD in ENV
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 char	*get_absolute_path(char *cwd, char *dst)
@@ -119,14 +121,14 @@ int	msh_check_path(char *dst, char *path)
 		if (errno == ENOENT || errno == ELOOP)
 			return (0);
 		else if (errno == ENAMETOOLONG)
-			return (msh_print_error(MSH_CD, dst, MSG_ENAME2LONG, EXIT_FAIL));
+			return (msh_print_error(MSH_CD, dst, MSG_ENAME2LONG, EXIT_FAILURE));
 		else if (!S_ISDIR (st.st_mode))
-			return (msh_print_error(MSH_CD, dst, MSG_ENOTDIR, EXIT_FAIL));
+			return (msh_print_error(MSH_CD, dst, MSG_ENOTDIR, EXIT_FAILURE));
 		else
-			return (msh_print_error(MSH_CD, strerror(errno), NULL, EXIT_FAIL));
+			return (msh_print_error(MSH_CD, strerror(errno), NULL, EXIT_FAILURE));
 	}
 	if (ft_strlen(dst) > MAXPATHLEN)
-		return (msh_print_error(MSH_CD, dst, MSG_ENAME2LONG, EXIT_FAIL));
+		return (msh_print_error(MSH_CD, dst, MSG_ENAME2LONG, EXIT_FAILURE));
 	return (0);
 }
 
@@ -137,7 +139,7 @@ int	msh_set_path(t_msh *msh, char *dst)
 
 	path = get_absolute_path(msh->cwd, dst);
 	if (msh_check_path(dst, path))
-		return (EXIT_FAIL);
+		return (EXIT_FAILURE);
 	update = (errno == ELOOP);
 	if (errno == ENOENT || errno == ELOOP)
 	{
@@ -145,11 +147,11 @@ int	msh_set_path(t_msh *msh, char *dst)
 		msh->cwd = getcwd(NULL, 0);
 		path = get_absolute_path(msh->cwd, dst);
 		if (msh_check_path(dst, path))
-			return (EXIT_FAIL);
+			return (EXIT_FAILURE);
 		if (errno == ENOENT)
-			return (msh_print_error(MSH_CD, dst, MSG_ENOENT, EXIT_FAIL));
+			return (msh_print_error(MSH_CD, dst, MSG_ENOENT, EXIT_FAILURE));
 		else if (errno == ELOOP)
-			return (msh_print_error(MSH_CD, dst, MSG_ELOOP, EXIT_FAIL));
+			return (msh_print_error(MSH_CD, dst, MSG_ELOOP, EXIT_FAILURE));
 	}
 	return (msh_chdir(msh, path, update));
 }
@@ -162,18 +164,18 @@ int	msh_cd(t_msh *msh, t_exec *exec)
 	{
 		path = utils_env_get_param(exec->env, "HOME", 4);
 		if (!path)
-			return (msh_print_error(MSH_CD, MSG_HOME, NULL, EXIT_FAIL));
+			return (msh_print_error(MSH_CD, MSG_HOME, NULL, EXIT_FAILURE));
 		return (msh_set_path(msh, path));
 	}
 	else if (exec->tab[1][0] == '-' && exec->tab[1][1] == '\0')
 	{
 		path = utils_env_get_param(exec->env, "OLDPWD", 4);
 		if (!path)
-			return (msh_print_error(MSH_CD, MSG_OPWD, NULL, EXIT_FAIL));
+			return (msh_print_error(MSH_CD, MSG_OPWD, NULL, EXIT_FAILURE));
 		return (msh_set_path(msh, path));
 	}
 	else if (exec->tab[1][0] == '-')
-		return (msh_print_error(MSH_CD, exec->tab[1], MSG_CD_USE, EXIT_FAIL));
+		return (msh_print_error(MSH_CD, exec->tab[1], MSG_CD_USE, EXIT_FAILURE));
 	else
 		return (msh_set_path(msh, exec->tab[1]));
 }

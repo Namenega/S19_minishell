@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:02:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 13:33:45 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 14:51:52 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,8 @@ char	**utils_env_param(char **env, char *var, int len)
 		return (NULL);
 	while (*env)
 	{
-		if (!ft_strncmp(*env, var, len) && (*env)[len] == '=')
+		if (!ft_strncmp(*env, var, len)
+			&& ((*env)[len] == '=' || (*env)[len] == '\0'))
 			return (env);
 		env++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:55:18 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/05 13:18:43 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/05 14:46:19 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ int	list_redirection(t_exec *exec, int entry_file)
 		{
 			entry_file = open(io->filename, io->oflag, 0644);
 			if (entry_file == -1)
-				return ;				//! Error msg need a change
+				return (EXIT_FAILURE);				//! Error msg need a change
 			err_d = dup2(entry_file, io->fd);
 			if (err_d == -1)
-				return ;				//! Error msg need a change.
+				return (EXIT_FAILURE);				//! Error msg need a change.
 		}
 		else
 		{
 			err_d = dup2(io->heredoc_fd, io->fd);
 			if (err_d == -1)
-				return ;				//! Error msg need a change.
+				return (EXIT_FAILURE);				//! Error msg need a change.
 		}
 		io = io->next;
 	}
