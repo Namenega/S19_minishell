@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/30 09:56:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 13:44:22 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/10/05 14:13:49 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/10/05 14:14:12 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	cmd_print(t_exec *exec);
 /* FILE: src/exec/command3.c */
 
 void	simple_redirection(t_msh *msh, t_exec *ex);
+int		list_redirection(t_exec *exec, int entry_file);
 
 /* FILE: src/exec/heredoc.c */
 

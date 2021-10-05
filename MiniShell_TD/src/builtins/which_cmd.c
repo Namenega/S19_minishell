@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 18:49:19 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/05 14:09:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 14:13:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	which_cmd(t_msh *msh, t_exec *exec)
 	int	ret;
 
 	maj_into_min(exec->tab[0]);
-	// simple_redirection(msh, exec);
 	if (!ft_strncmp(exec->tab[0], "echo", 5))
 	{
 		ret = msh_echo(msh, exec);
