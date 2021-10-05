@@ -6,14 +6,14 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:55:18 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/05 12:26:23 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/05 13:18:43 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/errno.h>
 #include "../../include/exec.h"
 
-void	list_redirection(t_exec *exec, int entry_file)
+int	list_redirection(t_exec *exec, int entry_file)
 {
 	t_io	*io;
 	int		err_d;
@@ -38,6 +38,7 @@ void	list_redirection(t_exec *exec, int entry_file)
 		}
 		io = io->next;
 	}
+	return (entry_file);
 }
 
 void	simple_redirection(t_msh *msh, t_exec *ex)

@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 18:49:19 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/05 12:24:56 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/05 13:19:48 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	maj_into_min(char *s)
 int	which_cmd(t_msh *msh, t_exec *exec)
 {
 	maj_into_min(exec->tab[0]);
-	// simple_redirection(msh, exec);
 	if (!ft_strncmp(exec->tab[0], "echo", 5))
 	{
 		msh_echo(msh, exec);
