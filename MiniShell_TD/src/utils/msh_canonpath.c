@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_canonpath.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 11:14:38 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 17:12:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:40:30 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ static inline void	msh_canonpath_backtrack(char **p, char **q, char *base)
 	(*p) += 2;
 	if ((*q) > base)
 	{
-		while (--(*q)  > base && (*q)[0] != '/')
+		while (--(*q) > base && (*q)[0] != '/')
 			;
 	}
 }
 
 static inline void	msh_canonpath_cpy(char **p, char **q, char *base)
 {
-	if ((*q)  > base)
-		*(*q) ++ = '/';
+	if ((*q) > base)
+		*(*q)++ = '/';
 	while ((*p)[0] && (*p)[0] != '/')
 		*(*q)++ = *(*p)++;
 }
@@ -51,6 +51,7 @@ static inline void	msh_canonpath_cpy(char **p, char **q, char *base)
 ** - Non-leading '../'s and trailing '..'s are handled by removing
 **   portions of the path.
 */
+
 char	*msh_canonpath(char *path)
 {
 	char	*result;
@@ -68,7 +69,7 @@ char	*msh_canonpath(char *path)
 	{
 		if (p[0] == '/')
 			p++;
-		else if(p[0] == '.' && (p[1] == '/' || p[1] == '\0'))
+		else if (p[0] == '.' && (p[1] == '/' || p[1] == '\0'))
 			p++;
 		else if (p[0] == '.' && p[1] == '.' && (p[2] == '/' || p[2] == '\0'))
 			msh_canonpath_backtrack(&p, &q, base);

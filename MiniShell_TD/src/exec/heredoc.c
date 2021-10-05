@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/04 16:11:23 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:36:29 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	heredoc(t_msh *msh, t_ast *ast)
 	pid_t	pid;
 	int		pipefd[2];
 	char	*line;
-	char	*eof = NULL;
+	char	*eof;
 	int		ret;
 
 	(void)msh;

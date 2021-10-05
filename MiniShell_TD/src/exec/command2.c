@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 16:19:55 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:35:07 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	cmd_print(t_exec *exec)
 			printf("\t\033[35m heredoc\033[0m %i\n", io->heredoc_fd);
 		printf("\t\033[35m oflag\033[0m %i\n", io->oflag);
 		printf("\t\033[35m file \033[0m %s\n", io->filename);
-		io= io->next;
+		io = io->next;
 	}
 	printf("\033[33m \t ### END ###\033[0m\n");
 }

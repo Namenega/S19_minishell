@@ -87,7 +87,7 @@ char	*get_absolute_path(char *cwd, char *dst)
 ** msh_check_path:
 ** Check if PATH is a valid path.
 */
-int		msh_check_path(char *dst, char *path)
+int	msh_check_path(char *dst, char *path)
 {
 	t_stat	st;
 
@@ -108,7 +108,7 @@ int		msh_check_path(char *dst, char *path)
 	return (0);
 }
 
-int		msh_set_path(t_msh *msh, char *dst)
+int	msh_set_path(t_msh *msh, char *dst)
 {
 	int		update;
 	char	*path;
@@ -132,7 +132,7 @@ int		msh_set_path(t_msh *msh, char *dst)
 	return (msh_chdir(msh, path, update));
 }
 
-int  msh_cd(t_msh *msh, t_exec *exec)
+int	msh_cd(t_msh *msh, t_exec *exec)
 {
 	char	*path;
 
@@ -143,7 +143,7 @@ int  msh_cd(t_msh *msh, t_exec *exec)
 			return (msh_print_error(MSH_CD, MSG_HOME, NULL, EXIT_FAIL));
 		return (msh_set_path(msh, path));
 	}
-	else if (exec->tab[1][0]== '-' && exec->tab[1][1] == '\0')
+	else if (exec->tab[1][0] == '-' && exec->tab[1][1] == '\0')
 	{
 		path = utils_env_get_param(exec->env, "OLDPWD", 4);
 		if (!path)

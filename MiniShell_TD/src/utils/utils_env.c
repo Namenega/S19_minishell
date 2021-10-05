@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:02:36 by tderwedu          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/10/05 11:45:37 by tderwedu         ###   ########.fr       */
+=======
+/*   Updated: 2021/10/05 11:42:11 by namenega         ###   ########.fr       */
+>>>>>>> 4b996117e5fd8cf4f9f7f022e0f31e2ee7f6216f
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +100,7 @@ size_t	utils_env_size(char **env)
 	return (size);
 }
 
-void utils_env_print(char **tab)
+void	utils_env_print(char **tab)
 {
 	printf("### Start Of Tab ###\n");
 	while (*tab)
@@ -106,7 +110,6 @@ void utils_env_print(char **tab)
 
 char	**utils_env_copy(char **env, size_t size)
 {
-	
 	char	**new_env;
 	char	**entry;
 
@@ -184,6 +187,7 @@ char	*utils_env_go_2_val(char *var)
 		return (NULL);
 	return (var + 1);
 }
+<<<<<<< HEAD
 
 char	*utils_env_next_addr(t_msh *msh)
 {
@@ -197,3 +201,5 @@ char	*utils_env_next_addr(t_msh *msh)
 		return (NULL);
 	return (msh->env + msh->env_size  - --msh->env_left);
 }
+=======
+>>>>>>> 4b996117e5fd8cf4f9f7f022e0f31e2ee7f6216f

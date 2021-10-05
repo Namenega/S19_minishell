@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 11:10:30 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:48:25 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	handle_sigint(int sig)
 		// TODO:set RET to 130
 	rl_replace_line("", 0);		// Clear the previous text
 	rl_redisplay();				// Discplay the new buffer
-
 }
 
 void	msh_free(t_msh *msh)
@@ -94,6 +93,7 @@ int	main(int argc, char **argv, char **env)
 			// else
 			// msh_cd(&msh, exec);
 		}
+	// system("leaks minishell");
 	}
 }
 
