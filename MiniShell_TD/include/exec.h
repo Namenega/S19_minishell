@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 09:56:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 08:52:39 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 10:23:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ struct s_io
 
 struct s_exec
 {
+	t_msh	*msh;
 	char	*cmdpath;
 	int		size;
 	char	**tab;
@@ -85,5 +86,6 @@ int		msh_cd(t_msh *msh, t_exec *exec);
 int		msh_unset(t_msh *msh, t_exec *exe);
 int		msh_pwd(t_msh *msh, t_exec *exe);
 int		msh_env(t_msh *msh, t_exec *exe);
+int		msh_export(t_exec *exec);
 
 #endif

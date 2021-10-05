@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 14:13:56 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/04 11:30:17 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/05 10:21:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int	if_echo_n(char **tab, int i)
 	return (i);
 }
 
-void	msh_echo(t_msh *msh, t_exec *exec)
+int	msh_echo(t_msh *msh, t_exec *exec) // TODO: add return
 {
 	char	**tab;
 	int		i;
@@ -94,12 +94,12 @@ void	msh_echo(t_msh *msh, t_exec *exec)
 	(void)msh;
 	i = 1;
 	if (!exec->tab)
-		return ;												//* Error msg need a change
+		return (EXIT_FAILURE);												//* Error msg need a change
 	tab = exec->tab;
 	if (!tab[i])
 	{
 		write(1, "\n", 1);
-		return ;
+		return (EXIT_FAILURE);
 	}
 	while (tab[i])
 	{
@@ -112,4 +112,5 @@ void	msh_echo(t_msh *msh, t_exec *exec)
 			i = normal_echo(tab, i);
 		}
 	}
+	return (EXIT_SUCCESS);
 }

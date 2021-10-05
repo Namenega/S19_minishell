@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_pwd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 11:41:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 08:50:14 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 10:23:55 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
 
 int	msh_pwd(t_msh *msh, t_exec *exec)
 {
-	ft_putstr_fd(msh->cwd, 1);
+	(void)msh;
+	ft_putstr_fd(exec->msh->cwd, 1);
 	write(1, "\n", 1);
 	return(EXIT_SUCCESS);
 }
