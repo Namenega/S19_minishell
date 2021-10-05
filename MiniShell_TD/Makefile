@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
+#    By: namenega <namenega@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/10/05 14:59:32 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/10/05 17:00:24 by namenega         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC		=	./src/builtins/which_cmd.c \
 			./src/parsing/parser3.c \
 			./src/parsing/word_expansion1.c \
 			./src/parsing/word_expansion2.c \
+			./src/signals/signals.c \
 			./src/utils/utils.c \
 			./src/utils/msh_canonpath.c \
 			./src/utils/msh_print_error.c \

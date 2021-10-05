@@ -3,25 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   MiniShell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 15:36:28 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 17:22:20 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
 
-void	handle_sigint(int sig)
-{
-	(void)sig;
-	printf("\033[32m Handling CTRL-C\033[0m\n");
-	rl_on_new_line();			// Regenerate the prompt on a newline
-	// if (*rl_line_buffer)			// Buffer empty
-		// TODO:set RET to 130
-	rl_replace_line("", 0);		// Clear the previous text
-	rl_redisplay();				// Discplay the new buffer
-}
+extern pid_t	g_sig;
+
+// void	handle_sigint(int sig)
+// {
+// 	(void)sig;
+// 	printf("\033[32m Handling CTRL-C\033[0m\n");
+// 	rl_on_new_line();			// Regenerate the prompt on a newline
+// 	// if (*rl_line_buffer)			// Buffer empty
+// 		// TODO:set RET to 130
+// 	rl_replace_line("", 0);		// Clear the previous text
+// 	rl_redisplay();				// Discplay the new buffer
+// }
 
 void	msh_free(t_msh *msh)
 {
@@ -61,8 +63,9 @@ int	main(int argc, char **argv, char **env)
 	msh.ret[2] = '1';
 	msh.ret[3] = '\0';
 
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, SIG_IGN);		// Ignore SIGQUIT
+	// signal(SIGINT, handle_sigint);
+	// signal(SIGQUIT, SIG_IGN);		// Ignore SIGQUIT
+	signal_handling();
 	printf("Welcome! Exit by pressing CTRL-D.\n");
 	set_path(&msh);
 	msh.cwd = ft_strdup(utils_env_get_param(env, "PWD", 3));
@@ -74,6 +77,7 @@ int	main(int argc, char **argv, char **env)
 			break;
 		else if (*msh.line)					// ADD to history if not empty
 		{
+			g_sig = 1;
 			add_history(msh.line);
 			lexer(&msh);
 			parser(&msh);
@@ -84,6 +88,7 @@ int	main(int argc, char **argv, char **env)
 				exec = cmd_get(&msh, msh.ast);
 			which_cmd(&msh, exec);
 		}
+		g_sig = 0;
 	}
-	printf("Bye Bye!");
+	printf("\033[31mBye Bye!\033[0m");
 }

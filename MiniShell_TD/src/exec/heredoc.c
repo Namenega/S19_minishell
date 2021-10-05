@@ -6,11 +6,13 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/05 11:36:29 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/05 17:13:57 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
+
+extern pid_t	g_sig;
 
 //CTRL C need to stop process
 //CTRL D need to stop process but print readline buffer already registered.
@@ -45,6 +47,7 @@ int	heredoc(t_msh *msh, t_ast *ast)
 		return (0);					//!Error msg need to change : fork error.
 	if (pid == 0)
 	{
+		g_sig = 1;
 		signal(SIGINT, SIG_DFL);
 		read_heredoc(pipefd, line, eof);
 		free(line);
@@ -63,7 +66,7 @@ int	heredoc(t_msh *msh, t_ast *ast)
 			return (-1);
 		}
 	}
-	printf("PIPE[0]:%i\n", pipefd[0]);
-	printf("PIPE[1]:%i\n", pipefd[1]);
+	// printf("PIPE[0]:%i\n", pipefd[0]);
+	// printf("PIPE[1]:%i\n", pipefd[1]);
 	return (pipefd[0]);
 }
