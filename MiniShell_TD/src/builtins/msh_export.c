@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 16:29:41 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 12:30:57 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 13:33:28 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,26 @@ int	msh_export_print(t_exec *exec)
 	return (EXIT_SUCCESS);
 }
 
-int	msh_export_var(t_exec *exec, char *exp)
+int	msh_export_var(t_msh *msh, char *exp)
 {
 	char	*value;
 	char	**param;
 
 	value = utils_env_check_name(exp);
-	if (*value != '=' && *value != '\0')
+	if (!value || !(*value != '=' || *value == '\0'))
 		return (msh_print_error(MSH_EXPORT, exp, MSG_IDENTIFIER, EXIT_FAILURE));
-	param = utils_env_param(exec->env, exp, value - exp);
+	param = utils_env_param(msh->env, exp, value - exp);
 	if (param)
 		free(*param);
 	else
 	{
-		param = utils_env_next_addr(exec->msh);
+		param = utils_env_next_addr(msh);
 		if (!param)
-			exec_error(exec, ERR_MALLOC);
+			return (EXIT_FAILURE);
 	}
 	*param = ft_strdup(exp);
 	if (!*param)
-		exec_error(exec, ERR_MALLOC);
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -79,7 +79,7 @@ int	msh_export(t_exec *exec)
 	ret = 0;
 	while (exec->tab[i])
 	{
-		r = msh_export_var(exec, exec->tab[i]);
+		r = msh_export_var(exec->msh, exec->tab[i]);
 		if (r)
 			ret = r;
 		i++;

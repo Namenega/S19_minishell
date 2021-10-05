@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 15:44:13 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 11:42:36 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/05 14:02:02 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,13 @@ int	ret_str_2_int(t_msh *msh)
 
 void	ret_int_2_str(t_msh *msh, int ret)
 {
-	msh->ret[0] = ret / 100 + '0';
-	ret /= 100;
-	msh->ret[1] = ret / 10 + '0';
-	ret /= 10;
-	msh->ret[2] = ret / 100 + '0';
+	int		i;
+
+	i = 1 + (ret >= 10) + (ret >= 100);
+	msh->ret[i] = '\0';
+	while (i--)
+	{
+		msh->ret[i] = (ret % 10 + '0');
+		ret = ret / 10;
+	}
 }

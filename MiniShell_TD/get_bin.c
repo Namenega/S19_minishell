@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_bin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 11:46:05 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 11:43:12 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/05 14:05:57 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*get_bin(t_msh *msh, char *file)
 		path++;
 	}
 	if (!*path)
-		msh_error(msh, ERR_NO_CMD);
+		return (NULL);
 	len_path = ft_strlen(*path);
 	len_file = ft_strlen(file);
 	filepath = malloc(sizeof(*filepath) * (len_path + len_file + 2));
@@ -72,6 +72,5 @@ char	*get_bin(t_msh *msh, char *file)
 	filepath[len_path] = '/';
 	ft_memcpy(filepath + len_path + 1, file, len_file);
 	filepath[len_path + 1 + len_file] = '\0';
-	// printf("\033[36mFILEPATH\033[0m:%s\n", filepath);	// TODO:remove
 	return (filepath);
 }

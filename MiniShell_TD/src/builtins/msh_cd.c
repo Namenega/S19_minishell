@@ -34,6 +34,30 @@ typedef struct stat		t_stat;
 #define MSG_ENOTDIR		": Not a directory\n"
 #define EXIT_FAIL		1
 
+void	msh_export_var(t_msh *msh, char *exp)
+{
+	char	*value;
+	char	**param;
+
+	value = utils_env_check_name(exp);
+	if (!value || !(*value != '=' || *value == '\0'))
+		return (msh_print_error(MSH_EXPORT, exp, MSG_IDENTIFIER, EXIT_FAILURE));
+	param = utils_env_param(msh->env, exp, value - exp);
+	if (param)
+		free(*param);
+	else
+	{
+		param = utils_env_next_addr(msh);
+		if (!param)
+			return (EXIT_FAILURE);
+	}
+	*param = ft_strdup(exp);
+	if (!*param)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+
 int	msh_chdir(t_msh *msh, char *path, int update)
 {
 	errno = 0;
@@ -47,10 +71,8 @@ int	msh_chdir(t_msh *msh, char *path, int update)
 		free(path);
 		msh->cwd = getcwd(NULL, 0);
 	}
-	// TODO: Update OLDPWD in ENV
+	msh_export_var(t_msh *msh, char *exp)
 	// TODO: Update PWD in ENV
-	printf("\033[36m   cwd\033[0m:%s\n", msh->cwd);			// TODO: remove
-	printf("\033[36mgetcwd\033[0m:%s\n", getcwd(NULL, 0));	// TODO: remove
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 09:56:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 12:00:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 13:44:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,15 @@ int		heredoc(t_msh *msh, t_ast *ast);
 
 /* ================================= Builtins =============================== */
 
-int		which_cmd(t_msh *msh, t_exec *exe);
+void	which_cmd(t_msh *msh, t_exec *exe);
 int		msh_echo(t_msh *msh, t_exec *exec);
 int		msh_cd(t_msh *msh, t_exec *exec);
 int		msh_unset(t_msh *msh, t_exec *exe);
 int		msh_pwd(t_msh *msh, t_exec *exe);
 int		msh_env(t_msh *msh, t_exec *exe);
 int		msh_export(t_exec *exec);
-int		msh_export_var(t_exec *exec, char *exp);
 
+int		msh_export_var(t_msh *msh, char *exp);
 void	exec_error(t_exec *exec, char *msg);
 
 #endif

@@ -1,0 +1,7 @@
+- Get return value
+- Handle PIPEs
+- Improve file names
+- Improve function names
+- Check norm
+- Check leaks
+- Improve HEREDOC (param expansion)

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 11:32:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 15:46:19 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 13:51:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ char	*we_param_expansion(t_we *we, char *lex, int state)
 	{
 		ptr++;
 		we_param_substitution(we, we->msh->ret, state);
+		lex++;
 	}
 	else if (!(*(lex + 1) == '\"' || *(lex + 1) == '\''))
 		*we->buff->ptr++ = *lex;
