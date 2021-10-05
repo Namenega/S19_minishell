@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 16:29:41 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 11:45:51 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:54:15 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ int	msh_export_print(t_exec *exec)
 int	msh_export_var(t_exec *exec, char *exp)
 {
 	char	*value;
-	char	*param;
+	char	**param;
 
 	value = utils_env_check_name(exp);
 	if (*value != '=')
 		return (msh_print_error(MSH_EXPORT, exp, MSG_IDENTIFIER, EXIT_FAILURE));
-	param = utils_env_get_param(exec->env, exp, value - exp);
+	param = utils_env_param(exec->env, exp, value - exp);
 	if (param)
 	{
 		param = param - (value - exp + 1);
@@ -59,8 +59,8 @@ int	msh_export_var(t_exec *exec, char *exp)
 		if (!param)
 			exec_error(exec, ERR_MALLOC);
 	}
-	param = ft_strdup(exp);
-	if (!param)
+	*param = ft_strdup(exp);
+	if (!*param)
 		exec_error(exec, ERR_MALLOC);
 	return (EXIT_SUCCESS);
 }

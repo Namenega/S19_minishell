@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:01:30 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 11:46:11 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:53:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,13 @@ void	utils_env_sort(char **env);
 void	utils_free_tab(char **env);
 size_t	utils_env_size(char **env);
 void	utils_env_print(char **tab);
-char	**utils_env_copy(char **env, size_t size);
 char	*utils_env_get_ifs(char **env);
 char	*utils_env_check_name(char *str);
 char	*utils_env_get_param(char **env, char *var, int len);
 char	*utils_env_go_2_val(char *var);
-char	*utils_env_next_addr(t_msh *msh);
+char	**utils_env_copy(char **env, size_t size);
+char	**utils_env_param(char **env, char *var, int len);
+char	**utils_env_next_addr(t_msh *msh);
 
 
 /* FILE = function  name */

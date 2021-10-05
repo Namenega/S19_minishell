@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:02:36 by tderwedu          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/10/05 11:45:37 by tderwedu         ###   ########.fr       */
-=======
-/*   Updated: 2021/10/05 11:42:11 by namenega         ###   ########.fr       */
->>>>>>> 4b996117e5fd8cf4f9f7f022e0f31e2ee7f6216f
+/*   Updated: 2021/10/05 11:55:28 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +173,19 @@ char	*utils_env_get_param(char **env, char *var, int len)
 	return (NULL);
 }
 
+char	**utils_env_param(char **env, char *var, int len)
+{
+	if (!env || !var || !len)
+		return (NULL);
+	while (*env)
+	{
+		if (!ft_strncmp(*env, var, len) && (*env)[len] == '=')
+			return (env);
+		env++;
+	}
+	return (NULL);
+}
+
 char	*utils_env_go_2_val(char *var)
 {
 	if (!var)
@@ -188,7 +197,7 @@ char	*utils_env_go_2_val(char *var)
 	return (var + 1);
 }
 
-char	*utils_env_next_addr(t_msh *msh)
+char	**utils_env_next_addr(t_msh *msh)
 {
 	printf("utils_env_next_addr\n");
 	if (msh->env_left)
@@ -198,5 +207,6 @@ char	*utils_env_next_addr(t_msh *msh)
 	msh->env  = utils_env_copy(msh->env, msh->env_size);
 	if (!msh->env)
 		return (NULL);
-	return (msh->env + msh->env_size  - --msh->env_left);
+	msh->env_left--;
+	return (msh->env + msh->env_size  - (msh->env_left + 1));
 }
