@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:13:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 14:14:12 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 14:53:09 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 # include "utils.h"
 # include "parser.h"
 # include "minishell.h"
+# include "error_messages.h"
 
 /* TODO: all ERR in ine header */
-# define ERR_MALLOC		"Malloc error."
+// # define ERR_MALLOC		"Malloc error."
 
 typedef struct s_io		t_io;
 typedef struct s_exec	t_exec;

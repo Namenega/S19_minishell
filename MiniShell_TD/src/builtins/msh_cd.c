@@ -24,14 +24,15 @@
 typedef struct stat		t_stat;
 
 //TODO: on single HEADER to rule them all
-#define	MSH_CD			"msh: cd: "
-#define	MSG_CD_USE		": invalid option\ncd: usage: cd [dir]\n"
-#define	MSG_HOME		"HOME not set\n"
-#define	MSG_OPWD		"OLDPWD not set\n"
-#define	MSG_ELOOP		": Too many levels of symbolic links\n"
-#define	MSG_ENOENT		": No such file or directory\n"
-#define	MSG_ENAME2LONG	": File name too long\n"
-#define MSG_ENOTDIR		": Not a directory\n"
+// #define	MSH_CD			"msh: cd: "
+// #define	MSG_CD_USE		": invalid option\ncd: usage: cd [dir]\n"
+// #define	MSG_HOME		"HOME not set\n"
+// #define	MSG_OPWD		"OLDPWD not set\n"
+// #define	MSG_ELOOP		": Too many levels of symbolic links\n"
+// #define	MSG_ENOENT		": No such file or directory\n"
+// #define	MSG_ENAME2LONG	": File name too long\n"
+// #define MSG_ENOTDIR		": Not a directory\n"
+// #define EXIT_FAIL		1
 
 int	msh_cd_export(t_msh *msh, char *name, char *val)
 {

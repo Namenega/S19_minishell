@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:45:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/01 17:52:03 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 14:53:03 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@
 
 # include "parser.h"
 # include "exec.h"
+# include "error_messages.h"
 
 /* TODO: all ERR in ine header */
-# define ERR_NO_CMD	"msh: %s: command not found\n"
+/*# define ERR_NO_CMD	"msh: %s: command not found\n"*/
 
 typedef struct s_tok	t_tok;
 typedef struct s_ast	t_ast;

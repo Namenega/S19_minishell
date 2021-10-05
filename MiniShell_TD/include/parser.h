@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:02:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/30 10:48:20 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 14:53:12 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 # include "libft.h"
 # include "minishell.h"
 # include "utils.h"
+# include "error_messages.h"
 
 /* TODO: all ERR in ine header */
-# define ERR_MALLOC		"Malloc error."
+/*# define ERR_MALLOC		"Malloc error."
 # define ERR_QUOTES		"msh: error odd number of quotes."
-# define ERR_SYNTAX		"Syntax Error near: %s\n"
+# define ERR_SYNTAX		"Syntax Error near: %s\n"*/
 
 # define TYPE_IO	0
 # define TYPE_CMD	1

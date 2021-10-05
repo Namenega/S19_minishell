@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   which_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 18:49:19 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/05 14:13:33 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 14:50:06 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/exec.h"
 
-#define MSG_BASH		"msh: "
-#define MSG_NOTFOUND	": command not found\n"
+// #define MSG_BASH		"msh: "
+// #define MSG_NOTFOUND	": command not found\n"
 
 static void	maj_into_min(char *s)
 {

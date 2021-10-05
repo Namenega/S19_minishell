@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   msh_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 16:29:41 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 13:33:28 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 14:49:24 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
 //TODO: on single HEADER to rule them all
-#define	MSH_EXPORT		"msh: export: `"
-#define	MSG_IDENTIFIER	"': not a valid identifier\n"
+// #define	MSH_EXPORT		"msh: export: `"
+// #define	MSG_IDENTIFIER	"': not a valid identifier\n"
 
 int	msh_export_print(t_exec *exec)
 {
