@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 09:56:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 19:45:38 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/05 08:52:39 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ int		heredoc(t_msh *msh, t_ast *ast);
 
 /* ================================= Builtins =============================== */
 
-void	which_cmd(t_exec *exec, char **env, t_msh *msh);
-void	msh_echo(t_msh *msh, t_exec *exec);
+int		which_cmd(t_msh *msh, t_exec *exe);
+int		msh_echo(t_msh *msh, t_exec *exec);
 int		msh_cd(t_msh *msh, t_exec *exec);
-void	msh_unset(char **env, t_exec *exec);
-void	msh_pwd(char **env, t_msh *msh);
-int		msh_env(t_msh *msh, char **argv, char **env);
+int		msh_unset(t_msh *msh, t_exec *exe);
+int		msh_pwd(t_msh *msh, t_exec *exe);
+int		msh_env(t_msh *msh, t_exec *exe);
 
 #endif
