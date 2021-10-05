@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 11:32:42 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 11:31:53 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/05 14:48:19 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include "utils.h"
 
 // TODO: one HEADER with all MSGs
-#define	MSH_EXIT			"msh: exit: "
-#define	MSG_EXIT_USE		": numeric argument required\n"
-#define	MSG_EXIT_ARGS		"too many arguments\n"
+// #define	MSH_EXIT			"msh: exit: "
+// #define	MSG_EXIT_USE		": numeric argument required\n"
+// #define	MSG_EXIT_ARGS		"too many arguments\n"
 
 int	msh_exit(t_msh *msh, t_exec *exec)
 {
