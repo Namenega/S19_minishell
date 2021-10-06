@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:13:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 15:21:29 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 15:16:19 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 /* TODO: all ERR in ine header */
 // # define ERR_MALLOC		"Malloc error."
 
+typedef struct s_we		t_we;
 typedef struct s_io		t_io;
 typedef struct s_exec	t_exec;
 typedef struct s_tok	t_tok;
@@ -59,10 +60,10 @@ typedef struct s_cmd
 
 /* FILE: src/exec/command1.c */
 
-t_exec	*cmd_get(t_msh *msh, t_ast *ast);
+t_exec	*cmd_get(t_msh *msh, t_ast *ast, t_we *we);
 void	cmd_add_word(t_cmd *cmd, t_ast *ast);
-void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast);
-void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast);
+void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast, t_we *we);
+void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast, t_we *we);
 
 /* FILE: src/exec/command2.c */
 
@@ -78,7 +79,7 @@ void	list_redirection(t_exec *exec, int entry_file);
 
 /* FILE: src/exec/heredoc.c */
 
-int		heredoc(t_msh *msh, t_ast *ast);
+int		heredoc(t_msh *msh, t_ast *ast, t_we *we);
 
 /* ================================= Builtins =============================== */
 

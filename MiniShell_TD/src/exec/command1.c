@@ -6,13 +6,14 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 18:28:34 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/06 15:12:35 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "parser.h"
 
-t_exec	*cmd_get(t_msh *msh, t_ast *ast)
+t_exec	*cmd_get(t_msh *msh, t_ast *ast, t_we *we)
 {
 	t_cmd	cmd;
 	t_exec	*exec;
@@ -34,7 +35,7 @@ t_exec	*cmd_get(t_msh *msh, t_ast *ast)
 	cmd.tail = NULL;
 	cmd.i = 0;
 	if (ast)
-		cmd_ast_traversal(msh, &cmd, ast);
+		cmd_ast_traversal(msh, &cmd, ast, we);
 	return (exec);
 }
 
@@ -44,19 +45,19 @@ void	cmd_add_word(t_cmd *cmd, t_ast *ast)
 	ast->lex = NULL;
 }
 
-void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast)
+void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast, t_we *we)
 {
 	if (ast->left && ast->left->type == AST_WORD)
 		cmd_add_word(cmd, ast->left);
 	else if (ast->left && ast->left->type == AST_IO_REDIR)
 	{
-		cmd_add_io(msh, cmd, ast->left);
+		cmd_add_io(msh, cmd, ast->left, we);
 		printf("fd == [%d]\n", cmd->exec->io->heredoc_fd);
 		// if (cmd->exec->io->heredoc_fd == -1)
 		// 	return ;
 	}
 	if (ast->right)
-		cmd_ast_traversal(msh, cmd, ast->right);
+		cmd_ast_traversal(msh, cmd, ast->right, we);
 }
 
 static inline int	cmd_io_oflag(char *type)
@@ -71,7 +72,7 @@ static inline int	cmd_io_oflag(char *type)
 		return (0);
 }
 
-void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast)
+void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast, t_we *we)
 {
 	t_io	*new;
 	// int		err_d;
@@ -87,7 +88,7 @@ void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast)
 		new->fd = 0;
 	if (!ft_strcmp(ast->lex, "<<"))				//!Ajout du else if
 	{
-		new->heredoc_fd = heredoc(msh, ast);
+		new->heredoc_fd = heredoc(msh, ast, we);
 		printf("fd_1 == [%d]\n", new->heredoc_fd);
 		if (new->heredoc_fd == -1)
 			return ;

@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 18:10:46 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/06 15:21:14 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	t_msh	msh;
-	t_exec *exec;
+	t_exec	*exec;
+	t_we	we;
 
 	msh.env_left = 5;
 	msh.env_size = utils_env_size(env) + msh.env_left;
@@ -62,6 +63,13 @@ int	main(int argc, char **argv, char **env)
 	msh.ret[1] = '2';
 	msh.ret[2] = '1';
 	msh.ret[3] = '\0';
+
+
+	we.msh = &msh;
+	we.curr = NULL;
+	we.type = TYPE_CMD;
+	we.old = NULL;
+	we.buff = ft_vec_new(DFLT_VEC_SIZE);
 
 	// signal(SIGINT, handle_sigint);
 	// signal(SIGQUIT, SIG_IGN);		// Ignore SIGQUIT
@@ -81,11 +89,11 @@ int	main(int argc, char **argv, char **env)
 			add_history(msh.line);
 			lexer(&msh);
 			parser(&msh);
-			we_word_expansion(&msh);
+			we_word_expansion(&msh, &we);
 			if (msh.ast->type == AST_PIPE)
-				exec = cmd_get(&msh, msh.ast->left);
+				exec = cmd_get(&msh, msh.ast->left, &we);
 			else
-				exec = cmd_get(&msh, msh.ast);
+				exec = cmd_get(&msh, msh.ast, &we);
 			which_cmd(&msh, exec);
 		}
 		g_sig = 0;
