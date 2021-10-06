@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:13:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 15:16:19 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/06 22:33:20 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,17 @@ typedef struct s_exec	t_exec;
 typedef struct s_tok	t_tok;
 typedef struct s_ast	t_ast;
 typedef struct s_msh	t_msh;
+typedef struct s_hdoc	t_hdoc;
 
+struct s_hdoc
+{
+	t_msh	*msh;
+	t_vec	*buff;
+	int		pipefd[2];
+	char	*line;
+	char	*ptr_r;
+	char	*eof;
+};
 struct s_io
 {
 	int		fd;
@@ -60,10 +70,10 @@ typedef struct s_cmd
 
 /* FILE: src/exec/command1.c */
 
-t_exec	*cmd_get(t_msh *msh, t_ast *ast, t_we *we);
+t_exec	*cmd_get(t_msh *msh, t_ast *ast);
 void	cmd_add_word(t_cmd *cmd, t_ast *ast);
-void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast, t_we *we);
-void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast, t_we *we);
+void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast);
+void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast);
 
 /* FILE: src/exec/command2.c */
 
@@ -79,7 +89,7 @@ void	list_redirection(t_exec *exec, int entry_file);
 
 /* FILE: src/exec/heredoc.c */
 
-int		heredoc(t_msh *msh, t_ast *ast, t_we *we);
+int		heredoc(t_msh *msh, t_ast *ast);
 
 /* ================================= Builtins =============================== */
 

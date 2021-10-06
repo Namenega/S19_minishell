@@ -6,7 +6,7 @@
 /*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 21:33:11 by pyg              ###   ########.fr       */
+/*   Updated: 2021/10/06 22:31:35 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	t_msh	msh;
 	t_exec	*exec;
-	t_we	we;
+	// t_we	we;
 
 	msh.env_left = 5;
 	msh.env_size = utils_env_size(env) + msh.env_left;
@@ -91,11 +91,11 @@ int	main(int argc, char **argv, char **env)
 				add_history(msh.line);
 				lexer(&msh);
 				parser(&msh);
-				we_word_expansion(&msh, &we);
+				we_word_expansion(&msh);
 				if (msh.ast->type == AST_PIPE)
-					exec = cmd_get(&msh, msh.ast->left, &we);
+					exec = cmd_get(&msh, msh.ast->left);
 				else
-					exec = cmd_get(&msh, msh.ast, &we);
+					exec = cmd_get(&msh, msh.ast);
 				which_cmd(&msh, exec);
 			}
 			g_sig = 0;

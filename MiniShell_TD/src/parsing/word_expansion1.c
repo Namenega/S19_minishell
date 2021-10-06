@@ -3,34 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   word_expansion1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 11:32:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 21:50:28 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 22:34:43 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void	we_word_expansion(t_msh *msh, t_we *we)
+void	we_word_expansion(t_msh *msh)
 {
-	// t_we	we;
+	t_we	we;
 
 	if (!msh->ast)
 		return ;
-	we->buff = ft_vec_new(DFLT_VEC_SIZE);
-	// we.msh = msh;
-	// we.curr = NULL;
-	// we.type = TYPE_CMD;
-	// we.old = NULL;
-	// we.buff = ft_vec_new(DFLT_VEC_SIZE);
-	if (!we->buff)
-		we_error(we, ERR_MALLOC);
-	we->ifs = utils_env_get_ifs(msh->env);
-	if (!we->ifs)
-		we_error(we, ERR_MALLOC);
-	we_ast_traversal(we, msh->ast);
-	ft_vec_free(we->buff);
+	we.buff = ft_vec_new(DFLT_VEC_SIZE);
+	we.msh = msh;
+	we.curr = NULL;
+	we.type = TYPE_CMD;
+	we.old = NULL;
+	we.buff = ft_vec_new(DFLT_VEC_SIZE);
+	if (!we.buff)
+		we_error(&we, ERR_MALLOC);
+	we.ifs = utils_env_get_ifs(msh->env);
+	if (!we.ifs)
+		we_error(&we, ERR_MALLOC);
+	we_ast_traversal(&we, msh->ast);
+	ft_vec_free(we.buff);
 }
 
 void	we_ast_traversal(t_we *we, t_ast *curr)

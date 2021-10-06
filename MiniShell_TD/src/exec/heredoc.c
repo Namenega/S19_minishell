@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/06 21:56:48 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 22:42:18 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@
 
 extern pid_t	g_sig;
 
-typedef struct s_hdoc
-{
-	t_msh	*msh;
-	t_vec	*buff;
-	int		pipefd[2];
-	char	*line;
-	char	*ptr_r;
-	char	*eof;
-}				t_hdoc;
+// typedef struct s_hdoc
+// {
+// 	t_msh	*msh;
+// 	t_vec	*buff;
+// 	int		pipefd[2];
+// 	char	*line;
+// 	char	*ptr_r;
+// 	char	*eof;
+// }				t_hdoc;
 
 //CTRL C need to stop process
 //CTRL D need to stop process but print readline buffer already registered.
@@ -52,6 +52,18 @@ void	hdoc_param_expansion(t_hdoc *hdoc)
 		*hdoc->buff->ptr++ = *param++;
 }
 
+static void	hdoc_if_dollar(t_hdoc *hdoc)
+{
+	while (*hdoc->ptr_r)
+	{
+		if (*hdoc->ptr_r == '$')
+			hdoc_param_expansion(hdoc);
+		else
+			*hdoc->buff->ptr++ = *hdoc->ptr_r;
+		hdoc->ptr_r++;
+	}
+}
+
 static void	read_heredoc(t_hdoc *hdoc)
 {
 	hdoc->buff = ft_vec_new(DFLT_VEC_SIZE);
@@ -64,14 +76,15 @@ static void	read_heredoc(t_hdoc *hdoc)
 		if (ft_vec_check(hdoc->buff, hdoc->line))
 			return ;	// TODO: hdoc_error which call ft_free_vec and msh_error
 		hdoc->ptr_r = hdoc->line;
-		while (*hdoc->ptr_r)
-		{
-			if (*hdoc->ptr_r == '$')
-				hdoc_param_expansion(hdoc);
-			else
-				*hdoc->buff->ptr++ = *hdoc->ptr_r;
-			hdoc->ptr_r++;
-		}
+		hdoc_is_dollar(hdoc);
+		// while (*hdoc->ptr_r)
+		// {
+		// 	if (*hdoc->ptr_r == '$')
+		// 		hdoc_param_expansion(hdoc);
+		// 	else
+		// 		*hdoc->buff->ptr++ = *hdoc->ptr_r;
+		// 	hdoc->ptr_r++;
+		// }
 		free(hdoc->line);
 		*hdoc->buff->ptr = '\0';
 		write(hdoc->pipefd[1], hdoc->buff->str, ft_strlen(hdoc->buff->str));
@@ -81,13 +94,22 @@ static void	read_heredoc(t_hdoc *hdoc)
 	ft_vec_free(hdoc->buff);
 }
 
-int	heredoc(t_msh *msh, t_ast *ast, t_we *we)
+static void	pid_is_null(t_hdoc *hdoc)
+{
+	g_sig = 1;
+	signal(SIGINT, SIG_DFL);
+	read_heredoc(hdoc);
+	close(hdoc->pipefd[1]);
+	close(hdoc->pipefd[0]);
+	exit(0);					//! Error need to change
+}
+
+int	heredoc(t_msh *msh, t_ast *ast)
 {
 	pid_t	pid;
 	t_hdoc	hdoc;
 	int		ret;
 
-	(void)we; //TODO: remove we
 	hdoc.eof = ast->right->lex;
 	hdoc.msh = msh;
 	if (pipe(hdoc.pipefd) == -1)
@@ -96,14 +118,7 @@ int	heredoc(t_msh *msh, t_ast *ast, t_we *we)
 	if (pid < 0)
 		return (0);					//!Error msg need to change : fork error.
 	if (pid == 0)
-	{
-		g_sig = 1;
-		signal(SIGINT, SIG_DFL);
-		read_heredoc(&hdoc);
-		close(hdoc.pipefd[1]);
-		close(hdoc.pipefd[0]);
-		exit(0);					//! Error need to change
-	}
+		pid_is_null(&hdoc);
 	else
 	{
 		waitpid(pid, &ret, 0);
@@ -115,7 +130,5 @@ int	heredoc(t_msh *msh, t_ast *ast, t_we *we)
 			return (-1);
 		}
 	}
-	// printf("PIPE[0]:%i\n", pipefd[0]);
-	// printf("PIPE[1]:%i\n", pipefd[1]);
 	return (hdoc.pipefd[0]);
 }

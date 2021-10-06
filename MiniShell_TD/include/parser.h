@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:02:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 15:20:42 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/06 22:32:15 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ void	parser_print(t_ast *tree);
 
 /* FILE: src/parser/word_expansion1.c */
 
-void	we_word_expansion(t_msh *msh, t_we *we);
+void	we_word_expansion(t_msh *msh);
 void	we_ast_traversal(t_we *we, t_ast *curr);
 void	we_lexeme_formating(t_we *we);
 char	*we_param_expansion(t_we *we, char *lex, int state);
