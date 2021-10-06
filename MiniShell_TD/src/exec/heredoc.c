@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/06 15:23:02 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/06 17:03:53 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,14 @@ static void	read_heredoc(t_hdoc *hdoc, t_we *we)
 		hdoc->line = readline("heredoc> ");
 		if (!hdoc->line || !ft_strcmp(hdoc->line, hdoc->eof))
 			break ;
-		while (*hdoc->line)
+		we->buff = ft_vec_new(DFLT_VEC_SIZE);
+		if (ft_vec_check(we->buff, hdoc->line))
+			we_error(we, ERR_MALLOC);
+		while (hdoc->line[i])
 		{
-			if (*hdoc->line == '$' && state != WE_ST_SQUOTE)
+			if (hdoc->line[i] == '$' && state != WE_ST_SQUOTE)
 				hdoc->line = hdoc_param_expansion(hdoc->line, we, state);
-			hdoc->line++;
+			i++;
 		}
 		write(hdoc->pipefd[1], hdoc->line, ft_strlen(hdoc->line));
 		write(hdoc->pipefd[1], "\n", 1);

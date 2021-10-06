@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 11:32:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 15:20:20 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/06 17:04:08 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	we_word_expansion(t_msh *msh, t_we *we)
 
 	if (!msh->ast)
 		return ;
+	we->buff = ft_vec_new(DFLT_VEC_SIZE);
 	// we.msh = msh;
 	// we.curr = NULL;
 	// we.type = TYPE_CMD;
