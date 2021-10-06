@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_expansion1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 11:32:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 17:04:08 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/06 21:50:28 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,11 @@ char	*we_param_expansion(t_we *we, char *lex, int state)
 
 void	we_param_substitution(t_we *we, char *param, int state)
 {
-	int		len;
 	int		do_ifs;
 
 	if (ft_vec_check(we->buff, param))
 		we_error(we, ERR_MALLOC);
 	do_ifs = (we->type == TYPE_CMD && state == WE_ST_FREE);
-	len = ft_strlen(param);
 	while (*param)
 	{
 		if (do_ifs && ft_strchr(we->ifs, *param))

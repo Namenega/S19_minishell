@@ -3,103 +3,94 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/06 17:31:27 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/06 21:56:48 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+#include <sys/wait.h>
+#include <sys/types.h>
 #include "../../include/exec.h"
 
 extern pid_t	g_sig;
 
-//CTRL C need to stop process
-//CTRL D need to stop process but print readline buffer already registered.
-
-void	hdoc_param_substitution(t_we *we, char *param/*, int state*/)
-{
-	// int		len;
-	// int		do_ifs;
-
-	// if (ft_vec_check(we->buff, param))
-	// 	we_error(we, ERR_MALLOC);
-	// do_ifs = (we->type == TYPE_CMD && state == WE_ST_FREE);
-	// len = ft_strlen(param);
-	while (*param)
-	{
-		// if (do_ifs && ft_strchr(we->ifs, *param))
-		// {
-		// 	if (*we->buff->str)
-		// 		we_add_word(we, we->buff);
-		// 	param++;
-		// }
-		// else
-			*we->buff->ptr++ = *param++;
-	}
-}
-
 typedef struct s_hdoc
 {
+	t_msh	*msh;
+	t_vec	*buff;
 	int		pipefd[2];
 	char	*line;
+	char	*ptr_r;
 	char	*eof;
 }				t_hdoc;
 
-char *hdoc_param_expansion(char *line, t_we *we/*, int state*/)
-{
-	char *ptr;
-	char *param;
+//CTRL C need to stop process
+//CTRL D need to stop process but print readline buffer already registered.
 
-	ptr = utils_env_check_name(line + 1);
+void	hdoc_param_expansion(t_hdoc *hdoc)
+{
+	char	*ptr;
+	char	*param;
+
+	param = NULL;
+	ptr = utils_env_check_name(++(hdoc->ptr_r));
 	if (ptr)
 	{
-		param = utils_env_get_param(we->msh->env, line + 1, ptr - (line + 1));
-		line = ptr - 1;
-		if (param)
-			hdoc_param_substitution(we, param/*, state*/);
+		param = utils_env_get_param(hdoc->msh->env, hdoc->ptr_r, ptr - hdoc->ptr_r);
+		hdoc->ptr_r = ptr - 1; // -1 a cause du hdoc->ptr_r++ de read_heredoc
 	}
-	else if (!(*(line + 1) == '\"' || *(line + 1) == '\''))
-		*we->buff->ptr++ = *line;
-	return (line);
+	else if (*hdoc->ptr_r == '?' )
+		param = hdoc->msh->ret;
+	if (!param)
+		return ;
+	if (ft_vec_check(hdoc->buff, param))
+		return ; // TODO: hdoc_error which call ft_free_vec and msh_error
+	while (*param)
+		*hdoc->buff->ptr++ = *param++;
 }
 
-static void	read_heredoc(t_hdoc *hdoc, t_we *we)
+static void	read_heredoc(t_hdoc *hdoc)
 {
-	int	i;
-	int	state;
-
-	i = 0;
+	hdoc->buff = ft_vec_new(DFLT_VEC_SIZE);
 	while (1)
 	{
+		hdoc->buff->ptr = hdoc->buff->str; // reset vec
 		hdoc->line = readline("heredoc> ");
 		if (!hdoc->line || !ft_strcmp(hdoc->line, hdoc->eof))
 			break ;
-		we->buff = ft_vec_new(DFLT_VEC_SIZE);
-		state = WE_ST_FREE;
-		if (ft_vec_check(we->buff, hdoc->line))
-			we_error(we, ERR_MALLOC);
-		while (hdoc->line[i])
+		if (ft_vec_check(hdoc->buff, hdoc->line))
+			return ;	// TODO: hdoc_error which call ft_free_vec and msh_error
+		hdoc->ptr_r = hdoc->line;
+		while (*hdoc->ptr_r)
 		{
-			if (hdoc->line[i] == '$' && state != WE_ST_SQUOTE)
-				hdoc->line = hdoc_param_expansion(hdoc->line, we/*, state*/);
-			i++;
+			if (*hdoc->ptr_r == '$')
+				hdoc_param_expansion(hdoc);
+			else
+				*hdoc->buff->ptr++ = *hdoc->ptr_r;
+			hdoc->ptr_r++;
 		}
-		write(hdoc->pipefd[1], hdoc->line, ft_strlen(hdoc->line));
+		free(hdoc->line);
+		*hdoc->buff->ptr = '\0';
+		write(hdoc->pipefd[1], hdoc->buff->str, ft_strlen(hdoc->buff->str));
 		write(hdoc->pipefd[1], "\n", 1);
 	}
+	free(hdoc->line);
+	ft_vec_free(hdoc->buff);
 }
 
 int	heredoc(t_msh *msh, t_ast *ast, t_we *we)
 {
 	pid_t	pid;
-	t_hdoc	*hdoc;
+	t_hdoc	hdoc;
 	int		ret;
 
-	(void)msh;
-	hdoc = malloc(sizeof(t_hdoc));
-	hdoc->eof = ast->right->lex;
-	if (pipe(hdoc->pipefd) == -1)
+	(void)we; //TODO: remove we
+	hdoc.eof = ast->right->lex;
+	hdoc.msh = msh;
+	if (pipe(hdoc.pipefd) == -1)
 		return (0);					//!Error msg need to change : pipe error.
 	pid = fork();
 	if (pid < 0)
@@ -108,24 +99,23 @@ int	heredoc(t_msh *msh, t_ast *ast, t_we *we)
 	{
 		g_sig = 1;
 		signal(SIGINT, SIG_DFL);
-		read_heredoc(hdoc, we);
-		free(hdoc->line);
-		close(hdoc->pipefd[1]);
-		close(hdoc->pipefd[0]);
+		read_heredoc(&hdoc);
+		close(hdoc.pipefd[1]);
+		close(hdoc.pipefd[0]);
 		exit(0);					//! Error need to change
 	}
 	else
 	{
 		waitpid(pid, &ret, 0);
-		close(hdoc->pipefd[1]);
+		close(hdoc.pipefd[1]);
 		// ret = WEXITSTATUS(ret);
 		if (ret != EXIT_SUCCESS)
 		{
-			close(hdoc->pipefd[0]);
+			close(hdoc.pipefd[0]);
 			return (-1);
 		}
 	}
 	// printf("PIPE[0]:%i\n", pipefd[0]);
 	// printf("PIPE[1]:%i\n", pipefd[1]);
-	return (hdoc->pipefd[0]);
+	return (hdoc.pipefd[0]);
 }

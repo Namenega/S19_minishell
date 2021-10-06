@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 09:46:24 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 15:12:44 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 21:47:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@
 static int	find_env(char *s, char **env, int len)
 {
 	int		i;
-	char	*tmp;
 
-	tmp = NULL;
 	i = 0;
 	while (env[i])
 	{

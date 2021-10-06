@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 14:27:35 by namenega          #+#    #+#             */
-/*   Updated: 2021/06/07 18:02:28 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/06 21:47:58 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,10 @@ char	**ft_split(char const *s1, char c)
 {
 	int		i;
 	int		j;
-	int		counter;
 	char	**tab;
 
 	i = 0;
 	j = 0;
-	counter = 0;
 	if (s1 == NULL)
 		return (NULL);
 	tab = malloc_in_tab(s1, c);
