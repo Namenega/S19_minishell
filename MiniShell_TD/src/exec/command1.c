@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 15:12:35 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/06 17:32:42 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast, t_we *we)
 	else if (ast->left && ast->left->type == AST_IO_REDIR)
 	{
 		cmd_add_io(msh, cmd, ast->left, we);
-		printf("fd == [%d]\n", cmd->exec->io->heredoc_fd);
+		// printf("fd == [%d]\n", cmd->exec->io->heredoc_fd);
 		// if (cmd->exec->io->heredoc_fd == -1)
 		// 	return ;
 	}
@@ -89,7 +89,7 @@ void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast, t_we *we)
 	if (!ft_strcmp(ast->lex, "<<"))				//!Ajout du else if
 	{
 		new->heredoc_fd = heredoc(msh, ast, we);
-		printf("fd_1 == [%d]\n", new->heredoc_fd);
+		// printf("fd_1 == [%d]\n", new->heredoc_fd);
 		if (new->heredoc_fd == -1)
 			return ;
 		// close(new->heredoc_fd);
