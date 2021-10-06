@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MiniShell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 15:21:14 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/06 21:33:11 by pyg              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,30 +73,35 @@ int	main(int argc, char **argv, char **env)
 
 	// signal(SIGINT, handle_sigint);
 	// signal(SIGQUIT, SIG_IGN);		// Ignore SIGQUIT
-	signal_handling();
-	printf("Welcome! Exit by pressing CTRL-D.\n");
-	set_path(&msh);
-	msh.cwd = ft_strdup(utils_env_get_param(env, "PWD", 3));
-	printf("\033[36mCWD\033[0m:%s\n", msh.cwd);
-	while(1)
+	if (argc == 1)
 	{
-		msh.line = readline("\033[32mmsh>\033[0m");
-		if (!msh.line)
-			break;
-		else if (*msh.line)					// ADD to history if not empty
+		signal_handling();
+		printf("Welcome! Exit by pressing CTRL-D.\n");
+		set_path(&msh);
+		msh.cwd = ft_strdup(utils_env_get_param(env, "PWD", 3));
+		printf("\033[36mCWD\033[0m:%s\n", msh.cwd);
+		while(1)
 		{
-			g_sig = 1;
-			add_history(msh.line);
-			lexer(&msh);
-			parser(&msh);
-			we_word_expansion(&msh, &we);
-			if (msh.ast->type == AST_PIPE)
-				exec = cmd_get(&msh, msh.ast->left, &we);
-			else
-				exec = cmd_get(&msh, msh.ast, &we);
-			which_cmd(&msh, exec);
+			msh.line = readline("\033[32mmsh>\033[0m");
+			if (!msh.line)
+				break;
+			else if (*msh.line)					// ADD to history if not empty
+			{
+				g_sig = 1;
+				add_history(msh.line);
+				lexer(&msh);
+				parser(&msh);
+				we_word_expansion(&msh, &we);
+				if (msh.ast->type == AST_PIPE)
+					exec = cmd_get(&msh, msh.ast->left, &we);
+				else
+					exec = cmd_get(&msh, msh.ast, &we);
+				which_cmd(&msh, exec);
+			}
+			g_sig = 0;
 		}
-		g_sig = 0;
+		printf("\033[31mBye Bye!\033[0m");
 	}
-	printf("\033[31mBye Bye!\033[0m");
+	else
+		printf("Error: Only ./minishell as argument\n");
 }
