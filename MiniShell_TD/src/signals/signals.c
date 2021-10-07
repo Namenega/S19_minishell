@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:02:42 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/07 17:29:49 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/07 17:46:32 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void	handle_sigint(int sig)
 		// close(STDIN_FILENO);
 		// write(STDOUT_FILENO, "\n", 1);
 	}
-	// else if (sig == SIGINT && g_sig != 0)
-	// {
-	// 	kill(g_sig, SIGCONT);
-	// 	// write(STDOUT_FILENO, "\n", 1);
-	// }
+	else if (sig == SIGINT && g_sig != 0)
+	{
+		kill(g_sig, SIGCONT);
+		// write(STDOUT_FILENO, "\n", 1);
+	}
 }
 
 void	handle_sigquit(int sig)

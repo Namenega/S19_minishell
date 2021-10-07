@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/07 17:42:05 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/07 17:48:49 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,15 @@ static void	read_heredoc(t_hdoc *hdoc)
 	ft_vec_free(hdoc->buff);
 }
 
-// static void	pid_is_null(t_hdoc *hdoc)
-// {
-// 	g_sig = 1;
-// 	signal(SIGINT, SIG_DFL);
-// 	read_heredoc(hdoc);
-// 	close(hdoc->pipefd[1]);
-// 	close(hdoc->pipefd[0]);
-// 	exit(2);					//! Error need to change
-// }
+static void	pid_is_null(t_hdoc *hdoc)
+{
+	g_sig = 1;
+	signal(SIGINT, SIG_DFL);
+	read_heredoc(hdoc);
+	close(hdoc->pipefd[1]);
+	close(hdoc->pipefd[0]);
+	exit(0);					//! Error need to change
+}
 
 int	heredoc(t_msh *msh, t_ast *ast)
 {
@@ -120,15 +120,7 @@ int	heredoc(t_msh *msh, t_ast *ast)
 	if (pid < 0)
 		return (0);					//!Error msg need to change : fork error.
 	if (pid == 0)
-	{
-		g_sig = 1;
-		signal(SIGINT, SIG_DFL);
-		read_heredoc(&hdoc);
-		close(hdoc.pipefd[1]);
-		close(hdoc.pipefd[0]);
-		exit(2);
-	}
-		// pid_is_null(&hdoc);
+		pid_is_null(&hdoc);
 	else
 	{
 		waitpid(pid, &ret, 0);
