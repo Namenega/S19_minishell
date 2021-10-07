@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 11:10:52 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/01 20:01:00 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 18:25:29 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,3 +68,4 @@ int	main(void)
 	printf("GETCWD:%s\n", cwd);
 	printf("test:%s\n", test);
 }
+

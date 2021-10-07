@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/07 17:48:49 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/07 18:53:32 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ void	hdoc_param_expansion(t_hdoc *hdoc)
 		param = utils_env_get_param(hdoc->msh->env, hdoc->ptr_r, ptr - hdoc->ptr_r);
 		hdoc->ptr_r = ptr - 1; // -1 a cause du hdoc->ptr_r++ de read_heredoc
 	}
-	else if (*hdoc->ptr_r == '?' )
+	else if (*hdoc->ptr_r == '?')
 		param = hdoc->msh->ret;
+	else
+		--(hdoc->ptr_r);
 	if (!param)
 		return ;
 	if (ft_vec_check(hdoc->buff, param))
