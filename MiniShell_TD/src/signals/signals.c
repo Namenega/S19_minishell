@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:02:42 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/07 17:50:53 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/07 19:41:58 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	handle_sigint(int sig)
 		rl_replace_line("", 0);		// Clear the previous text
 		rl_redisplay();				// Display the new buffer
 	}
-	else if (sig == SIGINT && g_sig != 0)
-		kill(g_sig, SIGCONT);
+	// else if (sig == SIGINT && g_sig != 0)
+	// 	kill(g_sig, SIGCONT);
 }
 
 void	handle_sigquit(int sig)

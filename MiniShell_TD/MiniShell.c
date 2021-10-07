@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 12:09:47 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/07 19:53:02 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,15 @@ int	main(int argc, char **argv, char **env)
 					exec = cmd_get(&msh, msh.ast->left);
 				else
 					exec = cmd_get(&msh, msh.ast);
+				if (exec == NULL)
+				{
+					g_sig = 0;
+					continue ;
+				}
 				which_cmd(&msh, exec);
 			}
-			free(msh.line);
 			g_sig = 0;
+			free(msh.line);
 		}
 		printf("\033[31mBye Bye!\033[0m");
 	}

@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 17:20:55 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/07 19:49:16 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ t_exec	*cmd_get(t_msh *msh, t_ast *ast)
 	cmd.tail = NULL;
 	cmd.i = 0;
 	if (ast)
-		cmd_ast_traversal(msh, &cmd, ast);
+	{
+		if (cmd_ast_traversal(msh, &cmd, ast) == -1)
+			return (NULL);
+	}
 	return (exec);
 }
 
@@ -45,14 +48,21 @@ void	cmd_add_word(t_cmd *cmd, t_ast *ast)
 	ast->lex = NULL;
 }
 
-void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast)
+int	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast)
 {
 	if (ast->left && ast->left->type == AST_WORD)
 		cmd_add_word(cmd, ast->left);
 	else if (ast->left && ast->left->type == AST_IO_REDIR)
-		cmd_add_io(msh, cmd, ast->left);
+	{
+		if (cmd_add_io(msh, cmd, ast->left) == -1)
+			return (-1);
+	}
 	if (ast->right)
-		cmd_ast_traversal(msh, cmd, ast->right);
+	{
+		if (cmd_ast_traversal(msh, cmd, ast->right) == -1)
+			return (-1);
+	}
+	return (0);
 }
 
 static inline int	cmd_io_oflag(char *type)
@@ -67,7 +77,7 @@ static inline int	cmd_io_oflag(char *type)
 		return (0);
 }
 
-void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast)
+int	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast)
 {
 	t_io	*new;
 	// int		err_d;
@@ -86,7 +96,7 @@ void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast)
 		new->heredoc_fd = heredoc(msh, ast);
 		if (new->heredoc_fd == -1)
 		{
-			return ;
+			return (-1);
 		}
 	}
 	else
@@ -103,4 +113,5 @@ void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast)
 	else
 		cmd->tail->next = new;
 	cmd->tail = new;
+	return (0);
 }

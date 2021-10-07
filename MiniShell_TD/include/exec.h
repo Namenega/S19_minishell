@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:13:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 22:33:20 by pyg              ###   ########.fr       */
+/*   Updated: 2021/10/07 19:51:33 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ typedef struct s_cmd
 
 t_exec	*cmd_get(t_msh *msh, t_ast *ast);
 void	cmd_add_word(t_cmd *cmd, t_ast *ast);
-void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast);
-void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast);
+int		cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast);
+int		cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast);
 
 /* FILE: src/exec/command2.c */
 
