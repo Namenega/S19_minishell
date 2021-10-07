@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/07 11:57:32 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/07 13:27:58 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,12 @@
 
 extern pid_t	g_sig;
 
-// typedef struct s_hdoc
-// {
-// 	t_msh	*msh;
-// 	t_vec	*buff;
-// 	int		pipefd[2];
-// 	char	*line;
-// 	char	*ptr_r;
-// 	char	*eof;
-// }				t_hdoc;
+//*COMPARE TO BASH
+//BUG 1 : ctrl+C doesnt work properly
+//BUG 2 : CTRL+D doesnt work properly
+//BUG 3 : $'USER' et $"USER"
+
+
 
 //CTRL C need to stop process
 //CTRL D need to stop process but print readline buffer already registered.
@@ -36,6 +33,8 @@ void	hdoc_param_expansion(t_hdoc *hdoc)
 	char	*param;
 
 	param = NULL;
+	// if (*++hdoc->ptr_r == '\'' || *hdoc->ptr_r == '\"')
+	// 	return ;
 	ptr = utils_env_check_name(++(hdoc->ptr_r));
 	if (ptr)
 	{
@@ -56,7 +55,10 @@ static void	hdoc_if_dollar(t_hdoc *hdoc)
 {
 	while (*hdoc->ptr_r)
 	{
-		if (*hdoc->ptr_r == '$')
+		if (*hdoc->ptr_r == '$' && (*(hdoc->ptr_r + 1) == '\''
+			|| *(hdoc->ptr_r + 1) == '\"'))
+			*hdoc->buff->ptr++ = *hdoc->ptr_r;
+		else if (*hdoc->ptr_r == '$')
 			hdoc_param_expansion(hdoc);
 		else
 			*hdoc->buff->ptr++ = *hdoc->ptr_r;
