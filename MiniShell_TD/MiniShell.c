@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MiniShell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 22:31:35 by pyg              ###   ########.fr       */
+/*   Updated: 2021/10/07 11:59:13 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ int	main(int argc, char **argv, char **env)
 	msh.ret[3] = '\0';
 
 
-	we.msh = &msh;
-	we.curr = NULL;
-	we.type = TYPE_CMD;
-	we.old = NULL;
-	we.buff = ft_vec_new(DFLT_VEC_SIZE);
+	// we.msh = &msh;
+	// we.curr = NULL;
+	// we.type = TYPE_CMD;
+	// we.old = NULL;
+	// we.buff = ft_vec_new(DFLT_VEC_SIZE);
 
 	// signal(SIGINT, handle_sigint);
 	// signal(SIGQUIT, SIG_IGN);		// Ignore SIGQUIT

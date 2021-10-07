@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/06 22:42:18 by pyg              ###   ########.fr       */
+/*   Updated: 2021/10/07 11:57:32 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	read_heredoc(t_hdoc *hdoc)
 		if (ft_vec_check(hdoc->buff, hdoc->line))
 			return ;	// TODO: hdoc_error which call ft_free_vec and msh_error
 		hdoc->ptr_r = hdoc->line;
-		hdoc_is_dollar(hdoc);
+		hdoc_if_dollar(hdoc);
 		// while (*hdoc->ptr_r)
 		// {
 		// 	if (*hdoc->ptr_r == '$')
