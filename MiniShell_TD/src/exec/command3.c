@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:55:18 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/06 21:47:38 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 17:02:33 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	simple_redirection(t_msh *msh, t_exec *ex)
 		return ;					//! Error msg need a change
 	if (pid == 0)
 	{
+		// printf("fd = %d\n", ex->io->fd);
 		list_redirection(ex, entry_file);
 		msh->env = NULL;
 		msh_free(msh);

@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/07 13:27:58 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/07 17:42:05 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ extern pid_t	g_sig;
 
 //CTRL C need to stop process
 //CTRL D need to stop process but print readline buffer already registered.
+//OUR CTRL D write buffer on a new line because of readline !
 
 void	hdoc_param_expansion(t_hdoc *hdoc)
 {
@@ -87,7 +88,6 @@ static void	read_heredoc(t_hdoc *hdoc)
 		// 		*hdoc->buff->ptr++ = *hdoc->ptr_r;
 		// 	hdoc->ptr_r++;
 		// }
-		free(hdoc->line);
 		*hdoc->buff->ptr = '\0';
 		write(hdoc->pipefd[1], hdoc->buff->str, ft_strlen(hdoc->buff->str));
 		write(hdoc->pipefd[1], "\n", 1);
@@ -96,15 +96,15 @@ static void	read_heredoc(t_hdoc *hdoc)
 	ft_vec_free(hdoc->buff);
 }
 
-static void	pid_is_null(t_hdoc *hdoc)
-{
-	g_sig = 1;
-	signal(SIGINT, SIG_DFL);
-	read_heredoc(hdoc);
-	close(hdoc->pipefd[1]);
-	close(hdoc->pipefd[0]);
-	exit(0);					//! Error need to change
-}
+// static void	pid_is_null(t_hdoc *hdoc)
+// {
+// 	g_sig = 1;
+// 	signal(SIGINT, SIG_DFL);
+// 	read_heredoc(hdoc);
+// 	close(hdoc->pipefd[1]);
+// 	close(hdoc->pipefd[0]);
+// 	exit(2);					//! Error need to change
+// }
 
 int	heredoc(t_msh *msh, t_ast *ast)
 {
@@ -120,7 +120,15 @@ int	heredoc(t_msh *msh, t_ast *ast)
 	if (pid < 0)
 		return (0);					//!Error msg need to change : fork error.
 	if (pid == 0)
-		pid_is_null(&hdoc);
+	{
+		g_sig = 1;
+		signal(SIGINT, SIG_DFL);
+		read_heredoc(&hdoc);
+		close(hdoc.pipefd[1]);
+		close(hdoc.pipefd[0]);
+		exit(2);
+	}
+		// pid_is_null(&hdoc);
 	else
 	{
 		waitpid(pid, &ret, 0);

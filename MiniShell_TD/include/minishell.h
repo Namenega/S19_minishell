@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:45:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 22:25:07 by pyg              ###   ########.fr       */
+/*   Updated: 2021/10/07 14:51:58 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ char	*get_bin(t_msh *msh, char *name);
 
 void	signal_handling(void);
 void	handle_sigint(int sig);
+void	handle_sigquit(int sig);
 void	handle_sigusr1(int sig);
 
 #endif

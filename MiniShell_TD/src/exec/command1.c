@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pyg <pyg@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 22:33:53 by pyg              ###   ########.fr       */
+/*   Updated: 2021/10/07 17:20:55 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,9 @@ void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast)
 	{
 		new->heredoc_fd = heredoc(msh, ast);
 		if (new->heredoc_fd == -1)
+		{
 			return ;
-		// close(new->heredoc_fd);
+		}
 	}
 	else
 		new->heredoc_fd = -1;
