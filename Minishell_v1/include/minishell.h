@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:45:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 15:03:10 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 16:59:24 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ struct s_msh
 
 void	msh_error(t_msh *msh, char *msg);
 t_msh	*free_msh(t_msh *msh);
+void	clean_msh(t_msh *msh);
 
 // TODO: Check with NATHAN
 void	signal_handling(void);

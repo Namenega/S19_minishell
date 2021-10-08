@@ -6,13 +6,13 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:22:20 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 13:56:22 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 18:17:25 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void	we_error(t_we *we, char *msg)
+void	free_we(t_we *we)
 {
 	if (we->buff)
 		ft_vec_free(we->buff);
@@ -23,9 +23,14 @@ void	we_error(t_we *we, char *msg)
 	if (we->ifs)
 		free(we->ifs);
 	we->ifs = NULL;
+}
+
+void	error_we(t_we *we, char *msg)
+{
 	print_error(MSG_MSH, msg, NULL, EXIT_FAILURE);
 	free_ast(we->msh->ast);
 	free_msh(we->msh);
+	free_we(we);
 	exit(EXIT_FAILURE);
 }
 
@@ -39,12 +44,12 @@ void	we_add_word(t_we *we, t_vec *buff)
 	*(buff->ptr) = '\0';
 	lex = ft_strdup(buff->str);
 	if (!lex)
-		we_error(we, ERR_MALLOC);
+		error_we(we, ERR_MALLOC);
 	if (we->curr->lex)
 	{
 		new = malloc(sizeof(*new));
 		if (!new)
-			we_error(we, ERR_MALLOC);
+			error_we(we, ERR_MALLOC);
 		new->type = AST_WORD;
 		new->lex = lex;
 		new->right = NULL;

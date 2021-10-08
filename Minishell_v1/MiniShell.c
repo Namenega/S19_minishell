@@ -3,18 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   MiniShell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 16:45:33 by namenega         ###   ########.fr       */
+/*   Created: 2021/10/08 18:19:26 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/10/08 18:25:28 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
 
-/* Global for Signals */
-
 pid_t	g_sig;
+
+void	clean_msh(t_msh *msh)
+{
+	if (msh->line)
+		free(msh->line);
+	msh->line = NULL;
+	if (msh->tok)
+		msh->tok = free_tok(msh->tok);
+	if (msh->ast)
+		msh->ast = free_ast(msh->ast);
+	if (msh->hd_lst)
+		msh->hd_lst = free_hd_lst(msh->hd_lst);
+}
 
 t_msh	*free_msh(t_msh *msh)
 {
@@ -25,7 +36,7 @@ t_msh	*free_msh(t_msh *msh)
 		free(msh->cwd);
 	msh->cwd = NULL;
 	if (msh->tok)
-		msh->tok =  free_tok(msh->tok);
+		msh->tok = free_tok(msh->tok);
 	if (msh->ast)
 		msh->ast = free_ast(msh->ast);
 	if (msh->env)
@@ -35,47 +46,46 @@ t_msh	*free_msh(t_msh *msh)
 	return (NULL);
 }
 
+static inline void	init_msh(t_msh *msh, char **env)
+{
+	g_sig = 0;
+	msh->env_left = 5;
+	msh->env_size = size_tab(env) + msh->env_left;
+	msh->env = grow_tab(env, msh->env_size);
+	msh->line = NULL;
+	msh->tok = NULL;
+	msh->hd_lst = NULL;
+	msh->ast = NULL;
+	msh->ret[0] = '0';
+	msh->ret[1] = '\0';
+	msh->cwd = ft_strdup(msh_getenv(env, "PWD", 3));
+	signal_handling();
+}
+
 int	main(int argc, char **argv, char **env)
 {
-	(void)argv;
 	t_msh	msh;
 
+	(void)argv;
 	if (argc > 1)
+		return (print_error(ERR_ARGC, NULL, NULL, EXIT_FAILURE));
+	init_msh(&msh, env);
+	while (1)
 	{
-		write(2, ERR_ARGC, ft_strlen(ERR_ARGC));
-		exit(EXIT_FAILURE);
-	}
-	g_sig = 0;
-	msh.env_left = 5;
-	msh.env_size = size_tab(env) + msh.env_left;
-	msh.env = grow_tab(env, msh.env_size);
-	msh.line = NULL;
-	msh.tok = NULL;
-	msh.hd_lst = NULL;
-	msh.ast = NULL;
-	msh.ret[0] = '0';
-	msh.ret[1] = '\0';
-
-	printf("Welcome! Exit by pressing CTRL-D.\n");
-	msh.cwd = ft_strdup(msh_getenv(env, "PWD", 3));
-	signal_handling();
-	while(1)
-	{
-		msh.line = readline("\e[32mmsh>\e[0m");
+		msh.line = readline("msh>");
 		if (!msh.line)
-			break;
+			break ;
 		else if (*msh.line)
 		{
 			add_history(msh.line);
 			lexer(&msh);
 			parser(&msh);
 			we_word_expansion(&msh);
-			hd_lst_input(&msh);
-			// handle_heredoc()&msh;
+			get_here_doc(&msh);
 			launcher(&msh);
 		}
 		g_sig = 0;
-		free(msh.line);
+		clean_msh(&msh);
 	}
-	printf("\e[31m \nBye Bye!\e[0m\n");
+	free_msh(&msh);
 }

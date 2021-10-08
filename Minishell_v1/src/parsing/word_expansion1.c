@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_expansion1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 11:32:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 17:37:04 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 16:38:27 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	we_word_expansion(t_msh *msh)
 	we.old = NULL;
 	we.buff = ft_vec_new(DFLT_VEC_SIZE);
 	if (!we.buff)
-		we_error(&we, ERR_MALLOC);
+		error_we(&we, ERR_MALLOC);
 	we.ifs = utils_env_get_ifs(msh->env);
 	if (!we.ifs)
-		we_error(&we, ERR_MALLOC);
+		error_we(&we, ERR_MALLOC);
 	we_ast_traversal(&we, msh->ast);
-	ft_vec_free(we.buff);
+	free_we(&we);
 }
 
 void	we_ast_traversal(t_we *we, t_ast *curr)
@@ -65,7 +65,7 @@ void	we_lexeme_formating(t_we *we)
 	lex = we->old;
 	state = WE_ST_FREE;
 	if (ft_vec_check(we->buff, lex))
-		we_error(we, ERR_MALLOC);
+		error_we(we, ERR_MALLOC);
 	while (*lex)
 	{
 		if (*lex == '$' && state != WE_ST_SQUOTE)
@@ -114,7 +114,7 @@ void	we_param_substitution(t_we *we, char *param, int state)
 	int		do_ifs;
 
 	if (ft_vec_check(we->buff, param))
-		we_error(we, ERR_MALLOC);
+		error_we(we, ERR_MALLOC);
 	do_ifs = (we->type == TYPE_CMD && state == WE_ST_FREE);
 	while (*param)
 	{

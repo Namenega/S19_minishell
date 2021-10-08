@@ -6,11 +6,13 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:23:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 12:21:24 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 17:00:17 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+extern pid_t	g_sig;
 
 void	launcher(t_msh *msh)
 {
@@ -27,6 +29,7 @@ void	launcher(t_msh *msh)
 	else
 		launch_simple_cmd(&exec);
 	msh->ast = free_ast(msh->ast);
+	g_sig = 0;
 }
 
 void	error_exec(t_exec *exec, int ret)

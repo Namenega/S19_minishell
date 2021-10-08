@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 15:57:09 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 13:26:13 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 15:56:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	launch_pipe_seq(t_exec *exec)
 	else
 		ret = WEXITSTATUS(ret);
 	ret_itoa(exec->msh, ret);
-	wait(&ret);
+	while ((wait(&ret)) > 0)
+		;
 }
 
 void	no_pipe(int pipe[2])

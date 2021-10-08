@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:02:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 16:45:40 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/08 18:14:16 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ void	print_tok(t_tok *token);
 /* FILE: src/parser/parser1.c */
 
 void	parser(t_msh *msh);
+void	parser_syn_err(t_msh *msh, t_tok *node);
 t_ast	*parser_new(t_parser *vars, int type, t_tok *node);
 
 /* FILE: src/parser/parser2.c */
@@ -154,7 +155,7 @@ t_ast	*parser_io_here(t_parser *vars);
 /* FILE: src/parser/parser3.c */
 
 t_ast	*free_ast(t_ast *tree);
-void	parser_error(t_parser *vars, char *msg, char *opt);
+void	parser_error(t_parser *vars, char *msg);
 void	print_ast(t_ast *tree);
 
 /* ============================= WORD EXPANSION ============================ */
@@ -169,13 +170,14 @@ void	we_param_substitution(t_we *we, char *param, int state);
 
 /* FILE: src/parser/word_expansion2.c */
 
-void	we_error(t_we *we, char *msg);
+void	free_we(t_we *we);
+void	error_we(t_we *we, char *msg);
 void	we_add_word(t_we *we, t_vec *vec);
 
 /* ============================= Here Document ============================= */
 
 void	hd_lst_new(t_parser *vars, t_ast *io_here);
-t_hd 	*free_hd_lst(t_hd *node);
-void	hd_lst_input(t_msh *msh);
+t_hd	*free_hd_lst(t_hd *node);
+void	get_here_doc(t_msh *msh);
 
 #endif

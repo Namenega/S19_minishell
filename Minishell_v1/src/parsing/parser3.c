@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:54:35 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 13:58:54 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 18:17:17 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,12 @@ t_ast	*free_ast(t_ast *tree)
 	return (NULL);
 }
 
-void	parser_error(t_parser *vars, char *msg, char *opt)
+void	parser_error(t_parser *vars, char *msg)
 {
-
-	exit(EXIT_FAILURE);
-	if (opt)
-	{
-		write(2, "msh: Syntax Error near: ", 24);
-		write(2, opt, ft_strlen(opt));
-		write(2, "\n", 1);
-		free_ast(vars->tmp);
-		free_msh(vars->msh);
-		exit(258);
-	}
 	print_error(MSG_MSH, msg, NULL, EXIT_FAILURE);
 	free_ast(vars->tmp);
 	free_msh(vars->msh);
+	exit(258);
 	exit(EXIT_FAILURE);
 }
 

@@ -6,13 +6,13 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 12:30:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 15:04:30 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 18:17:55 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-char **free_tab(char **env)
+char	**free_tab(char **env)
 {
 	int	i;
 

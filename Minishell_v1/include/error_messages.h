@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:25:07 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/08 15:41:49 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 18:14:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@
 # define MSG_EXPORT		"msh: export: `"
 # define MSG_UNSET		"msh: unset: `"
 # define ERR_MALLOC		"Malloc error\n"
-# define ERR_NO_CMD		"msh: %s: command not found\n"		// TODO: replace with print_error
 # define ERR_QUOTES		"Odd number of quotes\n"
-# define ERR_SYNTAX		"Syntax Error near: %s\n"			// TODO: replace with print_error
+# define ERR_SYNTAX		"Syntax Error near: "
 # define ERR_CD_USE		": invalid option\ncd: usage: cd [dir]\n"
 # define ERR_ELOOP		": Too many levels of symbolic links\n"
 # define ERR_EXIT_ARGS	"too many arguments\n"
