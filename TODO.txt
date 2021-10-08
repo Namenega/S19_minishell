@@ -34,7 +34,7 @@ cd a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2g
 TESTING APPROVATION
 
 echo "$USER'
-echo -n -n + rien
+echo -n -n + rien ------> fait
 
 
 

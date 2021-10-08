@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 12:55:40 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 10:12:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 21:00:57 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,28 @@
 
 static inline void	set_lowercase(char *s)
 {
-	int		i;
+	// int		i;
 
-	i = -1;
-	while (s[++i])
-		s[i] = (s[i] | 0x20);
+	// i = -1;
+	// while (s[++i])
+	// 	s[i] = (s[i] | 0x20);
+	int	i = 0;
+	printf("s = %s\n", s);
+	if (!s)
+		return ;
+	while (s[i])
+	{
+		if (s[i] >= 'A' && s[i] <= 'Z')
+			s[i] += 32;
+		i++;
+	}
 }
 
 t_fct	is_builtin(char *name)
 {
+	//! TODO!!!
+	// if (!name)
+	// 	return (NULL);
 	set_lowercase(name);
 	if (!ft_strncmp(name, "cd", 3))
 		return (&msh_cd);
