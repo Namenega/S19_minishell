@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 12:15:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 12:17:37 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 13:24:43 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	msh_chdir(t_msh *msh, char *path, int update)
 	errno = 0;
 	if (chdir(path))
 		return (print_error(MSG_CD, strerror(errno), NULL, EXIT_FAILURE));
-	if (MSG_CD_export(msh, "OLDPWD", msh->cwd))
+	if (msh_cd_export(msh, "OLDPWD", msh->cwd))
 		return (EXIT_FAILURE);
-	if (MSG_CD_export(msh, "PWD", path))
+	if (msh_cd_export(msh, "PWD", path))
 		return (EXIT_FAILURE);
 	free(msh->cwd);
 	if (!update)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_messages.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:25:07 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/08 12:37:24 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 13:36:03 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define MSG_PIPE		"msh: pipe: "
 # define MSG_EXECVE		"msh: execve: "
 # define MSG_EXPORT		"msh: export: `"
+# define MSG_UNSET		"msh: unset: `"
 # define ERR_MALLOC		"Malloc error."
 # define ERR_NO_CMD		"msh: %s: command not found\n"		// TODO: replace with print_error
 # define ERR_QUOTES		"msh: error odd number of quotes."
