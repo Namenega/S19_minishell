@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
+#    By: namenega <namenega@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/10/08 15:05:10 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/10/08 16:39:08 by namenega         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ SRC		=	./src/launcher/is_builtin.c \
 			./src/signals/signals.c \
 			./MiniShell.c
 
-CC		= gcc
+CC		= gcc -g -fsanitize=address
 
 CFLAGS	= -Wall -Wextra -Werror
 

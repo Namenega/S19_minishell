@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:02:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 15:27:47 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 16:45:40 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,6 @@ void	we_add_word(t_we *we, t_vec *vec);
 
 void	hd_lst_new(t_parser *vars, t_ast *io_here);
 t_hd 	*free_hd_lst(t_hd *node);
-void	hf_lst_input(t_msh *msh);
+void	hd_lst_input(t_msh *msh);
 
 #endif

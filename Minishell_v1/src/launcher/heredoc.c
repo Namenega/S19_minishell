@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/08 16:26:03 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/08 16:38:01 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	read_heredoc(t_hdoc *hdoc)
 		write(hdoc->pipefd[1], "\n", 1);
 	}
 	free(hdoc->line);
-	ft_vec_free(hdoc->buff);
+	// ft_vec_free(hdoc->buff);
 }
 
 static void	pid_is_null(t_hdoc *hdoc)

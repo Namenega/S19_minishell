@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 16:24:31 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/08 16:45:33 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	main(int argc, char **argv, char **env)
 			lexer(&msh);
 			parser(&msh);
 			we_word_expansion(&msh);
-			hf_lst_input(&msh);
+			hd_lst_input(&msh);
 			// handle_heredoc()&msh;
 			launcher(&msh);
 		}

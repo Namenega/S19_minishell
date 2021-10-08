@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_lst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 14:26:50 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 15:38:26 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 16:46:50 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,18 @@ t_hd 	*free_hd_lst(t_hd *node)
 {
 	t_hd	*next;
 
-	if (!node->next)
+	while (node)
 	{
-		while (node)
-		{
-			next = node->prev;
-			if (node->fd_h >= 0)
-				close(node->fd_h);
-			free(node);
-			node = next;
-		}
+		next = node->next;
+		if (node->fd_h >= 0)
+			close(node->fd_h);
+		free(node);
+		node = next;
 	}
 	return (NULL);
 }
 
-void	hf_lst_input(t_msh *msh)
+void	hd_lst_input(t_msh *msh)
 {
 	t_hd	*node;
 	t_hd	*next;
