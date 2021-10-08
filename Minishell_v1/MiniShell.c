@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MiniShell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 12:38:14 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 14:18:16 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,14 @@ int	main(int argc, char **argv, char **env)
 			lexer(&msh);
 			parser(&msh);
 			we_word_expansion(&msh);
+			// if (exec == NULL)
+			// {
+			// 	g_sig == 0;
+			// }
 			// handle_heredoc()&msh;
 			launcher(&msh);
 		}
+		g_sig = 0;
 	}
 	printf("\e[31m \nBye Bye!\e[0m\n");
 }

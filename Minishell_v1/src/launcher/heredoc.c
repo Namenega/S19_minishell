@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/08 12:20:40 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 14:17:46 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,24 +92,26 @@ static void	pid_is_null(t_hdoc *hdoc)
 	exit(0);					//! Error need to change
 }
 
-int	heredoc(t_msh *msh, t_ast *ast)
+int	heredoc(t_msh *msh, t_io *io)
 {
-	pid_t	pid;
+	// pid_t	pid;
 	t_hdoc	hdoc;
 	int		ret;
 
-	hdoc.eof = ast->right->lex;
+	// print_ast(ast);
+	hdoc.eof = io->filename;
 	hdoc.msh = msh;
 	if (pipe(hdoc.pipefd) == -1)
 		return (0);					//!Error msg need to change : pipe error.
-	pid = fork();
-	if (pid < 0)
+	g_sig = fork();
+	if (g_sig < 0)
 		return (0);					//!Error msg need to change : fork error.
-	if (pid == 0)
+	if (g_sig == 0)
 		pid_is_null(&hdoc);
 	else
 	{
-		waitpid(pid, &ret, 0);
+		waitpid(g_sig, &ret, 0);
+		g_sig = 0;
 		close(hdoc.pipefd[1]);
 		// ret = WEXITSTATUS(ret);
 		if (ret != EXIT_SUCCESS)

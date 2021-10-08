@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 12:22:20 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 14:21:04 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,8 @@ static inline void	cmd_add_io_fd(t_msh *msh, t_ast *io_redir, t_io *new)
 	else
 		new->fd = 0;
 	// TODO: HEREDOC
-	if (io_redir->lex[0] == '>' && io_redir->lex[1] == '>')
-	{
-		new->fd_h = heredoc(msh, io_redir);
-	}
+	if (io_redir->lex[0] == '<' && io_redir->lex[1] == '<')
+		new->fd_h = heredoc(msh, new);
 	else
 		new->fd_h = -1;
 }
