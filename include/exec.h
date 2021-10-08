@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:13:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 12:19:47 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 20:50:43 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ int		msh_pwd(t_exec *exec);
 int		msh_env(t_exec *exec);
 int		msh_exit(t_exec *exec);
 int		msh_echo(t_exec *exec);
+int		if_echo_n(char **tab, int i);
 int		msh_unset(t_exec *exec);
 int		msh_export(t_exec *exec);
 

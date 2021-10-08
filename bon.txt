@@ -6,7 +6,7 @@
 #    By: namenega <namenega@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/10/08 20:51:28 by namenega         ###   ########.fr        #
+#    Updated: 2021/10/08 18:32:43 by namenega         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,6 @@ SRC		=	./src/launcher/heredoc.c \
 			./src/builtins/msh_pwd.c \
 			./src/builtins/msh_exit.c \
 			./src/builtins/msh_echo.c \
-			./src/builtins/msh_echo_n.c \
 			./src/builtins/msh_unset.c \
 			./src/builtins/msh_export.c \
 			./src/builtins/msh_cd_export.c \
@@ -55,7 +54,7 @@ SRC		=	./src/launcher/heredoc.c \
 			./src/signals/signals.c \
 			./minishell.c
 
-CC		= gcc #-g -fsanitize=address
+CC		= gcc
 
 CFLAGS	= -Wall -Wextra -Werror
 

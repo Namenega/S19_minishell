@@ -8,7 +8,7 @@
 08/10/21
 - _=/Users/tderwedu/Documents/42cursus/10_Minishell/02_MiniShell/./minishell
 
-- Try ctrl-\ after running a blocking command like cat without arguments or grep “something“ SIGQUIT
+- Try ctrl-\ after running a blocking command like cat without arguments or grep “something“ SIGQUIT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 - Signals Handling (cat | cat | ls : 2 times or more)
 
 - MiniShell.c => Refactoring
@@ -29,3 +29,20 @@ cd a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2goinfre/a/b/c/d/e/go2g
 //export PATH=
 //export PATH
 //unset PATH
+
+
+TESTING APPROVATION
+
+echo "$USER'
+echo -n -n + rien
+
+
+
+ctrl+\
+
+cat Makefile > bonjour.txt
+< bonjour.txt > test.c ----> SEGFAULT !!!
+
+cat << eof
+>bonjour^C -----> CRASH
+
