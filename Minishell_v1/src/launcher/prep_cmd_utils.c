@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 12:24:32 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 14:00:09 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,10 @@ t_exec	*free_exec(t_exec *exec)
 
 void	error_cmd(t_cmd *cmd, char *msg)
 {
+	print_error(MSG_MSH, msg, NULL, EXIT_FAILURE);
 	free_exec(cmd->exec);
-	msh_error(cmd->msh, msg);
+	free_msh(cmd->msh);
+	exit(EXIT_FAILURE);
 }
 
 void	print_exec(t_exec *exec)

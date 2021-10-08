@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/10/08 12:32:59 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/10/08 15:05:10 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC		=	./src/launcher/is_builtin.c \
 			./src/parsing/lexer2.c \
 			./src/parsing/parser3.c \
 			./src/parsing/parser1.c \
+			./src/parsing/heredoc_lst.c \
 			./src/parsing/word_expansion2.c \
 			./src/builtins/msh_export.c \
 			./src/builtins/msh_cd.c \

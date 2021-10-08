@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:22:20 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 15:41:51 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 13:56:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,18 @@
 void	we_error(t_we *we, char *msg)
 {
 	if (we->buff)
-	{
 		ft_vec_free(we->buff);
-		we->buff = NULL;
-	}
+	we->buff = NULL;
 	if (we->old)
-	{
 		free(we->old);
-		we->old = NULL;
-	}
+	we->old = NULL;
 	if (we->ifs)
-	{
 		free(we->ifs);
-		we->ifs = NULL;
-	}
-	msh_error(we->msh, msg);
+	we->ifs = NULL;
+	print_error(MSG_MSH, msg, NULL, EXIT_FAILURE);
+	free_ast(we->msh->ast);
+	free_msh(we->msh);
+	exit(EXIT_FAILURE);
 }
 
 void	we_add_word(t_we *we, t_vec *buff)

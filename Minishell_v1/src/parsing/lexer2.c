@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 12:28:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 17:38:11 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 13:58:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ t_tok	*free_tok(t_tok *node)
 void	lexer_error(t_lexer *lex, char *msg)
 {
 	free_tok(lex->head);
-	msh_error(lex->msh, msg);
+	free_msh(lex->msh);
+	print_error(MSG_MSH, msg, NULL, EXIT_FAILURE);
+	exit(EXIT_FAILURE);
 }
 
 void	print_tok(t_tok *token)

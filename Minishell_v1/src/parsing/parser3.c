@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:54:35 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 10:27:03 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 13:58:54 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,21 @@ t_ast	*free_ast(t_ast *tree)
 
 void	parser_error(t_parser *vars, char *msg, char *opt)
 {
-	if (vars->tmp)
-		free_ast(vars->tmp);
+
+	exit(EXIT_FAILURE);
 	if (opt)
 	{
-		printf("Syntax Error near: %s\n", opt);
-		free_tok(vars->head);
-		msh_error(vars->msh, NULL);
+		write(2, "msh: Syntax Error near: ", 24);
+		write(2, opt, ft_strlen(opt));
+		write(2, "\n", 1);
+		free_ast(vars->tmp);
+		free_msh(vars->msh);
+		exit(258);
 	}
-	free_tok(vars->head);
-	msh_error(vars->msh, msg);
+	print_error(MSG_MSH, msg, NULL, EXIT_FAILURE);
+	free_ast(vars->tmp);
+	free_msh(vars->msh);
+	exit(EXIT_FAILURE);
 }
 
 static void	print_ast_2(t_ast *tree, char **types, char **tabs, int tab)

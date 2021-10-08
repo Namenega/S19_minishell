@@ -6,17 +6,13 @@
 - signals handling
 
 08/10/21
- - Error msg:
-	- lexer
-	- parser
-	- word expansion
-- NORME !!!!!
-- MiniShell.c => Refactoring
-- Try ctrl-\ after running a blocking command like cat without arguments or grep “something“ SIGQUIT
 - _=/Users/tderwedu/Documents/42cursus/10_Minishell/02_MiniShell/./minishell
-- export "bash: export: `=': not a valid identifier"
-[DONE]- bash: unset: `0dawfw': not a valid identifier
+
+- Try ctrl-\ after running a blocking command like cat without arguments or grep “something“ SIGQUIT
 - Signals Handling (cat | cat | ls : 2 times or more)
+
+- MiniShell.c => Refactoring
+- NORME !!!!!
 
 /*
 **		=== TESTS ===

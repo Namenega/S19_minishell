@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 14:38:08 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 12:20:19 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 13:26:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static inline void	launch_in_subshell(t_exec *exec)
 	apply_redir(exec, 0);
 	if (!exec->cmdpath)
 	{
-		print_error(MSG_MSH, exec->argv[0], MSG_NOTFOUND, 0);
+		print_error(MSG_MSH, exec->argv[0], ERR_NOTFOUND, 0);
 		error_exec(exec, ERRNO_NOT_FOUND);
 	}
 	env = exec->msh->env;

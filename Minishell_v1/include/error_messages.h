@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_messages.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:25:07 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/08 13:36:03 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/08 15:41:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,28 @@
 # define MSG_CD			"msh: cd: "
 # define MSG_DUP		"msh: dup: "
 # define MSG_DUP2		"msh: dup2: "
+# define MSG_EXIT		"msh: exit: "
 # define MSG_FORK		"msh: fork: "
 # define MSG_OPEN		"msh: open: "
 # define MSG_PIPE		"msh: pipe: "
 # define MSG_EXECVE		"msh: execve: "
 # define MSG_EXPORT		"msh: export: `"
 # define MSG_UNSET		"msh: unset: `"
-# define ERR_MALLOC		"Malloc error."
+# define ERR_MALLOC		"Malloc error\n"
 # define ERR_NO_CMD		"msh: %s: command not found\n"		// TODO: replace with print_error
-# define ERR_QUOTES		"msh: error odd number of quotes."
+# define ERR_QUOTES		"Odd number of quotes\n"
 # define ERR_SYNTAX		"Syntax Error near: %s\n"			// TODO: replace with print_error
-# define MSG_CD_USE		": invalid option\ncd: usage: cd [dir]\n"
-# define MSG_ELOOP		": Too many levels of symbolic links\n"
-# define MSG_ENAME2LONG	": File name too long\n"
-# define MSG_EXIT		"msh: exit: "
-# define MSG_EXIT_ARGS	"too many arguments\n"
-# define MSG_EXIT_USE	": numeric argument required\n"
-# define MSG_ENOENT		": No such file or directory\n"
-# define MSG_ENOTDIR	": Not a directory\n"
-# define MSG_HOME		"HOME not set\n"
-# define MSG_IDENTIFIER	"': not a valid identifier\n"
-# define MSG_NOTFOUND	": command not found\n"
-# define MSG_OLDPWD		"OLDPWD not set\n"
-# define MSG_ARGC		"Wrong number of argument\n"
+# define ERR_CD_USE		": invalid option\ncd: usage: cd [dir]\n"
+# define ERR_ELOOP		": Too many levels of symbolic links\n"
+# define ERR_EXIT_ARGS	"too many arguments\n"
+# define ERR_NOTFOUND	": command not found\n"
+# define ERR_EXIT_USE	": numeric argument required\n"
+# define ERR_ENOENT		": No such file or directory\n"
+# define ERR_ENOTDIR	": Not a directory\n"
+# define ERR_HOME		"HOME not set\n"
+# define ERR_ENAME2LONG	": File name too long\n"
+# define ERR_IDENTIFIER	"': not a valid identifier\n"
+# define ERR_OLDPWD		"OLDPWD not set\n"
+# define ERR_ARGC		"Wrong number of argument\n"
 
 #endif

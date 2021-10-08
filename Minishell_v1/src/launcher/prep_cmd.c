@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 14:21:04 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/08 15:37:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,21 @@ void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast)
 
 static inline void	cmd_add_io_fd(t_msh *msh, t_ast *io_redir, t_io *new)
 {
+	t_hd	*tmp;
+
 	if (io_redir->left && io_redir->left->type == AST_IO_NBR)
 		new->fd = ft_atoi(io_redir->left->lex);
 	else if (io_redir->lex[0] == '>')
 		new->fd = 1;
 	else
 		new->fd = 0;
-	// TODO: HEREDOC
 	if (io_redir->lex[0] == '<' && io_redir->lex[1] == '<')
-		new->fd_h = heredoc(msh, new);
+	{
+		tmp = msh->hd_lst;
+		new->fd_h = tmp->fd_h;
+		msh->hd_lst = tmp->next;
+		free(tmp);
+	}
 	else
 		new->fd_h = -1;
 }

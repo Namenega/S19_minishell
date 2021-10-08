@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:03:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 17:36:36 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 15:33:07 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	parser(t_msh *msh)
 
 	if (!msh->tok)
 		return ;
-	vars = (t_parser){msh, msh->tok, msh->tok, NULL};
+	vars = (t_parser){msh, msh->tok, msh->tok, NULL, NULL};
 	ast = parser_pipe(&vars);
 	if (!ast || vars.node)
 		parser_error(&vars, ERR_SYNTAX, vars.node->lex);

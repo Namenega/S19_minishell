@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:13:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 14:09:16 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/08 12:19:47 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,6 @@ int		msh_export(t_exec *exec);
 
 t_fct	is_builtin(char *name);
 char	*get_cmd_path(t_exec *exec, char *cmd);
-int		heredoc(t_msh *msh, t_io *io);
+int		heredoc(t_msh *msh, t_ast *ast);
 
 #endif

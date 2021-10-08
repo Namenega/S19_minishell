@@ -6,22 +6,23 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 12:30:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 12:33:35 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 15:04:30 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	free_tab(char **env)
+char **free_tab(char **env)
 {
 	int	i;
 
 	if (!env)
-		return ;
+		return (NULL);
 	i = -1;
 	while (env[++i])
 		free(env[i]);
 	free(env);
+	return (NULL);
 }
 
 size_t	size_tab(char **env)

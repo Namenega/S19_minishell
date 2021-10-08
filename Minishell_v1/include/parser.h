@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:02:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 10:19:49 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 15:27:47 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <stdio.h>
 # include "libft.h"
-# include "minishell.h"
 # include "utils.h"
+# include "minishell.h"
 # include "error_messages.h"
 
 /* TODO: all ERR in ine header */
@@ -61,6 +61,7 @@ enum	e_state
 	WE_ST_DQUOTE
 };
 
+typedef struct s_hd		t_hd;
 typedef struct s_tok	t_tok;
 typedef struct s_ast	t_ast;
 typedef struct s_msh	t_msh;
@@ -86,6 +87,7 @@ typedef struct s_parser
 	t_tok	*head;
 	t_tok	*node;
 	t_ast	*tmp;
+	t_hd	*last;
 }				t_parser;
 
 typedef struct s_lexer
@@ -107,6 +109,14 @@ typedef struct s_we
 	char	*ifs;
 	int		type;
 }				t_we;
+
+typedef struct s_hd
+{
+	t_ast	*io_here;
+	int		fd_h;
+	t_hd	*next;
+	t_hd	*prev;
+}				t_hd;
 
 /* ================================== LEXER ================================ */
 
@@ -161,5 +171,11 @@ void	we_param_substitution(t_we *we, char *param, int state);
 
 void	we_error(t_we *we, char *msg);
 void	we_add_word(t_we *we, t_vec *vec);
+
+/* ============================= Here Document ============================= */
+
+void	hd_lst_new(t_parser *vars, t_ast *io_here);
+t_hd 	*free_hd_lst(t_hd *node);
+void	hf_lst_input(t_msh *msh);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MiniShell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 14:18:16 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/08 15:04:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,22 @@ pid_t	g_sig;
 
 t_msh	*free_msh(t_msh *msh)
 {
-	(void)msh;
+	if (msh->line)
+		free(msh->line);
+	msh->line = NULL;
+	if (msh->cwd)
+		free(msh->cwd);
+	msh->cwd = NULL;
+	if (msh->tok)
+		msh->tok =  free_tok(msh->tok);
+	if (msh->ast)
+		msh->ast = free_ast(msh->ast);
+	if (msh->env)
+		msh->env = free_tab(msh->env);
+	if (msh->hd_lst)
+		msh->hd_lst = free_hd_lst(msh->hd_lst);
 	return (NULL);
 }
-
-void	msh_error(t_msh *msh, char *msg)
-{
-	(void)msh;
-	printf("\e[31mEXIT_FAILURE\e[0m\n");
-	printf("%s\n", msg);
-	exit(EXIT_FAILURE);
-}
-
-/*
-**	TODO List
-** - check free : line, tok, ast, exec
-**
-*/
 
 int	main(int argc, char **argv, char **env)
 {
@@ -43,7 +42,7 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc > 1)
 	{
-		write(2, MSG_ARGC, ft_strlen(MSG_ARGC));
+		write(2, ERR_ARGC, ft_strlen(ERR_ARGC));
 		exit(EXIT_FAILURE);
 	}
 	g_sig = 0;
@@ -52,6 +51,7 @@ int	main(int argc, char **argv, char **env)
 	msh.env = grow_tab(env, msh.env_size);
 	msh.line = NULL;
 	msh.tok = NULL;
+	msh.hd_lst = NULL;
 	msh.ast = NULL;
 	msh.ret[0] = '0';
 	msh.ret[1] = '\0';
@@ -70,14 +70,10 @@ int	main(int argc, char **argv, char **env)
 			lexer(&msh);
 			parser(&msh);
 			we_word_expansion(&msh);
-			// if (exec == NULL)
-			// {
-			// 	g_sig == 0;
-			// }
+			hf_lst_input(&msh);
 			// handle_heredoc()&msh;
 			launcher(&msh);
 		}
-		g_sig = 0;
 	}
 	printf("\e[31m \nBye Bye!\e[0m\n");
 }
