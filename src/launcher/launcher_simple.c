@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 14:38:08 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 13:26:13 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/09 12:23:14 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "launcher.h"
 
 extern pid_t	g_sig;
 
@@ -19,6 +19,8 @@ static inline void	launch_in_subshell(t_exec *exec)
 	char	**env;
 
 	apply_redir(exec, 0);
+	if (!*exec->argv)
+		error_exec(exec, EXIT_SUCCESS);
 	if (!exec->cmdpath)
 	{
 		print_error(MSG_MSH, exec->argv[0], ERR_NOTFOUND, 0);

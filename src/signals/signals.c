@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:02:42 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/08 18:05:50 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/09 12:10:03 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 #include <stdio.h>
 
 pid_t	g_sig = 0;

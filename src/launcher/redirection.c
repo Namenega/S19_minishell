@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:42:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 10:15:18 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/09 12:10:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "launcher.h"
 
 void	reverse_redir(t_exec *exec)
 {
