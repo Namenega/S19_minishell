@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 12:55:40 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 21:04:44 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/09 12:24:30 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "launcher.h"
 
 static inline void	set_lowercase(char *s)
 {
@@ -23,9 +23,6 @@ static inline void	set_lowercase(char *s)
 
 t_fct	is_builtin(char *name)
 {
-	//! TODO!!!
-	// if (!name)
-	// 	return (NULL);
 	set_lowercase(name);
 	if (!ft_strncmp(name, "cd", 3))
 		return (&msh_cd);
@@ -44,29 +41,3 @@ t_fct	is_builtin(char *name)
 	else
 		return (NULL);
 }
-
-// t_fct	is_builtin(char *name)
-// {
-// 	int					i;
-// 	static t_builtin	lst[] = {
-// 	{"cd", &msh_cd},
-// 	{"pwd", &msh_pwd},
-// 	{"env", &msh_env},
-// 	{"exit", &msh_exit},
-// 	{"echo", &msh_echo},
-// 	{"unset", &msh_unset},
-// 	{"export", &msh_export}
-// 	};
-// 	static int			max = sizeof(lst) / sizeof(t_builtin);
-
-// 	set_lowercase(name);
-// 	i = -1;
-// 	while (++i < max)
-// 	{
-// 		if (!ft_strcmp(lst[i].name, name))
-// 			break ;
-// 	}
-// 	if (i < max)
-// 		return (lst[i].fct);
-// 	return (NULL);
-// }

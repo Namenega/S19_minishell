@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   msh_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 14:13:56 by namenega          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/10/09 12:53:24 by namenega         ###   ########.fr       */
+=======
+/*   Updated: 2021/10/09 12:10:22 by tderwedu         ###   ########.fr       */
+>>>>>>> b994d50c41001aa1327e7e1fe5a7ab2602d6818c
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "launcher.h"
 
 static int	normal_echo(char **tab, int i)
 {

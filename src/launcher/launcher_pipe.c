@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 15:57:09 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 15:56:13 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/09 12:26:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "launcher.h"
 
 extern pid_t	g_sig;
 
@@ -26,6 +26,8 @@ static inline void	launch_subshell_cmd(t_exec *exec, char **env)
 			exit((*exec->fct)(exec));
 		else
 		{
+			if (!*exec->argv)
+				error_exec(exec, EXIT_SUCCESS);
 			if (!exec->cmdpath)
 			{
 				print_error(MSG_MSH, exec->argv[0], ERR_NOTFOUND, 0);
@@ -38,8 +40,7 @@ static inline void	launch_subshell_cmd(t_exec *exec, char **env)
 			error_exec_errno(exec, MSG_EXECVE);
 		}
 	}
-	else
-		close_pipe(exec->pipe_in);
+	close_pipe(exec->pipe_in);
 }
 
 void	launch_pipe_seq(t_exec *exec)

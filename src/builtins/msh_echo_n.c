@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   msh_echo_n.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 20:48:28 by namenega          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/10/09 13:16:32 by namenega         ###   ########.fr       */
+=======
+/*   Updated: 2021/10/09 12:10:22 by tderwedu         ###   ########.fr       */
+>>>>>>> b994d50c41001aa1327e7e1fe5a7ab2602d6818c
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "launcher.h"
 
 static int	echo_multiple_n(int i, char **tab)
 {

@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 15:37:49 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/09 12:23:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "launcher.h"
 
 void	prep_next_cmd(t_msh *msh, t_ast *ast, t_exec *exec)
 {
@@ -29,6 +29,9 @@ void	prep_next_cmd(t_msh *msh, t_ast *ast, t_exec *exec)
 	if (ast)
 	{
 		cmd_ast_traversal(msh, &cmd, ast);
+		exec->fct = NULL;
+		if (!*exec->argv)
+			return ;
 		exec->fct = is_builtin(exec->argv[0]);
 		if (!exec->fct)
 			exec->cmdpath = get_cmd_path(exec, exec->argv[0]);

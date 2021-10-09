@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/09 11:49:15 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/09 12:28:08 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "launcher.h"
 
 extern pid_t	g_sig;
 
@@ -83,7 +83,6 @@ static void	read_heredoc(t_hdoc *hdoc)
 static void	pid_is_null(t_hdoc *hdoc)
 {
 	g_sig = 1;
-	// signal(SIGINT, &handle_sigint);
 	signal(SIGINT, SIG_DFL);
 	read_heredoc(hdoc);
 	close(hdoc->pipefd[1]);
