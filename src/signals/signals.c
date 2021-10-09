@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:02:42 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/08 18:05:50 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/09 12:29:48 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ pid_t	g_sig = 0;
 void	handle_sigint(int sig)
 {
 	(void)sig;
-	printf("\n");
+	write(1, "\n", 1);
 	if (g_sig == 0)
 	{
 		rl_on_new_line();

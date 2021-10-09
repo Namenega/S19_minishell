@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 20:48:28 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/08 20:52:17 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/09 13:16:32 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,15 @@ static int	parse_n(char *s)
 		return (0);
 }
 
-static int	if_echo_wrong_n(char **tab, int i)
+static int	if_echo_wrong_n(char **tab, int i, int x, int j)
 {
+	while (tab[i] && x != j)
+	{
+		ft_putstr_fd(tab[i], 1);
+		if (tab[i + 1])
+			write(1, " ", 1);
+		i++;
+	}
 	if (tab[i] && tab[i + 1])
 	{
 		ft_putstr_fd(tab[i], 1);
@@ -71,10 +78,12 @@ static int	if_echo_wrong_n(char **tab, int i)
 int	if_echo_n(char **tab, int i)
 {
 	int		j;
+	int		x;
 
+	j = 0;
 	while (tab[i] && !ft_strncmp(tab[i], "-n", 2))
 	{
-		j = 0;
+		x = j;
 		j = parse_n(tab[i]);
 		if (j == 0)
 			break ;
@@ -83,6 +92,6 @@ int	if_echo_n(char **tab, int i)
 	if (j == 1 && tab[i])
 		i = echo_multiple_n(i, tab);
 	else
-		i = if_echo_wrong_n(tab, i);
+		i = if_echo_wrong_n(tab, i, x, j);
 	return (i);
 }
