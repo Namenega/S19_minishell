@@ -6,11 +6,12 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:23:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/09 12:10:22 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/09 12:45:19 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "launcher.h"
+#include "minishell.h"
 
 extern pid_t	g_sig;
 
@@ -18,6 +19,7 @@ void	launcher(t_msh *msh)
 {
 	t_exec	exec;
 
+	signal(SIGQUIT, handle_sigquit);
 	if (!msh->ast)
 		return ;
 	exec.msh = msh;
@@ -30,6 +32,7 @@ void	launcher(t_msh *msh)
 		launch_simple_cmd(&exec);
 	msh->ast = free_ast(msh->ast);
 	g_sig = 0;
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	error_exec(t_exec *exec, int ret)

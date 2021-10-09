@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:02:42 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/09 12:10:03 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/09 12:43:30 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,17 @@ void	handle_sigint(int sig)
 		kill(g_sig, SIGKILL);
 }
 
-void	handle_sigusr1(int sig)
+void	handle_sigquit(int sig)
 {
-	if (sig == SIGUSR1)
+	if (sig == SIGQUIT && g_sig != 0)
 	{
-		close(STDIN_FILENO);
-		write(STDOUT_FILENO, "exit\n", 1);
-		exit(EXIT_SUCCESS);
+		if (!kill(g_sig, SIGCONT))
+			write(1, "Quit: 3\n", 8);
 	}
 }
 
 void	signal_handling(void)
 {
 	signal(SIGINT, handle_sigint);
-	signal(SIGUSR1, handle_sigusr1);
 	signal(SIGQUIT, SIG_IGN);
 }
