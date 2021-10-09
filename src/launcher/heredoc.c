@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/08 18:16:25 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/09 11:49:15 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ static void	read_heredoc(t_hdoc *hdoc)
 static void	pid_is_null(t_hdoc *hdoc)
 {
 	g_sig = 1;
-	signal(SIGINT, &handle_sigint);
+	// signal(SIGINT, &handle_sigint);
+	signal(SIGINT, SIG_DFL);
 	read_heredoc(hdoc);
 	close(hdoc->pipefd[1]);
 	close(hdoc->pipefd[0]);
@@ -92,6 +93,7 @@ static void	pid_is_null(t_hdoc *hdoc)
 
 int	heredoc(t_msh *msh, t_ast *ast)
 {
+	pid_t	pid;
 	t_hdoc	hdoc;
 	int		ret;
 
@@ -99,14 +101,14 @@ int	heredoc(t_msh *msh, t_ast *ast)
 	hdoc.msh = msh;
 	if (pipe(hdoc.pipefd) == -1)
 		return (print_error(MSG_PIPE, strerror(errno), "\n", EXIT_FAILURE));
-	g_sig = fork();
-	if (g_sig < 0)
+	pid = fork();
+	if (pid < 0)
 		return (print_error(MSG_FORK, strerror(errno), "\n", EXIT_FAILURE));
-	if (g_sig == 0)
+	if (pid == 0)
 		pid_is_null(&hdoc);
 	else
 	{
-		waitpid(g_sig, &ret, 0);
+		waitpid(pid, &ret, 0);
 		close(hdoc.pipefd[1]);
 		if (ret)
 		{

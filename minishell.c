@@ -6,7 +6,7 @@
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 18:19:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 18:31:33 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/09 11:35:19 by namenega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	main(int argc, char **argv, char **env)
 			we_word_expansion(&msh);
 			get_here_doc(&msh);
 			launcher(&msh);
+			g_sig = 0;
 		}
 		g_sig = 0;
 		clean_msh(&msh);

@@ -46,3 +46,6 @@ cat Makefile > bonjour.txt
 cat << eof
 >bonjour^C -----> CRASH
 
+
+ENLEVER FSANITIZE
+
