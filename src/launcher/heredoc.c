@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/09 12:28:08 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/09 13:04:59 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,15 +105,16 @@ int	heredoc(t_msh *msh, t_ast *ast)
 		return (print_error(MSG_FORK, strerror(errno), "\n", EXIT_FAILURE));
 	if (pid == 0)
 		pid_is_null(&hdoc);
-	else
+	signal(SIGINT, SIG_IGN);
+	waitpid(pid, &ret, 0);
+	signal(SIGINT, handle_sigint);
+	if (WIFSIGNALED(ret))
+		printf("\n");
+	close(hdoc.pipefd[1]);
+	if (ret)
 	{
-		waitpid(pid, &ret, 0);
-		close(hdoc.pipefd[1]);
-		if (ret)
-		{
-			close(hdoc.pipefd[0]);
-			return (-1);
-		}
+		close(hdoc.pipefd[0]);
+		return (-1);
 	}
 	return (hdoc.pipefd[0]);
 }

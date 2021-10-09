@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:25:07 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/08 18:14:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/09 13:30:25 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@
 # define MSG_EXPORT		"msh: export: `"
 # define MSG_UNSET		"msh: unset: `"
 # define ERR_MALLOC		"Malloc error\n"
-# define ERR_QUOTES		"Odd number of quotes\n"
-# define ERR_SYNTAX		"Syntax Error near: "
+# define ERR_QUOTES		"odd number of quotes\n"
+# define ERR_SYNTAX		"syntax Error near: "
 # define ERR_CD_USE		": invalid option\ncd: usage: cd [dir]\n"
-# define ERR_ELOOP		": Too many levels of symbolic links\n"
+# define ERR_ELOOP		": too many levels of symbolic links\n"
 # define ERR_EXIT_ARGS	"too many arguments\n"
 # define ERR_NOTFOUND	": command not found\n"
 # define ERR_EXIT_USE	": numeric argument required\n"
 # define ERR_ENOENT		": No such file or directory\n"
 # define ERR_ENOTDIR	": Not a directory\n"
 # define ERR_HOME		"HOME not set\n"
-# define ERR_ENAME2LONG	": File name too long\n"
+# define ERR_ENAME2LONG	": file name too long\n"
 # define ERR_IDENTIFIER	"': not a valid identifier\n"
 # define ERR_OLDPWD		"OLDPWD not set\n"
-# define ERR_ARGC		"Wrong number of argument\n"
+# define ERR_ARGC		"wrong number of argument\n"
 
 #endif

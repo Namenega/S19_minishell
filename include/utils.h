@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:01:30 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/08 14:38:42 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/09 13:36:41 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ char	**utils_env_next_addr(t_msh *msh);
 int		print_error(char *s1, char *s2, char *s3, int ret);
 char	*msh_canonpath(char *path);
 char	*path_join(char *dir, char *file);
+int		check_quotes(t_msh *msh);
 
 #endif

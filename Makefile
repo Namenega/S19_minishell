@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: namenega <namenega@student.42.fr>          +#+  +:+       +#+         #
+#    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/10/09 11:33:36 by namenega         ###   ########.fr        #
+#    Updated: 2021/10/09 13:37:00 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRC		=	./src/launcher/heredoc.c \
 			./src/utils/msh_getenv.c \
 			./src/utils/print_error.c \
 			./src/utils/ret_casting.c \
+			./src/utils/check_quotes.c \
 			./src/signals/signals.c \
 			./minishell.c
 

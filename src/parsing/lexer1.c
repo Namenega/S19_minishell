@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 12:29:05 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 17:35:45 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/09 13:33:31 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	lexer(t_msh *msh)
 	t_lexer	lex;
 
 	line = msh->line;
-	if (!line || !*line)
+	if (!line || !*line || check_quotes(msh))
 		return ;
 	lex = (t_lexer){msh, 0, 0, NULL, NULL, line};
 	while (line[lex.i])
@@ -53,10 +53,8 @@ void	lexer_handle_quote(t_lexer *lex)
 
 	quote = lex->line[lex->i];
 	lex->i++;
-	while (lex->line[lex->i] && lex->line[lex->i] != quote)
+	while (lex->line[lex->i] != quote)
 		lex->i++;
-	if (lex->line[lex->i] != quote)
-		lexer_error(lex, ERR_QUOTES);
 	lex->i++;
 }
 
